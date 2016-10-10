@@ -16,7 +16,6 @@ public class Trick {
     
     private LinkedList<Card> cardsPlayed;
     private int openingSuit;
-    private int points;
     private int numPlays;
     private int playerNumber;
     
@@ -24,7 +23,6 @@ public class Trick {
     public Trick(){
         cardsPlayed = new LinkedList();
         numPlays = 0;
-        points = 0;
         playerNumber = 0;
     }
     
@@ -38,28 +36,24 @@ public class Trick {
         return openingSuit;
     }
     
-    public int getPoints(){
-        return points;
-    }
-    
     public int getPlayerNumber()
     {
         return this.playerNumber;
     }
     
-    public boolean addCard(Card c, boolean brokenHearts){
+    public boolean addCard(LinkedList<Card c, boolean brokenHearts){
         boolean flag = false;
-        points += c.getPoints();
+        Card card = c.pop();
         
         if(this.numPlays == 0)
-            this.openingSuit = c.getSuit();
-        cardsPlayed.add(c);
+            this.openingSuit = card.getSuit();
+        cardsPlayed.add(card);
         numPlays++;
         if(this.numPlays == 4)
             this.trickCalc();
-        if(!brokenHearts && c.getSuit() != this.openingSuit && c.getSuit() == 1)    // Adjust for if someone broke hearts
+        if(!brokenHearts && card.getSuit() != this.openingSuit && card.getSuit() == 1)    // Adjust for if someone broke hearts
             flag = true;
-        return false;
+        return flag;
     }
     
     public int getPlays(){

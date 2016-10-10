@@ -12,6 +12,7 @@ public class HeartsEngine {
     private LinkedList<Card> p4Buffer = new LinkedList<Card>();
     private Trick tempTrick;
     private Player[] players = new Player[4];
+    private Player activePlayer;
     private int i;
     private boolean brokenHearts;   // Boolean if anyone has broken hearts
     
@@ -68,11 +69,11 @@ public class HeartsEngine {
         this.brokenHearts = false;
     }
     
-    public void AddCardToTrick(int playerNumber, int cardIndex)
+    public void AddCardToTrick()
     {
         if(tempTrick.getPlays() < 4)
         {
-            brokenHearts = tempTrick.addCard(this.players[playerNumber].playCard(cardIndex), brokenHearts);
+            brokenHearts = tempTrick.addCard(this.activePlayer.playCard(), brokenHearts);
         }
     }
     
