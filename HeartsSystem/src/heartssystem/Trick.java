@@ -41,7 +41,7 @@ public class Trick {
         return this.playerNumber;
     }
     
-    public boolean addCard(LinkedList<Card c, boolean brokenHearts){
+    public boolean addCard(LinkedList<Card> c, boolean brokenHearts){
         boolean flag = false;
         Card card = c.pop();
         

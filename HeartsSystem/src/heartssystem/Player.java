@@ -29,7 +29,7 @@ public class Player {
         return hand;
     }
     
-    public LinkedList<Card> playCard(int index){
+    public LinkedList<Card> playCard(){
         // Add a card to the current trick. Do this by calling getTrick from the gameboard? GUI? Not sure. 
         return this.hand.getSelectedCards();
     }
