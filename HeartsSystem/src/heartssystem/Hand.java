@@ -34,10 +34,23 @@ public class Hand {
         cardsContained.stream().forEach((card) -> {
             if (card.getSelected()){
                 selected.add(card);
+                cardsContained.remove(card);
             }
         });
         
         return selected;
+    }
+    
+    public Card getSelectedCard(){
+        Card selected = new Card();
+        for (int i = 0; i < cardsContained.size(); i++){
+            if (cardsContained.get(i).getSelected()){
+                selected = cardsContained.get(i);
+                cardsContained.remove(i);
+            }
+        }
+        
+    return selected;
     }
     
 //    public void sortHand(){

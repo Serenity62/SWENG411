@@ -56,6 +56,10 @@ public class Deck {
             
     }
     
+    public void Clear(){
+        deck.clear();
+    }
+    
     public LinkedList<Card> Deal(int playerOffset)  // player is which player, this for an offset for dealing the cards
     {
         LinkedList<Card> hand = new LinkedList<Card>(); // hand to be printed out

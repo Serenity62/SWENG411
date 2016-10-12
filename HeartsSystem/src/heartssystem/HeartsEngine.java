@@ -5,51 +5,56 @@ import java.util.LinkedList;
 
 public class HeartsEngine {
     private Deck deck = new Deck();
-    private LinkedList <Card> tempHand = new LinkedList<Card>();
-    private LinkedList<Card> p1Buffer = new LinkedList<Card>();
-    private LinkedList<Card> p2Buffer = new LinkedList<Card>();
-    private LinkedList<Card> p3Buffer = new LinkedList<Card>();
-    private LinkedList<Card> p4Buffer = new LinkedList<Card>();
+    private LinkedList <Card> tempHand = new LinkedList();
+    private LinkedList<Card>[] buffers = new LinkedList[4];
     private Trick tempTrick;
+    private int round;
     private Player[] players = new Player[4];
     private Player activePlayer;
+    private Player winner;
+    private int activeID;
     private int i;
     private boolean brokenHearts;   // Boolean if anyone has broken hearts
+    private boolean passing;
+    private boolean gameEnd;
     
     public HeartsEngine()
     {
         for(i = 0; i < 4; i++)
         {
             players[i] = new Player(i + 1);
+            buffers[i] = new LinkedList();
         }
         tempTrick = new Trick();
+        round = 0;
+        passing = false;
+        gameEnd = false;
+        activeID = 0;
     }
     
-    public void swapCards(int round){
-        if (round < 4){
-            p1Buffer = this.players[0].passCards();
-            p2Buffer = this.players[1].passCards();
-            p3Buffer = this.players[2].passCards();
-            p4Buffer = this.players[3].passCards();
-        }
+    public void buildBuffers(){
+        buffers[activeID] = this.activePlayer.passCards();
+    }
+    
+    public void swapCards(){
         
         if (round == 1){
-            players[0].buildHand(p4Buffer);
-            players[1].buildHand(p1Buffer);
-            players[2].buildHand(p2Buffer);
-            players[3].buildHand(p3Buffer);
+            players[0].buildHand(buffers[3]);
+            players[1].buildHand(buffers[2]);
+            players[2].buildHand(buffers[1]);
+            players[3].buildHand(buffers[0]);
         }
         else if (round == 2){
-            players[0].buildHand(p2Buffer);
-            players[1].buildHand(p3Buffer);
-            players[2].buildHand(p4Buffer);
-            players[3].buildHand(p1Buffer);
+            players[0].buildHand(buffers[1]);
+            players[1].buildHand(buffers[2]);
+            players[2].buildHand(buffers[3]);
+            players[3].buildHand(buffers[0]);
         }
         else if (round == 3){
-            players[0].buildHand(p3Buffer);
-            players[1].buildHand(p4Buffer);
-            players[2].buildHand(p1Buffer);
-            players[3].buildHand(p2Buffer);
+            players[0].buildHand(buffers[2]);
+            players[1].buildHand(buffers[3]);
+            players[2].buildHand(buffers[0]);
+            players[3].buildHand(buffers[1]);
         }
     }
     
@@ -69,6 +74,25 @@ public class HeartsEngine {
         this.brokenHearts = false;
     }
     
+    public void activateNextPlayer(){
+        if (activeID < 3){
+            activeID++;
+            activePlayer = players[activeID];
+        }
+        else
+        {
+            activeID = 0;
+            activePlayer = players[activeID];
+        }
+    }
+    public Player getActivePlayer(){
+        return activePlayer;
+    }
+    
+    public Player getWinner(){
+        return winner;
+    }
+    
     public void AddCardToTrick()
     {
         if(tempTrick.getPlays() < 4)
@@ -81,6 +105,35 @@ public class HeartsEngine {
     {
         players[tempTrick.getPlayerNumber()].takeCards(tempTrick.take());
         tempTrick = new Trick();
+    }
+    
+    
+    public void startRound(){
+        
+    }
+    
+    public void endRound(){
+        if (!checkVictory()){
+            round++;
+            for (int i = 0; i < 4; i++){
+                players[i].calcPoints();
+            }
+            deck.Clear();   // Reset the deck for the next round.
+            deck.CreateDeck();
+            deck.Shuffle();
+            startRound();
+        }
+    }
+    
+    public boolean checkVictory(){
+        boolean vict = false;
+        for (int i = 0; i < 4; i++){
+            if (players[i].getPoint() >= 100){
+                vict = true;
+                winner = players[i];
+            }
+        }
+        return vict;
     }
         
 }

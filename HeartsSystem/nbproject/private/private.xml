@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/P:/Private/Classes/SWENG%20411/FinalProject/HeartsSystem/src/heartssystem/Player.java</file>
-            <file>file:/P:/Private/Classes/SWENG%20411/FinalProject/HeartsSystem/src/heartssystem/HeartBackground.java</file>
-            <file>file:/P:/Private/Classes/SWENG%20411/FinalProject/HeartsSystem/src/heartssystem/HeartsSystem.java</file>
-            <file>file:/P:/Private/Classes/SWENG%20411/FinalProject/HeartsSystem/src/heartssystem/Card.java</file>
-            <file>file:/P:/Private/Classes/SWENG%20411/FinalProject/HeartsSystem/src/heartssystem/HeartsEngine.java</file>
-            <file>file:/P:/Private/Classes/SWENG%20411/FinalProject/HeartsSystem/src/heartssystem/Hand.java</file>
+            <file>file:/P:/Private/Classes/SWENG%20411/FinalProject/HeartsSystem/HeartsSystem/src/heartssystem/HeartsEngine.java</file>
+            <file>file:/P:/Private/Classes/SWENG%20411/FinalProject/HeartsSystem/HeartsSystem/src/heartssystem/Player.java</file>
+            <file>file:/P:/Private/Classes/SWENG%20411/FinalProject/HeartsSystem/HeartsSystem/src/heartssystem/Trick.java</file>
+            <file>file:/P:/Private/Classes/SWENG%20411/FinalProject/HeartsSystem/HeartsSystem/src/heartssystem/Card.java</file>
         </group>
     </open-files>
 </project-private>

@@ -29,9 +29,17 @@ public class Player {
         return hand;
     }
     
-    public LinkedList<Card> playCard(){
+    public void selectCard(int index){
+        hand.getCard(index).setSelected(true);
+    }
+    
+    public void deselectCard(int index){
+        hand.getCard(index).setSelected(false);
+    }
+    
+    public Card playCard(){
         // Add a card to the current trick. Do this by calling getTrick from the gameboard? GUI? Not sure. 
-        return this.hand.getSelectedCards();
+        return this.hand.getSelectedCard();
     }
     
     public int getPoint(){
@@ -41,6 +49,12 @@ public class Player {
     public void takeCards(LinkedList<Card> takenCards){ // getTrick again - need to get the current trick so you can take cards from it.
         takenCards.stream().forEach((card) -> {
             this.cardsOwned.add(card);
+        });
+    }
+    
+    public void calcPoints(){
+        cardsOwned.stream().forEach((card) -> {
+            this.points += card.getPoints();
         });
     }
     
