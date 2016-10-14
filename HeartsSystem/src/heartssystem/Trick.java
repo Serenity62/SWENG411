@@ -47,6 +47,11 @@ public class Trick {
         return this.playerNumber;
     }
     
+    public Card getCardPlayed(int i)
+    {
+        return this.cardsPlayed.get(i);
+    }
+    
     public boolean addCard(Card c, boolean brokenHearts){
         boolean flag = false;
         points += c.getPoints();

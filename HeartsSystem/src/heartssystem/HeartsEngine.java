@@ -7,7 +7,7 @@ public class HeartsEngine {
     private Deck deck = new Deck();
     private LinkedList <Card> tempHand = new LinkedList();
     private LinkedList<Card>[] buffers = new LinkedList[4];
-    private Trick tempTrick;
+    private Trick currentTrick;
     private int round;
     private Player[] players = new Player[4];
     private Player activePlayer;
@@ -25,11 +25,19 @@ public class HeartsEngine {
             players[i] = new Player(i + 1);
             buffers[i] = new LinkedList();
         }
-        tempTrick = new Trick();
+        currentTrick = new Trick();
         round = 0;
         passing = false;
         gameEnd = false;
         activeID = 0;
+    }
+    
+    public Trick getCurrentTrick() {
+        return currentTrick;
+    }
+    
+    public boolean getSwapping() {
+        return passing;
     }
     
     public void buildBuffers(){
@@ -134,6 +142,5 @@ public class HeartsEngine {
             }
         }
         return vict;
-    }
-        
+    }   
 }
