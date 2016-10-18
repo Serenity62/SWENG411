@@ -62,7 +62,7 @@ public class Deck {
     
     public LinkedList<Card> Deal(int playerOffset)  // player is which player, this for an offset for dealing the cards
     {
-        LinkedList<Card> hand = new LinkedList<Card>(); // hand to be printed out
+        LinkedList<Card> hand = new LinkedList<>(); // hand to be printed out
         
         for(int i = 0; i < 13; i++)
         {

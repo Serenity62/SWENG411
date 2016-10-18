@@ -23,6 +23,45 @@ public class Hearts extends javax.swing.JFrame {
     private final JLabel[] cardsInTrick = new JLabel[4];
     private int numSelectedCards = 0;
     
+    private class mouseHandler extends MouseAdapter {
+        @Override
+        public void mouseClicked(MouseEvent e)
+        {
+            int selectedMax = 1;
+            if (engine.getSwapping()) {
+                selectedMax+=2;
+            }
+            if (numSelectedCards < selectedMax) {
+                int num = Integer.parseInt(e.getSource().toString().substring(4));
+                JLabel thisCard = (JLabel)e.getSource();
+                if (e.getClickCount() >= 2)
+                {
+                    engine.getActivePlayer().getHand().getCard(num).setSelected(true);
+                    thisCard.setLocation(thisCard.getX(), thisCard.getY()-20);
+                    engine.getActivePlayer().playCard();
+                    numSelectedCards--;
+                    update();
+                } else {
+                    if (engine.getActivePlayer().getHand().getCard(num).getSelected()) { // card is selected
+                        engine.getActivePlayer().getHand().getCard(num).setSelected(false);
+                        thisCard.setLocation(thisCard.getX(), thisCard.getY()+20);
+                        numSelectedCards++;
+                    } else {
+                        // card is not selected
+                        engine.getActivePlayer().getHand().getCard(num).setSelected(true);
+                        thisCard.setLocation(thisCard.getX(), thisCard.getY()-20);
+                        numSelectedCards--;
+                    }
+                }
+                if (numSelectedCards == 3) {
+                    showSwapButton();
+                } else {
+                    hideSwapButton();
+                }
+            }
+        }
+    }
+    
     public Hearts() {
         swapBttn.setVisible(false);
         for (int suit = 0; suit < 4; suit++) {
@@ -372,44 +411,6 @@ public class Hearts extends javax.swing.JFrame {
         //curPlayer.passCard();
     }//GEN-LAST:event_SwapCards
 
-    private class mouseHandler extends MouseAdapter {
-        @Override
-        public void mouseClicked(MouseEvent e)
-        {
-            int selectedMax = 1;
-            if (engine.getSwapping()) {
-                selectedMax+=2;
-            }
-            if (numSelectedCards < selectedMax) {
-                int num = Integer.parseInt(e.getSource().toString().substring(4));
-                JLabel thisCard = (JLabel)e.getSource();
-                if (e.getClickCount() >= 2)
-                {
-                    engine.getActivePlayer().getHand().getCard(num).setSelected(true);
-                    thisCard.setLocation(thisCard.getX(), thisCard.getY()-20);
-                    engine.getActivePlayer().playCard();
-                    numSelectedCards--;
-                    update();
-                } else {
-                    if (engine.getActivePlayer().getHand().getCard(num).getSelected()) { // card is selected
-                        engine.getActivePlayer().getHand().getCard(num).setSelected(false);
-                        thisCard.setLocation(thisCard.getX(), thisCard.getY()+20);
-                        numSelectedCards++;
-                    } else {
-                        // card is not selected
-                        engine.getActivePlayer().getHand().getCard(num).setSelected(true);
-                        thisCard.setLocation(thisCard.getX(), thisCard.getY()-20);
-                        numSelectedCards--;
-                    }
-                }
-                if (numSelectedCards == 3) {
-                    showSwapButton();
-                } else {
-                    hideSwapButton();
-                }
-            }
-        }
-    }
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

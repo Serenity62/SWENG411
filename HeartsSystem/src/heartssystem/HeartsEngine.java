@@ -9,8 +9,8 @@ public class HeartsEngine {
     private LinkedList<Card>[] buffers = new LinkedList[4];
     private Trick currentTrick;
     private int round;
+    private int trickNum;
     private Player[] players = new Player[4];
-    private Player activePlayer;
     private Player winner;
     private int activeID;
     private int i;
@@ -25,8 +25,8 @@ public class HeartsEngine {
             players[i] = new Player(i + 1);
             buffers[i] = new LinkedList();
         }
-        currentTrick = new Trick();
         round = 0;
+        trickNum = 0;
         passing = false;
         gameEnd = false;
         activeID = 0;
@@ -41,32 +41,40 @@ public class HeartsEngine {
     }
     
     public void buildBuffers(){
-        buffers[activeID] = this.activePlayer.passCards();
+        buffers[activeID] = players[activeID].passCards();
+        this.activateNextPlayer();
+        if (activeID == 0){
+            this.endPassing();
+        }
     }
     
     public void swapCards(){
         
-        if (round == 1){
-            players[0].buildHand(buffers[3]);
-            players[1].buildHand(buffers[2]);
-            players[2].buildHand(buffers[1]);
-            players[3].buildHand(buffers[0]);
-        }
-        else if (round == 2){
-            players[0].buildHand(buffers[1]);
-            players[1].buildHand(buffers[2]);
-            players[2].buildHand(buffers[3]);
-            players[3].buildHand(buffers[0]);
-        }
-        else if (round == 3){
-            players[0].buildHand(buffers[2]);
-            players[1].buildHand(buffers[3]);
-            players[2].buildHand(buffers[0]);
-            players[3].buildHand(buffers[1]);
+        switch (round%4) {
+            case 1:
+                players[0].buildHand(buffers[3]);
+                players[1].buildHand(buffers[2]);
+                players[2].buildHand(buffers[1]);
+                players[3].buildHand(buffers[0]);
+                break;
+            case 2:
+                players[0].buildHand(buffers[1]);
+                players[1].buildHand(buffers[2]);
+                players[2].buildHand(buffers[3]);
+                players[3].buildHand(buffers[0]);
+                break;
+            case 3:
+                players[0].buildHand(buffers[2]);
+                players[1].buildHand(buffers[3]);
+                players[2].buildHand(buffers[0]);
+                players[3].buildHand(buffers[1]);
+                break;
+            default:
+                break;
         }
     }
     
-    public void DealCards()
+    public void dealCards()
     {
         // Shuffle the deck
         deck.Shuffle();
@@ -85,39 +93,61 @@ public class HeartsEngine {
     public void activateNextPlayer(){
         if (activeID < 3){
             activeID++;
-            activePlayer = players[activeID];
         }
         else
         {
             activeID = 0;
-            activePlayer = players[activeID];
         }
     }
     public Player getActivePlayer(){
-        return activePlayer;
+        return players[activeID];
     }
     
     public Player getWinner(){
         return winner;
     }
     
-    public void AddCardToTrick()
+    public void addCardToTrick()
     {
-        if(tempTrick.getPlays() < 4)
-        {
-            brokenHearts = tempTrick.addCard(this.activePlayer.playCard(), brokenHearts);
+        brokenHearts = currentTrick.addCard(players[activeID].playCard(), brokenHearts);
+        if (currentTrick.getPlays() > 3){
+            this.endTrick();
         }
+        
     }
     
-    public void AssignPoints()
+    public void assignPoints()
     {
-        players[tempTrick.getPlayerNumber()].takeCards(tempTrick.take());
-        tempTrick = new Trick();
+        players[currentTrick.getPlayerNumber()].takeCards(currentTrick.take());
     }
     
+    public void startTrick(){
+        this.currentTrick = new Trick();
+    }
+    
+    public void endTrick(){
+        this.assignPoints();
+        if (trickNum < 13){
+            this.startTrick();
+        }
+        else{
+            this.endRound();
+        }
+        
+    }
     
     public void startRound(){
-        
+        this.dealCards();
+        this.startPassing();
+        this.startTrick();
+    }
+    
+    public void startPassing(){
+        this.passing = true;
+    }
+    
+    public void endPassing(){
+        this.passing = false;
     }
     
     public void endRound(){
@@ -126,9 +156,6 @@ public class HeartsEngine {
             for (int i = 0; i < 4; i++){
                 players[i].calcPoints();
             }
-            deck.Clear();   // Reset the deck for the next round.
-            deck.CreateDeck();
-            deck.Shuffle();
             startRound();
         }
     }

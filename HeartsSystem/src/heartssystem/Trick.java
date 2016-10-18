@@ -64,7 +64,7 @@ public class Trick {
             this.trickCalc();
         if(!brokenHearts && c.getSuit() != this.openingSuit && c.getSuit() == 1)    // Adjust for if someone broke hearts
             flag = true;
-        return false;
+        return flag;
     }
     
     public int getPlays(){
