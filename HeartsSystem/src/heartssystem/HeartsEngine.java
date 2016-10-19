@@ -14,6 +14,7 @@ public class HeartsEngine {
     private Player winner;
     private int activeID;
     private int i;
+    private int passCount;
     private boolean brokenHearts;   // Boolean if anyone has broken hearts
     private boolean passing;
     private boolean gameEnd;
@@ -27,6 +28,7 @@ public class HeartsEngine {
         }
         round = 0;
         trickNum = 0;
+        passCount = 0;
         passing = false;
         gameEnd = false;
         activeID = 0;
@@ -44,8 +46,11 @@ public class HeartsEngine {
     public void buildBuffers(){
         buffers[activeID] = players[activeID].passCards();
         this.activateNextPlayer();
-        if (activeID == 0){
+        passCount++;    
+        if (activeID == 4){
             this.endPassing();
+            this.swapCards();
+            passCount = 0;
         }
     }
     
@@ -83,12 +88,8 @@ public class HeartsEngine {
         for(i = 0; i < 4; i++)
         {
             tempHand = deck.Deal(i);
-            for(int j = 0; j < tempHand.size(); j++)
-            {
-                players[i].buildHand(tempHand.pop());
-            }
+            players[i].buildHand(tempHand);
         }
-        this.brokenHearts = false;
     }
     
     public void activateNextPlayer(){
@@ -110,7 +111,7 @@ public class HeartsEngine {
     
     public void addCardToTrick()
     {
-        brokenHearts = currentTrick.addCard(players[activeID].playCard(), brokenHearts);
+        brokenHearts = currentTrick.addCard(players[activeID].playCard(), brokenHearts, activeID);
         if (currentTrick.getPlays() > 3){
             this.endTrick();
         }
@@ -141,6 +142,7 @@ public class HeartsEngine {
         this.dealCards();
         this.startPassing();
         this.startTrick();
+        this.brokenHearts = false;
     }
     
     public void startPassing(){

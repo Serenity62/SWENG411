@@ -42,7 +42,7 @@ public class Hand {
     }
     
     public Card getSelectedCard(){
-        Card selected = new Card();
+        Card selected = new Card(0, -1);
         for (int i = 0; i < cardsContained.size(); i++){
             if (cardsContained.get(i).getSelected()){
                 selected = cardsContained.get(i);

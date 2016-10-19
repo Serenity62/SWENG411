@@ -11,14 +11,15 @@ package heartssystem;
  */
 public class Card {
     private int face;   // Number/value of the card like Jack or King or 2
-    private int suit;   // 0 = Clubs, 1 = Diamonds, 2 = Spades, 3 = Hearts
+    private int suit;   // 0 = Clubs, 1 = Diamonds, 2 = Spades, 3 = Hearts, -1 = null
     private int point;
     private boolean selected;
     
-    public void Card(int num, int suit)
+    public Card(int num, int suit)
     {
         this.face = num;
         this.suit = suit;
+        this.point = 0;
     }
     
     public int getFace()

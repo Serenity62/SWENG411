@@ -28,9 +28,7 @@ public class Deck {
         {
             for(int j = 0; j < 4; j++)
             {
-                Card card = new Card();
-                card.setFace(i);
-                card.setSuit(j);
+                Card card = new Card(i, j);
                 if(j == 3)
                     card.setPoint(1);
                 else if(i == 12 && j == 2)
