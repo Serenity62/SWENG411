@@ -63,6 +63,8 @@ public class Hearts extends javax.swing.JFrame {
     }
     
     public Hearts() {
+        initComponents();
+        engine = new HeartsEngine();
         swapBttn.setVisible(false);
         for (int suit = 0; suit < 4; suit++) {
             for (int face = 0; face < 13; face++) {
@@ -101,14 +103,16 @@ public class Hearts extends javax.swing.JFrame {
         card11.addMouseListener(mHand);
         card12.addMouseListener(mHand);
         card13.addMouseListener(mHand);
-        initComponents();
+        update();
     }
     
     public void update() {
         Card thisC;
         for (int i = 0; i < 13; i++)
         {
-            thisC = engine.getActivePlayer().getHand().getCard(i+1);
+            Player thisPlayer = engine.getActivePlayer();
+            Hand thisHand = thisPlayer.getHand();
+            thisC = thisHand.getCard(i+1);
             if (thisC.getSuit() != -1) {
                 cardsInHand[i].setIcon(cardFiles[thisC.getSuit()][thisC.getFace()]);
                 engine.getActivePlayer().getHand().getCard(1).setSelected(true);
@@ -440,7 +444,9 @@ public class Hearts extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Hearts().setVisible(true);
+                Hearts h = new Hearts();
+                h.setVisible(true);
+                //new Hearts().setVisible(true);
             }
         });
     }

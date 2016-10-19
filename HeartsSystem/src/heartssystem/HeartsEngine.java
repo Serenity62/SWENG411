@@ -30,6 +30,7 @@ public class HeartsEngine {
         passing = false;
         gameEnd = false;
         activeID = 0;
+        startRound();
     }
     
     public Trick getCurrentTrick() {

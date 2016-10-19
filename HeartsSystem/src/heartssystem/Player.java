@@ -23,10 +23,15 @@ public class Player {
         playerID = id;
         points = 0;
         cardsOwned = new LinkedList<Card>();
+        hand = new Hand();
     }
     
     public Hand getHand(){
         return hand;
+    }
+    
+    public void setHand(Hand h){
+        hand = h;
     }
     
     public void selectCard(int index){
