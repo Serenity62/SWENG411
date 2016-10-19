@@ -5,16 +5,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author J.Appallonia
- */
 public class Hearts extends javax.swing.JFrame {
     private HeartsEngine engine;
     private final ImageIcon[][] cardFiles = new ImageIcon[4][13];
@@ -32,8 +22,8 @@ public class Hearts extends javax.swing.JFrame {
                 selectedMax+=2;
             }
             if (numSelectedCards < selectedMax) {
-                int num = Integer.parseInt(e.getSource().toString().substring(4));
                 JLabel thisCard = (JLabel)e.getSource();
+                int num = Integer.parseInt(thisCard.getText());
                 if (e.getClickCount() >= 2)
                 {
                     engine.getActivePlayer().getHand().getCard(num).setSelected(true);
@@ -68,8 +58,8 @@ public class Hearts extends javax.swing.JFrame {
         swapBttn.setVisible(false);
         for (int suit = 0; suit < 4; suit++) {
             for (int face = 0; face < 13; face++) {
-                cardFiles[suit][face] = new ImageIcon(getClass().
-                        getResource("/cardImages/"+suits[suit]+Integer.toString(face+1)+".png"));
+                cardFiles[suit][face] = new ImageIcon(
+                        "/cardImages/"+suits[suit]+Integer.toString(face+1)+".png");
             }
         }
         cardsInTrick[0] = trickCardLeft;
@@ -114,6 +104,7 @@ public class Hearts extends javax.swing.JFrame {
             Hand thisHand = thisPlayer.getHand();
             thisC = thisHand.getCard(i+1);
             if (thisC.getSuit() != -1) {
+                System.out.printf("%d %d\n", thisC.getSuit(),thisC.getFace());
                 cardsInHand[i].setIcon(cardFiles[thisC.getSuit()][thisC.getFace()]);
                 engine.getActivePlayer().getHand().getCard(1).setSelected(true);
                 cardsInHand[0].setLocation(cardsInHand[0].getX(), cardsInHand[0].getY()-20);
@@ -229,7 +220,7 @@ public class Hearts extends javax.swing.JFrame {
         jLayeredPane1.setPreferredSize(new java.awt.Dimension(514, 91));
 
         card1.setBackground(new java.awt.Color(0, 0, 0));
-        card1.setText("jLabel1");
+        card1.setText("0");
         card1.setAlignmentX(0.4F);
         card1.setMaximumSize(new java.awt.Dimension(63, 91));
         card1.setMinimumSize(new java.awt.Dimension(63, 91));
@@ -238,7 +229,7 @@ public class Hearts extends javax.swing.JFrame {
         card1.setBounds(0, 0, 63, 91);
 
         card2.setBackground(new java.awt.Color(0, 0, 0));
-        card2.setText("jLabel1");
+        card2.setText("1");
         card2.setAlignmentX(0.6F);
         card2.setMaximumSize(new java.awt.Dimension(63, 91));
         card2.setMinimumSize(new java.awt.Dimension(63, 91));
@@ -247,7 +238,7 @@ public class Hearts extends javax.swing.JFrame {
         card2.setBounds(20, 0, 63, 91);
 
         card3.setBackground(new java.awt.Color(0, 0, 0));
-        card3.setText("jLabel1");
+        card3.setText("2");
         card3.setAlignmentX(0.8F);
         card3.setMaximumSize(new java.awt.Dimension(63, 91));
         card3.setMinimumSize(new java.awt.Dimension(63, 91));
@@ -256,7 +247,7 @@ public class Hearts extends javax.swing.JFrame {
         card3.setBounds(40, 0, 63, 91);
 
         card4.setBackground(new java.awt.Color(0, 0, 0));
-        card4.setText("jLabel1");
+        card4.setText("3");
         card4.setAlignmentX(1.0F);
         card4.setMaximumSize(new java.awt.Dimension(63, 91));
         card4.setMinimumSize(new java.awt.Dimension(63, 91));
@@ -265,7 +256,7 @@ public class Hearts extends javax.swing.JFrame {
         card4.setBounds(60, 0, 63, 91);
 
         card5.setBackground(new java.awt.Color(0, 0, 0));
-        card5.setText("jLabel1");
+        card5.setText("4");
         card5.setAlignmentX(1.2F);
         card5.setMaximumSize(new java.awt.Dimension(63, 91));
         card5.setMinimumSize(new java.awt.Dimension(63, 91));
@@ -274,7 +265,7 @@ public class Hearts extends javax.swing.JFrame {
         card5.setBounds(80, 0, 63, 91);
 
         card6.setBackground(new java.awt.Color(0, 0, 0));
-        card6.setText("jLabel1");
+        card6.setText("5");
         card6.setAlignmentX(1.4F);
         card6.setMaximumSize(new java.awt.Dimension(63, 91));
         card6.setMinimumSize(new java.awt.Dimension(63, 91));
@@ -283,7 +274,7 @@ public class Hearts extends javax.swing.JFrame {
         card6.setBounds(100, 0, 63, 91);
 
         card7.setBackground(new java.awt.Color(0, 0, 0));
-        card7.setText("jLabel1");
+        card7.setText("6");
         card7.setAlignmentX(1.6F);
         card7.setMaximumSize(new java.awt.Dimension(63, 91));
         card7.setMinimumSize(new java.awt.Dimension(63, 91));
@@ -292,7 +283,7 @@ public class Hearts extends javax.swing.JFrame {
         card7.setBounds(120, 0, 63, 91);
 
         card8.setBackground(new java.awt.Color(0, 0, 0));
-        card8.setText("jLabel1");
+        card8.setText("7");
         card8.setAlignmentX(1.8F);
         card8.setMaximumSize(new java.awt.Dimension(63, 91));
         card8.setMinimumSize(new java.awt.Dimension(63, 91));
@@ -301,7 +292,7 @@ public class Hearts extends javax.swing.JFrame {
         card8.setBounds(140, 0, 63, 91);
 
         card9.setBackground(new java.awt.Color(0, 0, 0));
-        card9.setText("jLabel1");
+        card9.setText("8");
         card9.setAlignmentX(2.0F);
         card9.setMaximumSize(new java.awt.Dimension(63, 91));
         card9.setMinimumSize(new java.awt.Dimension(63, 91));
@@ -310,7 +301,7 @@ public class Hearts extends javax.swing.JFrame {
         card9.setBounds(160, 0, 63, 91);
 
         card10.setBackground(new java.awt.Color(0, 0, 0));
-        card10.setText("jLabel1");
+        card10.setText("9");
         card10.setAlignmentX(2.2F);
         card10.setMaximumSize(new java.awt.Dimension(63, 91));
         card10.setMinimumSize(new java.awt.Dimension(63, 91));
@@ -319,7 +310,7 @@ public class Hearts extends javax.swing.JFrame {
         card10.setBounds(180, 0, 63, 91);
 
         card11.setBackground(new java.awt.Color(0, 0, 0));
-        card11.setText("jLabel1");
+        card11.setText("10");
         card11.setAlignmentX(2.6F);
         card11.setMaximumSize(new java.awt.Dimension(63, 91));
         card11.setMinimumSize(new java.awt.Dimension(63, 91));
@@ -328,7 +319,7 @@ public class Hearts extends javax.swing.JFrame {
         card11.setBounds(200, 0, 63, 91);
 
         card12.setBackground(new java.awt.Color(0, 0, 0));
-        card12.setText("jLabel1");
+        card12.setText("11");
         card12.setMaximumSize(new java.awt.Dimension(63, 91));
         card12.setMinimumSize(new java.awt.Dimension(63, 91));
         card12.setPreferredSize(new java.awt.Dimension(63, 91));
@@ -336,7 +327,7 @@ public class Hearts extends javax.swing.JFrame {
         card12.setBounds(220, 0, 63, 91);
 
         card13.setBackground(new java.awt.Color(0, 0, 0));
-        card13.setText("jLabel1");
+        card13.setText("12");
         card13.setAlignmentX(0.2F);
         card13.setMaximumSize(new java.awt.Dimension(63, 91));
         card13.setMinimumSize(new java.awt.Dimension(63, 91));
