@@ -1,7 +1,10 @@
 package heartssystem;
 
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -43,11 +46,11 @@ public class Hearts extends javax.swing.JFrame {
                         numSelectedCards--;
                     }
                 }
-                if (numSelectedCards == 3) {
-                    showSwapButton();
-                } else {
-                    hideSwapButton();
-                }
+            }
+            if (numSelectedCards == 3) {
+                showSwapButton();
+            } else {
+                hideSwapButton();
             }
         }
     }
@@ -58,8 +61,14 @@ public class Hearts extends javax.swing.JFrame {
         swapBttn.setVisible(false);
         for (int suit = 0; suit < 4; suit++) {
             for (int face = 0; face < 13; face++) {
-                cardFiles[suit][face] = new ImageIcon(
-                        "/cardImages/"+suits[suit]+Integer.toString(face+1)+".png");
+                cardFiles[suit][face] = new ImageIcon(new ImageIcon(
+                    "src/cardImages/"+suits[suit]+Integer.toString(face+1)+".png")
+                    .getImage().getScaledInstance(63, 91, Image.SCALE_DEFAULT));
+                /*Image imgTemp = cardFiles[suit][face].getImage();
+                BufferedImage buTemp = new BufferedImage(imgTemp.getWidth(null), imgTemp.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+                Graphics g = buTemp.createGraphics();
+                g.drawImage(imgTemp, 0, 0, 63, 91, null);
+                cardFiles[suit][face] = new ImageIcon(buTemp);*/
             }
         }
         cardsInTrick[0] = trickCardLeft;
@@ -136,54 +145,27 @@ public class Hearts extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jList4 = new javax.swing.JList();
         swapBttn = new javax.swing.JButton();
         trickCardTop = new javax.swing.JLabel();
         trickCardRight = new javax.swing.JLabel();
         trickCardLeft = new javax.swing.JLabel();
         trickCardBottom = new javax.swing.JLabel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
-        card1 = new javax.swing.JLabel();
-        card2 = new javax.swing.JLabel();
-        card3 = new javax.swing.JLabel();
-        card4 = new javax.swing.JLabel();
-        card5 = new javax.swing.JLabel();
-        card6 = new javax.swing.JLabel();
-        card7 = new javax.swing.JLabel();
-        card8 = new javax.swing.JLabel();
-        card9 = new javax.swing.JLabel();
-        card10 = new javax.swing.JLabel();
-        card11 = new javax.swing.JLabel();
-        card12 = new javax.swing.JLabel();
         card13 = new javax.swing.JLabel();
+        card12 = new javax.swing.JLabel();
+        card11 = new javax.swing.JLabel();
+        card10 = new javax.swing.JLabel();
+        card9 = new javax.swing.JLabel();
+        card8 = new javax.swing.JLabel();
+        card7 = new javax.swing.JLabel();
+        card6 = new javax.swing.JLabel();
+        card5 = new javax.swing.JLabel();
+        card4 = new javax.swing.JLabel();
+        card3 = new javax.swing.JLabel();
+        card2 = new javax.swing.JLabel();
+        card1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jList2.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(jList2);
-
-        jList3.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane3.setViewportView(jList3);
-
-        jList4.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane4.setViewportView(jList4);
 
         swapBttn.setText("Swap");
         swapBttn.addActionListener(new java.awt.event.ActionListener() {
@@ -193,138 +175,28 @@ public class Hearts extends javax.swing.JFrame {
         });
 
         trickCardTop.setBackground(new java.awt.Color(0, 0, 0));
-        trickCardTop.setText("jLabel1");
         trickCardTop.setMaximumSize(new java.awt.Dimension(63, 91));
         trickCardTop.setMinimumSize(new java.awt.Dimension(63, 91));
         trickCardTop.setPreferredSize(new java.awt.Dimension(63, 91));
 
         trickCardRight.setBackground(new java.awt.Color(0, 0, 0));
-        trickCardRight.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cardImages/Clubs1.png"))); // NOI18N
-        trickCardRight.setText("jLabel1");
+        trickCardRight.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        trickCardRight.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         trickCardRight.setMaximumSize(new java.awt.Dimension(63, 91));
         trickCardRight.setMinimumSize(new java.awt.Dimension(63, 91));
         trickCardRight.setPreferredSize(new java.awt.Dimension(63, 91));
 
         trickCardLeft.setBackground(new java.awt.Color(0, 0, 0));
-        trickCardLeft.setText("jLabel1");
         trickCardLeft.setMaximumSize(new java.awt.Dimension(63, 91));
         trickCardLeft.setMinimumSize(new java.awt.Dimension(63, 91));
         trickCardLeft.setPreferredSize(new java.awt.Dimension(63, 91));
 
         trickCardBottom.setBackground(new java.awt.Color(0, 0, 0));
-        trickCardBottom.setText("jLabel1");
         trickCardBottom.setMaximumSize(new java.awt.Dimension(63, 91));
         trickCardBottom.setMinimumSize(new java.awt.Dimension(63, 91));
         trickCardBottom.setPreferredSize(new java.awt.Dimension(63, 91));
 
         jLayeredPane1.setPreferredSize(new java.awt.Dimension(514, 91));
-
-        card1.setBackground(new java.awt.Color(0, 0, 0));
-        card1.setText("0");
-        card1.setAlignmentX(0.4F);
-        card1.setMaximumSize(new java.awt.Dimension(63, 91));
-        card1.setMinimumSize(new java.awt.Dimension(63, 91));
-        card1.setPreferredSize(new java.awt.Dimension(63, 91));
-        jLayeredPane1.add(card1);
-        card1.setBounds(0, 0, 63, 91);
-
-        card2.setBackground(new java.awt.Color(0, 0, 0));
-        card2.setText("1");
-        card2.setAlignmentX(0.6F);
-        card2.setMaximumSize(new java.awt.Dimension(63, 91));
-        card2.setMinimumSize(new java.awt.Dimension(63, 91));
-        card2.setPreferredSize(new java.awt.Dimension(63, 91));
-        jLayeredPane1.add(card2);
-        card2.setBounds(20, 0, 63, 91);
-
-        card3.setBackground(new java.awt.Color(0, 0, 0));
-        card3.setText("2");
-        card3.setAlignmentX(0.8F);
-        card3.setMaximumSize(new java.awt.Dimension(63, 91));
-        card3.setMinimumSize(new java.awt.Dimension(63, 91));
-        card3.setPreferredSize(new java.awt.Dimension(63, 91));
-        jLayeredPane1.add(card3);
-        card3.setBounds(40, 0, 63, 91);
-
-        card4.setBackground(new java.awt.Color(0, 0, 0));
-        card4.setText("3");
-        card4.setAlignmentX(1.0F);
-        card4.setMaximumSize(new java.awt.Dimension(63, 91));
-        card4.setMinimumSize(new java.awt.Dimension(63, 91));
-        card4.setPreferredSize(new java.awt.Dimension(63, 91));
-        jLayeredPane1.add(card4);
-        card4.setBounds(60, 0, 63, 91);
-
-        card5.setBackground(new java.awt.Color(0, 0, 0));
-        card5.setText("4");
-        card5.setAlignmentX(1.2F);
-        card5.setMaximumSize(new java.awt.Dimension(63, 91));
-        card5.setMinimumSize(new java.awt.Dimension(63, 91));
-        card5.setPreferredSize(new java.awt.Dimension(63, 91));
-        jLayeredPane1.add(card5);
-        card5.setBounds(80, 0, 63, 91);
-
-        card6.setBackground(new java.awt.Color(0, 0, 0));
-        card6.setText("5");
-        card6.setAlignmentX(1.4F);
-        card6.setMaximumSize(new java.awt.Dimension(63, 91));
-        card6.setMinimumSize(new java.awt.Dimension(63, 91));
-        card6.setPreferredSize(new java.awt.Dimension(63, 91));
-        jLayeredPane1.add(card6);
-        card6.setBounds(100, 0, 63, 91);
-
-        card7.setBackground(new java.awt.Color(0, 0, 0));
-        card7.setText("6");
-        card7.setAlignmentX(1.6F);
-        card7.setMaximumSize(new java.awt.Dimension(63, 91));
-        card7.setMinimumSize(new java.awt.Dimension(63, 91));
-        card7.setPreferredSize(new java.awt.Dimension(63, 91));
-        jLayeredPane1.add(card7);
-        card7.setBounds(120, 0, 63, 91);
-
-        card8.setBackground(new java.awt.Color(0, 0, 0));
-        card8.setText("7");
-        card8.setAlignmentX(1.8F);
-        card8.setMaximumSize(new java.awt.Dimension(63, 91));
-        card8.setMinimumSize(new java.awt.Dimension(63, 91));
-        card8.setPreferredSize(new java.awt.Dimension(63, 91));
-        jLayeredPane1.add(card8);
-        card8.setBounds(140, 0, 63, 91);
-
-        card9.setBackground(new java.awt.Color(0, 0, 0));
-        card9.setText("8");
-        card9.setAlignmentX(2.0F);
-        card9.setMaximumSize(new java.awt.Dimension(63, 91));
-        card9.setMinimumSize(new java.awt.Dimension(63, 91));
-        card9.setPreferredSize(new java.awt.Dimension(63, 91));
-        jLayeredPane1.add(card9);
-        card9.setBounds(160, 0, 63, 91);
-
-        card10.setBackground(new java.awt.Color(0, 0, 0));
-        card10.setText("9");
-        card10.setAlignmentX(2.2F);
-        card10.setMaximumSize(new java.awt.Dimension(63, 91));
-        card10.setMinimumSize(new java.awt.Dimension(63, 91));
-        card10.setPreferredSize(new java.awt.Dimension(63, 91));
-        jLayeredPane1.add(card10);
-        card10.setBounds(180, 0, 63, 91);
-
-        card11.setBackground(new java.awt.Color(0, 0, 0));
-        card11.setText("10");
-        card11.setAlignmentX(2.6F);
-        card11.setMaximumSize(new java.awt.Dimension(63, 91));
-        card11.setMinimumSize(new java.awt.Dimension(63, 91));
-        card11.setPreferredSize(new java.awt.Dimension(63, 91));
-        jLayeredPane1.add(card11);
-        card11.setBounds(200, 0, 63, 91);
-
-        card12.setBackground(new java.awt.Color(0, 0, 0));
-        card12.setText("11");
-        card12.setMaximumSize(new java.awt.Dimension(63, 91));
-        card12.setMinimumSize(new java.awt.Dimension(63, 91));
-        card12.setPreferredSize(new java.awt.Dimension(63, 91));
-        jLayeredPane1.add(card12);
-        card12.setBounds(220, 0, 63, 91);
 
         card13.setBackground(new java.awt.Color(0, 0, 0));
         card13.setText("12");
@@ -333,58 +205,143 @@ public class Hearts extends javax.swing.JFrame {
         card13.setMinimumSize(new java.awt.Dimension(63, 91));
         card13.setPreferredSize(new java.awt.Dimension(63, 91));
         jLayeredPane1.add(card13);
-        card13.setBounds(240, 0, 63, 91);
+        card13.setBounds(240, 30, 63, 91);
+
+        card12.setBackground(new java.awt.Color(0, 0, 0));
+        card12.setText("11");
+        card12.setMaximumSize(new java.awt.Dimension(63, 91));
+        card12.setMinimumSize(new java.awt.Dimension(63, 91));
+        card12.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane1.add(card12);
+        card12.setBounds(220, 30, 63, 91);
+
+        card11.setBackground(new java.awt.Color(0, 0, 0));
+        card11.setText("10");
+        card11.setAlignmentX(2.6F);
+        card11.setMaximumSize(new java.awt.Dimension(63, 91));
+        card11.setMinimumSize(new java.awt.Dimension(63, 91));
+        card11.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane1.add(card11);
+        card11.setBounds(200, 30, 63, 91);
+
+        card10.setBackground(new java.awt.Color(0, 0, 0));
+        card10.setText("9");
+        card10.setAlignmentX(2.2F);
+        card10.setMaximumSize(new java.awt.Dimension(63, 91));
+        card10.setMinimumSize(new java.awt.Dimension(63, 91));
+        card10.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane1.add(card10);
+        card10.setBounds(180, 30, 63, 91);
+
+        card9.setBackground(new java.awt.Color(0, 0, 0));
+        card9.setText("8");
+        card9.setAlignmentX(2.0F);
+        card9.setMaximumSize(new java.awt.Dimension(63, 91));
+        card9.setMinimumSize(new java.awt.Dimension(63, 91));
+        card9.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane1.add(card9);
+        card9.setBounds(160, 30, 63, 91);
+
+        card8.setBackground(new java.awt.Color(0, 0, 0));
+        card8.setText("7");
+        card8.setAlignmentX(1.8F);
+        card8.setMaximumSize(new java.awt.Dimension(63, 91));
+        card8.setMinimumSize(new java.awt.Dimension(63, 91));
+        card8.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane1.add(card8);
+        card8.setBounds(140, 30, 63, 91);
+
+        card7.setBackground(new java.awt.Color(0, 0, 0));
+        card7.setText("6");
+        card7.setAlignmentX(1.6F);
+        card7.setMaximumSize(new java.awt.Dimension(63, 91));
+        card7.setMinimumSize(new java.awt.Dimension(63, 91));
+        card7.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane1.add(card7);
+        card7.setBounds(120, 30, 63, 91);
+
+        card6.setBackground(new java.awt.Color(0, 0, 0));
+        card6.setText("5");
+        card6.setAlignmentX(1.4F);
+        card6.setMaximumSize(new java.awt.Dimension(63, 91));
+        card6.setMinimumSize(new java.awt.Dimension(63, 91));
+        card6.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane1.add(card6);
+        card6.setBounds(100, 30, 63, 91);
+
+        card5.setBackground(new java.awt.Color(0, 0, 0));
+        card5.setText("4");
+        card5.setAlignmentX(1.2F);
+        card5.setMaximumSize(new java.awt.Dimension(63, 91));
+        card5.setMinimumSize(new java.awt.Dimension(63, 91));
+        card5.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane1.add(card5);
+        card5.setBounds(80, 30, 63, 91);
+
+        card4.setBackground(new java.awt.Color(0, 0, 0));
+        card4.setText("3");
+        card4.setAlignmentX(1.0F);
+        card4.setMaximumSize(new java.awt.Dimension(63, 91));
+        card4.setMinimumSize(new java.awt.Dimension(63, 91));
+        card4.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane1.add(card4);
+        card4.setBounds(60, 30, 63, 91);
+
+        card3.setBackground(new java.awt.Color(0, 0, 0));
+        card3.setText("2");
+        card3.setAlignmentX(0.8F);
+        card3.setMaximumSize(new java.awt.Dimension(63, 91));
+        card3.setMinimumSize(new java.awt.Dimension(63, 91));
+        card3.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane1.add(card3);
+        card3.setBounds(40, 30, 63, 91);
+
+        card2.setBackground(new java.awt.Color(0, 0, 0));
+        card2.setText("1");
+        card2.setAlignmentX(0.6F);
+        card2.setMaximumSize(new java.awt.Dimension(63, 91));
+        card2.setMinimumSize(new java.awt.Dimension(63, 91));
+        card2.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane1.add(card2);
+        card2.setBounds(20, 30, 63, 91);
+
+        card1.setBackground(new java.awt.Color(0, 0, 0));
+        card1.setText("0");
+        card1.setAlignmentX(0.4F);
+        card1.setMaximumSize(new java.awt.Dimension(63, 91));
+        card1.setMinimumSize(new java.awt.Dimension(63, 91));
+        card1.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane1.add(card1);
+        card1.setBounds(0, 30, 63, 91);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(217, 217, 217)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(swapBttn)
-                        .addGap(87, 87, 87))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
+                        .addGap(191, 191, 191)
                         .addComponent(trickCardLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(trickCardBottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(trickCardTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(trickCardRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(135, 135, 135)
+                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(trickCardRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(swapBttn)))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(64, 64, 64)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 34, Short.MAX_VALUE)))
-                        .addGap(151, 151, 151)
-                        .addComponent(swapBttn)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
+                        .addGap(171, 171, 171)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(trickCardTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -392,12 +349,22 @@ public class Hearts extends javax.swing.JFrame {
                                 .addComponent(trickCardBottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(81, 81, 81)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(trickCardRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(trickCardLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(trickCardLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(trickCardRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(swapBttn)
+                        .addGap(62, 62, 62))))
         );
+
+        trickCardRight.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -457,12 +424,6 @@ public class Hearts extends javax.swing.JFrame {
     private javax.swing.JLabel card8;
     private javax.swing.JLabel card9;
     private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JList jList2;
-    private javax.swing.JList jList3;
-    private javax.swing.JList jList4;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JButton swapBttn;
     private javax.swing.JLabel trickCardBottom;
     private javax.swing.JLabel trickCardLeft;
