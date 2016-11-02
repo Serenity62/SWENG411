@@ -128,9 +128,6 @@
           <Dimension value="[63, 91]"/>
         </Property>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
-      </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JLabel" name="trickCardLeft">
       <Properties>

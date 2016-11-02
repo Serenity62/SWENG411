@@ -107,24 +107,21 @@ public class Hearts extends javax.swing.JFrame {
     
     public void update() {
         Card thisC;
-        for (int i = 0; i < 13; i++)
+        Player thisPlayer = engine.getActivePlayer();
+        Hand thisHand = thisPlayer.getHand();
+        for (int i = 12; i >= 13-thisHand.getSize(); i--)
         {
-            Player thisPlayer = engine.getActivePlayer();
-            Hand thisHand = thisPlayer.getHand();
             thisC = thisHand.getCard(i+1);
-            if (thisC.getSuit() != -1) {
-                System.out.printf("%d %d\n", thisC.getSuit(),thisC.getFace());
-                cardsInHand[i].setIcon(cardFiles[thisC.getSuit()][thisC.getFace()]);
-                engine.getActivePlayer().getHand().getCard(1).setSelected(true);
-                cardsInHand[0].setLocation(cardsInHand[0].getX(), cardsInHand[0].getY()-20);
-            }
+            System.out.printf("%d %d\n", thisC.getSuit(),thisC.getFace());
+            cardsInHand[i].setIcon(cardFiles[thisC.getSuit()][thisC.getFace()]);
+            engine.getActivePlayer().getHand().getCard(1).setSelected(true);
+            cardsInHand[i].setLocation(cardsInHand[i].getX(), cardsInHand[i].getY()-20);
         }
-        for (int i = 0; i < 4; i++)
+        Trick thisTrick = engine.getCurrentTrick();
+        for (int i = 0; i < thisTrick.getSize(); i++)
         {
-            thisC = engine.getCurrentTrick().getCardPlayed(i);
-            if (thisC.getSuit() != -1) {
-                cardsInTrick[i].setIcon(cardFiles[thisC.getSuit()][thisC.getFace()]);
-            }
+            thisC = thisTrick.getCardPlayed(i);
+            cardsInTrick[i].setIcon(cardFiles[thisC.getSuit()][thisC.getFace()]);
         }
     }
     
