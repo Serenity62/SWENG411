@@ -115,7 +115,6 @@ public class Hearts extends javax.swing.JFrame {
             thisC = thisHand.getCard(i+1);
             System.out.printf("%d %d\n", thisC.getSuit(),thisC.getFace());
             cardsInHand[i].setIcon(cardFiles[thisC.getSuit()][thisC.getFace()]);
-            cardsInHand[i].setLocation(cardsInHand[i].getX(), cardsInHand[i].getY()-20);
         }
         Trick thisTrick = engine.getCurrentTrick();
         for (int i = 0; i < thisTrick.getSize(); i++)
@@ -366,6 +365,7 @@ public class Hearts extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SwapCards(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SwapCards
+        hideSwapButton();
         numSelectedCards = 0;
         engine.buildBuffers();
         update();
