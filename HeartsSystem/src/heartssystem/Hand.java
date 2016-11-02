@@ -35,12 +35,12 @@ public class Hand {
     
     public LinkedList<Card> getSelectedCards(){
         LinkedList<Card> selected = new LinkedList();
-        cardsContained.stream().forEach((card) -> {
-            if (card.getSelected()){
-                selected.add(card);
-                cardsContained.remove(card);
+        for (int i = 0; i < cardsContained.size(); i++) {
+            if (cardsContained.get(i).getSelected()){
+                selected.add(cardsContained.get(i));
+                cardsContained.remove(cardsContained.get(i));
             }
-        });
+        }
         
         return selected;
     }

@@ -78,6 +78,7 @@ public class HeartsEngine {
             default:
                 break;
         }
+        
     }
     
     public void dealCards()
