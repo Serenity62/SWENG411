@@ -45,13 +45,13 @@ public class HeartsEngine {
     
     public void buildBuffers(){
         buffers[activeID] = players[activeID].passCards();
-        this.activateNextPlayer();
         passCount++;    
-        if (activeID == 4){
+        if (activeID == 3){
             this.endPassing();
             this.swapCards();
             passCount = 0;
         }
+        this.activateNextPlayer();
     }
     
     public void swapCards(){

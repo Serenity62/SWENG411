@@ -23,7 +23,6 @@ public class Hearts extends javax.swing.JFrame {
             int selectedMax = 1;
             if (engine.getSwapping()) {
                 selectedMax+=2;
-                System.out.printf("\n, %d\n", numSelectedCards);
             }
             if (numSelectedCards <= selectedMax) {
                 JLabel thisCard = (JLabel)e.getSource();
@@ -34,6 +33,7 @@ public class Hearts extends javax.swing.JFrame {
                     thisCard.setLocation(thisCard.getX(), thisCard.getY()-20);
                     engine.getActivePlayer().playCard();
                     numSelectedCards--;
+                    System.out.println("Trip in playing card by the double tap");
                     update();
                 } else {
                     if (engine.getActivePlayer().getHand().getCard(num).getSelected()) { // card is selected
