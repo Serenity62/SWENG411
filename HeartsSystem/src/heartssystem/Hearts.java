@@ -23,10 +23,11 @@ public class Hearts extends javax.swing.JFrame {
             int selectedMax = 1;
             if (engine.getSwapping()) {
                 selectedMax+=2;
+                System.out.printf("\n, %d\n", numSelectedCards);
             }
-            if (numSelectedCards < selectedMax) {
+            if (numSelectedCards <= selectedMax) {
                 JLabel thisCard = (JLabel)e.getSource();
-                int num = Integer.parseInt(thisCard.getText());
+                int num = Integer.parseInt(thisCard.getText()) + 1;
                 if (e.getClickCount() >= 2 && !engine.getSwapping())
                 {
                     engine.getActivePlayer().getHand().getCard(num).setSelected(true);
@@ -38,12 +39,12 @@ public class Hearts extends javax.swing.JFrame {
                     if (engine.getActivePlayer().getHand().getCard(num).getSelected()) { // card is selected
                         engine.getActivePlayer().getHand().getCard(num).setSelected(false);
                         thisCard.setLocation(thisCard.getX(), thisCard.getY()+20);
-                        numSelectedCards++;
-                    } else {
+                        numSelectedCards--;
+                    } else if(numSelectedCards < selectedMax){
                         // card is not selected
                         engine.getActivePlayer().getHand().getCard(num).setSelected(true);
                         thisCard.setLocation(thisCard.getX(), thisCard.getY()-20);
-                        numSelectedCards--;
+                        numSelectedCards++;
                     }
                 }
             }
@@ -114,7 +115,6 @@ public class Hearts extends javax.swing.JFrame {
             thisC = thisHand.getCard(i+1);
             System.out.printf("%d %d\n", thisC.getSuit(),thisC.getFace());
             cardsInHand[i].setIcon(cardFiles[thisC.getSuit()][thisC.getFace()]);
-            engine.getActivePlayer().getHand().getCard(1).setSelected(true);
             cardsInHand[i].setLocation(cardsInHand[i].getX(), cardsInHand[i].getY()-20);
         }
         Trick thisTrick = engine.getCurrentTrick();
@@ -325,50 +325,49 @@ public class Hearts extends javax.swing.JFrame {
                             .addComponent(trickCardBottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(trickCardTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(trickCardRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(trickCardRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(135, 135, 135)
                         .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                         .addComponent(swapBttn)))
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(171, 171, 171)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(swapBttn))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(trickCardTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
-                                .addComponent(trickCardBottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(81, 81, 81)
-                                .addComponent(trickCardLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(trickCardRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(swapBttn)
-                        .addGap(62, 62, 62))))
+                                .addGap(171, 171, 171)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(trickCardTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(35, 35, 35)
+                                        .addComponent(trickCardBottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(81, 81, 81)
+                                        .addComponent(trickCardLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(trickCardRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(54, 54, 54)))
+                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
-
-        trickCardRight.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void SwapCards(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SwapCards
-        //curPlayer.passCard();
-        
+        engine.buildBuffers();
+        update();
     }//GEN-LAST:event_SwapCards
 
     
