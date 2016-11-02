@@ -27,7 +27,7 @@ public class Hearts extends javax.swing.JFrame {
             if (numSelectedCards < selectedMax) {
                 JLabel thisCard = (JLabel)e.getSource();
                 int num = Integer.parseInt(thisCard.getText());
-                if (e.getClickCount() >= 2)
+                if (e.getClickCount() >= 2 && !engine.getSwapping())
                 {
                     engine.getActivePlayer().getHand().getCard(num).setSelected(true);
                     thisCard.setLocation(thisCard.getX(), thisCard.getY()-20);
@@ -368,6 +368,7 @@ public class Hearts extends javax.swing.JFrame {
 
     private void SwapCards(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SwapCards
         //curPlayer.passCard();
+        
     }//GEN-LAST:event_SwapCards
 
     

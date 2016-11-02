@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/J.Appallonia/Desktop/HeartsSystem/src/heartssystem/Card.java</file>
-            <file>file:/C:/Users/J.Appallonia/Desktop/HeartsSystem/src/heartssystem/HeartsEngine.java</file>
-            <file>file:/C:/Users/J.Appallonia/Desktop/HeartsSystem/src/heartssystem/Hearts.java</file>
-            <file>file:/C:/Users/J.Appallonia/Desktop/HeartsSystem/src/heartssystem/Trick.java</file>
+            <file>file:/P:/Private/GitRepository/SWENG411/HeartsSystem/src/heartssystem/Hearts.java</file>
+            <file>file:/P:/Private/GitRepository/SWENG411/HeartsSystem/src/heartssystem/HeartsEngine.java</file>
+            <file>file:/P:/Private/GitRepository/SWENG411/HeartsSystem/src/heartssystem/Card.java</file>
+            <file>file:/P:/Private/GitRepository/SWENG411/HeartsSystem/src/heartssystem/Trick.java</file>
+            <file>file:/P:/Private/GitRepository/SWENG411/HeartsSystem/src/heartssystem/Deck.java</file>
+            <file>file:/P:/Private/GitRepository/SWENG411/HeartsSystem/src/heartssystem/Player.java</file>
         </group>
     </open-files>
 </project-private>
