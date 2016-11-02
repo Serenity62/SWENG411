@@ -52,9 +52,9 @@ public class Player {
     }
     
     public void takeCards(LinkedList<Card> takenCards){ // getTrick again - need to get the current trick so you can take cards from it.
-        takenCards.stream().forEach((card) -> {
-            this.cardsTaken.add(card);
-        });
+        for (int i = 0; i < takenCards.size(); i++) {
+            this.cardsTaken.add(takenCards.get(i));
+        }
     }
     
     public void calcPoints(){
