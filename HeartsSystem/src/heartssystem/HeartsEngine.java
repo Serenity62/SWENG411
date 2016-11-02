@@ -111,8 +111,8 @@ public class HeartsEngine {
     
     public void addCardToTrick()
     {
-        brokenHearts = currentTrick.addCard(players[activeID].playCard(), brokenHearts, activeID);
-        if (currentTrick.getPlays() > 3){
+        brokenHearts = currentTrick.addCard(players[activeID].playCard(), brokenHearts);
+        if (currentTrick.getSize() > 3){
             this.endTrick();
         }
         
@@ -166,7 +166,7 @@ public class HeartsEngine {
     public boolean checkVictory(){
         boolean vict = false;
         for (int i = 0; i < 4; i++){
-            if (players[i].getPoint() >= 100){
+            if (players[i].getPoints() >= 100){
                 vict = true;
                 winner = players[i];
             }

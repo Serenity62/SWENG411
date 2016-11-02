@@ -20,7 +20,7 @@ public class Deck {
         this.CreateDeck();
     }
     
-    public final void CreateDeck()
+    private final void CreateDeck()
     {
         
         //System.out.println("Created card: ");

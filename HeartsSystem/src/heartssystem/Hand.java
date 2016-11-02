@@ -29,6 +29,10 @@ public class Hand {
         return cardsContained.get(n-1);
     }
     
+    public int getSize(){
+        return cardsContained.size();
+    }
+    
     public LinkedList<Card> getSelectedCards(){
         LinkedList<Card> selected = new LinkedList();
         cardsContained.stream().forEach((card) -> {

@@ -17,16 +17,11 @@ public class Trick {
     private LinkedList<Card> cardsPlayed;
     private int openingSuit;
     private int points;
-    private int numPlays;
     private int playerNumber;
     
     
     public Trick(){
         cardsPlayed = new LinkedList();
-        for (int i = 0; i < 4; i++){
-            cardsPlayed.add(new Card(0, -1));
-        }
-        numPlays = 0;
         points = 0;
         playerNumber = 0;
     }
@@ -55,23 +50,22 @@ public class Trick {
         return this.cardsPlayed.get(i);
     }
     
-    public boolean addCard(Card c, boolean brokenHearts, int p){
+    public boolean addCard(Card c, boolean brokenHearts){
         boolean flag = false;
         points += c.getPoints();
         
-        if(this.numPlays == 0)
+        if(this.getSize() == 0)
             this.openingSuit = c.getSuit();
-        cardsPlayed.set(p, c);
-        numPlays++;
-        if(this.numPlays == 4)
+        cardsPlayed.add(c);
+        if(this.getSize() == 4)
             this.trickCalc();
         if(!brokenHearts && c.getSuit() != this.openingSuit && c.getSuit() == 1)    // Adjust for if someone broke hearts
             flag = true;
         return flag;
     }
     
-    public int getPlays(){
-        return numPlays;
+    public int getSize(){
+        return cardsPlayed.size();
     }
     
     private void trickCalc()
