@@ -366,6 +366,7 @@ public class Hearts extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SwapCards(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SwapCards
+        numSelectedCards = 0;
         engine.buildBuffers();
         update();
     }//GEN-LAST:event_SwapCards
@@ -400,6 +401,7 @@ public class Hearts extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Hearts h = new Hearts();
+                h.setTitle("Hearts");
                 h.setVisible(true);
                 //new Hearts().setVisible(true);
             }
