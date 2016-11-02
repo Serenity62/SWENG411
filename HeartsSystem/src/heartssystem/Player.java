@@ -15,14 +15,14 @@ import java.util.*;
 
 public class Player {
     private int points;
-    private LinkedList<Card> cardsOwned;
+    private LinkedList<Card> cardsTaken;
     private Hand hand;
     private int playerID;
     
     public Player(int id){
         playerID = id;
         points = 0;
-        cardsOwned = new LinkedList<Card>();
+        cardsTaken = new LinkedList<Card>();
         hand = new Hand();
     }
     
@@ -47,18 +47,18 @@ public class Player {
         return this.hand.getSelectedCard();
     }
     
-    public int getPoint(){
+    public int getPoints(){ // Change to getPoints.
         return points;
     }
     
     public void takeCards(LinkedList<Card> takenCards){ // getTrick again - need to get the current trick so you can take cards from it.
         takenCards.stream().forEach((card) -> {
-            this.cardsOwned.add(card);
+            this.cardsTaken.add(card);
         });
     }
     
     public void calcPoints(){
-        cardsOwned.stream().forEach((card) -> {
+        cardsTaken.stream().forEach((card) -> {
             this.points += card.getPoints();
         });
     }
@@ -79,9 +79,9 @@ public class Player {
     }
     
     public void updateTotal(){
-        for (int i = 0; i < cardsOwned.size(); i++)
+        for (int i = 0; i < cardsTaken.size(); i++)
         {
-            points = points + cardsOwned.get(i).getPoints();
+            points = points + cardsTaken.get(i).getPoints();
         }
     }
 }
