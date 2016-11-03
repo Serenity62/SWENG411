@@ -35,6 +35,10 @@ public class HeartsEngine {
         startRound();
     }
     
+    public boolean getHeartsBroken() {
+        return brokenHearts;
+    }
+    
     public Trick getCurrentTrick() {
         return currentTrick;
     }

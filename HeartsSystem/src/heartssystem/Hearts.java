@@ -15,6 +15,7 @@ public class Hearts extends javax.swing.JFrame {
     private final JLabel[] cardsInHand = new JLabel[13];
     private final JLabel[] cardsInTrick = new JLabel[4];
     private int numSelectedCards = 0;
+    private int defaultY = 0;
     
     private class mouseHandler extends MouseAdapter {
         @Override
@@ -25,12 +26,20 @@ public class Hearts extends javax.swing.JFrame {
                 selectedMax+=2;
             }
             if (numSelectedCards <= selectedMax) {
-                JLabel thisCard = (JLabel)e.getSource();
-                int num = Integer.parseInt(thisCard.getText()) + 1;
-                if (e.getClickCount() >= 2 && !engine.getSwapping())
+                JLabel thisCardLabel = (JLabel)e.getSource();
+                int num = Integer.parseInt(thisCardLabel.getText()) + 1;
+                Trick thisTrick = engine.getCurrentTrick();
+                Hand thisHand = engine.getActivePlayer().getHand();
+                Card thisCard = thisHand.getCard(num);
+                boolean inSuit = thisTrick.getOpening() == thisCard.getSuit();
+                if (e.getClickCount() >= 2 && !engine.getSwapping() && 
+                        ((thisTrick.getSize() < 1 && (inSuit || !thisHand.hasSuit(thisCard.getSuit()) || 
+                        (thisCard.getSuit() != 3 || engine.getHeartsBroken() || 
+                        (!thisHand.hasSuit(0) && !thisHand.hasSuit(1) && !thisHand.hasSuit(2))))) ||
+                        (engine.getCurrentTrick().getSize() >= 1 && (inSuit || !thisHand.hasSuit(thisCard.getSuit()))))) // trying to play a card
                 {
-                    engine.getActivePlayer().getHand().getCard(num).setSelected(true);
-                    thisCard.setLocation(thisCard.getX(), thisCard.getY()-20);
+                    thisCard.setSelected(true);
+                    thisCardLabel.setLocation(thisCardLabel.getX(), thisCardLabel.getY()-20);
                     engine.getActivePlayer().playCard();
                     numSelectedCards--;
                     System.out.println("Trip in playing card by the double tap");
@@ -38,12 +47,12 @@ public class Hearts extends javax.swing.JFrame {
                 } else {
                     if (engine.getActivePlayer().getHand().getCard(num).getSelected()) { // card is selected
                         engine.getActivePlayer().getHand().getCard(num).setSelected(false);
-                        thisCard.setLocation(thisCard.getX(), thisCard.getY()+20);
+                        thisCardLabel.setLocation(thisCardLabel.getX(), thisCardLabel.getY()+20);
                         numSelectedCards--;
                     } else if(numSelectedCards < selectedMax){
                         // card is not selected
                         engine.getActivePlayer().getHand().getCard(num).setSelected(true);
-                        thisCard.setLocation(thisCard.getX(), thisCard.getY()-20);
+                        thisCardLabel.setLocation(thisCardLabel.getX(), thisCardLabel.getY()-20);
                         numSelectedCards++;
                     }
                 }
@@ -90,6 +99,7 @@ public class Hearts extends javax.swing.JFrame {
         cardsInHand[10] = card11;
         cardsInHand[11] = card12;
         cardsInHand[12] = card13;
+        defaultY = cardsInHand[0].getY();
         card1.addMouseListener(mHand);
         card2.addMouseListener(mHand);
         card3.addMouseListener(mHand);
@@ -121,6 +131,14 @@ public class Hearts extends javax.swing.JFrame {
         {
             thisC = thisTrick.getCardPlayed(i);
             cardsInTrick[i].setIcon(cardFiles[thisC.getSuit()][thisC.getFace()]);
+        }
+    }
+    
+    public void reset() {
+        for (int i = 0; i < 13; i++) {
+            if (cardsInHand[i].getY() < defaultY) {
+                cardsInHand[i].setLocation(cardsInHand[i].getX(), cardsInHand[i].getY()+20);
+            }
         }
     }
     
@@ -369,6 +387,7 @@ public class Hearts extends javax.swing.JFrame {
         numSelectedCards = 0;
         engine.buildBuffers();
         update();
+        reset();
     }//GEN-LAST:event_SwapCards
 
     
