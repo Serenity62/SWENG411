@@ -14,14 +14,14 @@ package heartssystem;
 import java.util.*;
 
 public class Hand {
-    private LinkedList<Card> cardsContained;
+    private CardSet cardsContained;
     
     public Hand(){
-        cardsContained = new LinkedList<Card>();
+        cardsContained = new CardSet();
     }
     
     public void addCard(Card c){
-        cardsContained.add(c);
+        cardsContained.addCard(c);
 //        this.sortHand();
     }
     
@@ -42,23 +42,23 @@ public class Hand {
                 break;
             }
         }
-        return true;
+        return hasSuit;
     }
     
     public Card getCard(int n) {
-        return cardsContained.get(n-1);
+        return cardsContained.getCard(n-1);
     }
     
     public int getSize(){
-        return cardsContained.size();
+        return cardsContained.getSize();
     }
     
     public LinkedList<Card> getSelectedCards(){
         LinkedList<Card> selected = new LinkedList();
-        for (int i = 0; i < cardsContained.size(); i++) {
-            if (cardsContained.get(i).getSelected()){
-                selected.add(cardsContained.get(i));
-                cardsContained.remove(cardsContained.get(i));
+        for (int i = 0; i < cardsContained.getSize(); i++) {
+            if (cardsContained.getCard(i).getSelected()){
+                selected.add(cardsContained.getCard(i));
+                cardsContained.removeCard(cardsContained.getCard(i));
             }
         }
         
@@ -67,10 +67,10 @@ public class Hand {
     
     public Card getSelectedCard(){
         Card selected = new Card(0, -1);
-        for (int i = 0; i < cardsContained.size(); i++){
-            if (cardsContained.get(i).getSelected()){
-                selected = cardsContained.get(i);
-                cardsContained.remove(i);
+        for (int i = 0; i < cardsContained.getSize(); i++){
+            if (cardsContained.getCard(i).getSelected()){
+                selected = cardsContained.getCard(i);
+                cardsContained.removeCard(selected);
             }
         }
         

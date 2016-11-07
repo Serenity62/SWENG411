@@ -13,7 +13,8 @@ import java.util.Collections;
  * @author CUZ126
  */
 public class Deck {
-    private static LinkedList<Card> deck =  new LinkedList<Card>();
+    //private static LinkedList<Card> deck =  new LinkedList<Card>();
+    private CardSet deck = new CardSet();
     
     public Deck()
     {
@@ -35,7 +36,7 @@ public class Deck {
                     card.setPoint(13);
                 else
                     card.setPoint(0);
-                deck.add(card);
+                deck.addCard(card);
                 //System.out.printf("%d %d\n", card.getFace(), card.getSuit());
             }
         }
@@ -44,7 +45,7 @@ public class Deck {
     
     public void Shuffle()
     {
-        Collections.shuffle(deck);
+        deck.shuffleCards();
 //        System.out.println("Deck List:");
 //        for(int i = 0; i < 52; i++)
 //        {
@@ -55,7 +56,7 @@ public class Deck {
     }
     
     public void Clear(){
-        deck.clear();
+        deck = new CardSet();
     }
     
     public LinkedList<Card> Deal(int playerOffset)  // player is which player, this for an offset for dealing the cards
@@ -64,7 +65,7 @@ public class Deck {
         
         for(int i = 0; i < 13; i++)
         {
-            hand.add(deck.get(playerOffset));
+            hand.add(deck.getCard(playerOffset));
             playerOffset += 4;
         }
             
