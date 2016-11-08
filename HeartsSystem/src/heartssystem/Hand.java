@@ -45,6 +45,10 @@ public class Hand {
         return hasSuit;
     }
     
+    public void sortHand(){
+        this.cardsContained.sort();
+    }
+    
     public Card getCard(int n) {
         return cardsContained.getCard(n-1);
     }
@@ -76,20 +80,4 @@ public class Hand {
         
     return selected;
     }
-    
-//    public void sortHand(){
-//        int suitSorting = 1;
-//        LinkedList tempList = new LinkedList();
-//        
-//        if (cardsContained.size() > 1){
-//            while (suitSorting < 5){ // This handles which suit we're currently sorting
-//                for (int i = 0; i < cardsContained.size(); i++)
-//                {
-//                    if (cardsContained.getIndexAt(i).getSuit() == suitSorting){ // Implement a sort here to sort by value. 
-//                        tempList.add(cardsContained.getIndexAt(i));
-//                    }
-//                }
-//            }
-//        }
-//    }
 }

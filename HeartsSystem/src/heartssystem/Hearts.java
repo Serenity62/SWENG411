@@ -70,8 +70,8 @@ public class Hearts extends javax.swing.JFrame {
         engine = new HeartsEngine();
         swapBttn.setVisible(false);
         for (int suit = 0; suit < 4; suit++) {
-            for (int face = 0; face < 13; face++) {
-                cardFiles[suit][face] = new ImageIcon(new ImageIcon(
+            for (int face = 1; face < 14; face++) {
+                cardFiles[suit][face-1] = new ImageIcon(new ImageIcon(
                     "src/cardImages/"+suits[suit]+Integer.toString(face+1)+".png")
                     .getImage().getScaledInstance(63, 91, Image.SCALE_DEFAULT));
                 /*Image imgTemp = cardFiles[suit][face].getImage();
@@ -124,13 +124,13 @@ public class Hearts extends javax.swing.JFrame {
         {
             thisC = thisHand.getCard(i+1);
             System.out.printf("%d %d\n", thisC.getSuit(),thisC.getFace());
-            cardsInHand[i].setIcon(cardFiles[thisC.getSuit()][thisC.getFace()]);
+            cardsInHand[i].setIcon(cardFiles[thisC.getSuit()][thisC.getFace() - 1]);
         }
         Trick thisTrick = engine.getCurrentTrick();
         for (int i = 0; i < thisTrick.getSize(); i++)
         {
             thisC = thisTrick.getCardPlayed(i);
-            cardsInTrick[i].setIcon(cardFiles[thisC.getSuit()][thisC.getFace()]);
+            cardsInTrick[i].setIcon(cardFiles[thisC.getSuit()][thisC.getFace() - 1]);
         }
     }
     

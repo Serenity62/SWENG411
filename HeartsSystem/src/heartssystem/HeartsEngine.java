@@ -31,7 +31,6 @@ public class HeartsEngine {
         passCount = 0;
         passing = false;
         gameEnd = false;
-        activeID = 0;
         startRound();
     }
     
@@ -82,6 +81,9 @@ public class HeartsEngine {
             default:
                 break;
         }
+        for (int i = 0; i < 4; i++){
+            players[i].getHand().sortHand();
+        }
         
     }
     
@@ -94,6 +96,7 @@ public class HeartsEngine {
         {
             tempHand = deck.Deal(i);
             players[i].buildHand(tempHand);
+            players[i].getHand().sortHand();
         }
     }
     
@@ -144,6 +147,11 @@ public class HeartsEngine {
     }
     
     public void startRound(){
+        activeID = 0;
+        while(!(players[activeID].getHand().getCard(1).getSuit() == 0 
+                    && players[activeID].getHand().getCard(1).getFace() == 2)){
+            activeID++;
+        }
         this.dealCards();
         this.startPassing();
         this.startTrick();

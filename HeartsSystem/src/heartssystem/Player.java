@@ -34,14 +34,6 @@ public class Player {
         hand = h;
     }
     
-    public void selectCard(int index){
-        hand.getCard(index).setSelected(true);
-    }
-    
-    public void deselectCard(int index){
-        hand.getCard(index).setSelected(false);
-    }
-    
     public Card playCard(){
         // Add a card to the current trick. Do this by calling getTrick from the gameboard? GUI? Not sure. 
         return this.hand.getSelectedCard();
