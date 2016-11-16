@@ -148,11 +148,11 @@ public class HeartsEngine {
     
     public void startRound(){
         activeID = 0;
+        this.dealCards();
         while(!(players[activeID].getHand().getCard(1).getSuit() == 0 
                     && players[activeID].getHand().getCard(1).getFace() == 2)){
             activeID++;
         }
-        this.dealCards();
         this.startPassing();
         this.startTrick();
         this.brokenHearts = false;
