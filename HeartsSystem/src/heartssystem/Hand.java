@@ -61,6 +61,7 @@ public class Hand {
         LinkedList<Card> selected = new LinkedList();
         for (int i = 0; i < cardsContained.getSize(); i++) {
             if (cardsContained.getCard(i).getSelected()){
+                cardsContained.getCard(i).setSelected(false);
                 selected.add(cardsContained.getCard(i));
                 cardsContained.removeCard(cardsContained.getCard(i));
             }
@@ -74,6 +75,7 @@ public class Hand {
         for (int i = 0; i < cardsContained.getSize(); i++){
             if (cardsContained.getCard(i).getSelected()){
                 selected = cardsContained.getCard(i);
+                selected.setSelected(false);
                 cardsContained.removeCard(selected);
             }
         }

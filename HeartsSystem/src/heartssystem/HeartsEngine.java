@@ -26,7 +26,7 @@ public class HeartsEngine {
             players[i] = new Player(i + 1);
             buffers[i] = new LinkedList();
         }
-        round = 0;
+        round = 1;
         trickNum = 0;
         passCount = 0;
         passing = false;
@@ -47,12 +47,15 @@ public class HeartsEngine {
     }
     
     public void buildBuffers(){
-        buffers[activeID] = players[activeID].passCards();
-        passCount++;    
-        if (activeID == 3){
+        buffers[activeID] = players[activeID].passCards();   
+        if (passCount == 3){
             this.endPassing();
             this.swapCards();
             passCount = 0;
+        }
+        else
+        {
+            passCount++; 
         }
         this.activateNextPlayer();
     }
