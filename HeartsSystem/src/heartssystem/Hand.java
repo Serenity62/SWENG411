@@ -33,9 +33,9 @@ public class Hand {
         int mid;
         while (low <= hi) {
             mid = low + (hi - low) / 2;
-            if (getCard(mid).getSuit() < suit) {
+            if (getCard(mid+1).getSuit() < suit) {
                 hi = mid - 1;
-            } else if (getCard(mid).getSuit() > suit) {
+            } else if (getCard(mid+1).getSuit() > suit) {
                 low = mid + 1;
             } else {
                 hasSuit = true;
@@ -74,8 +74,8 @@ public class Hand {
         Card selected = new Card(0, -1);
         for (int i = 0; i < cardsContained.getSize(); i++){
             if (cardsContained.getCard(i).getSelected()){
+                cardsContained.getCard(i).setSelected(false);
                 selected = cardsContained.getCard(i);
-                selected.setSelected(false);
                 cardsContained.removeCard(selected);
             }
         }

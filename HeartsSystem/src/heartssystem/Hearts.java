@@ -123,7 +123,7 @@ public class Hearts extends javax.swing.JFrame {
         for (int i = 12; i >= 13-thisHand.getSize(); i--)
         {
             thisC = thisHand.getCard(i+1);
-            System.out.printf("%d %d\n", thisC.getSuit(),thisC.getFace());
+            System.out.printf("%d %d %s\n", thisC.getSuit(),thisC.getFace(), thisC.getSelected());
             cardsInHand[i].setIcon(cardFiles[thisC.getSuit()][thisC.getFace() - 1]);
         }
         Trick thisTrick = engine.getCurrentTrick();
