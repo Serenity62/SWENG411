@@ -64,6 +64,7 @@ public class Hand {
                 cardsContained.getCard(i).setSelected(false);
                 selected.add(cardsContained.getCard(i));
                 cardsContained.removeCard(cardsContained.getCard(i));
+                i--;
             }
         }
         

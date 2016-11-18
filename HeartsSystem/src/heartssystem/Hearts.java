@@ -40,7 +40,7 @@ public class Hearts extends javax.swing.JFrame {
                 {
                     thisCard.setSelected(true);
                     thisCardLabel.setLocation(thisCardLabel.getX(), thisCardLabel.getY()-20);
-                    engine.getActivePlayer().playCard();
+                    thisTrick.addCard(engine.getActivePlayer().playCard(), engine.getHeartsBroken());
                     numSelectedCards--;
                     System.out.println("Trip in playing card by the double tap");
                     update();
