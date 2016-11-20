@@ -126,7 +126,7 @@ public class HeartsEngine {
         if (currentTrick.getSize() > 3){
             this.endTrick();
         }
-        
+        this.activateNextPlayer();
     }
     
     public void assignPoints()
