@@ -142,6 +142,7 @@ public class HeartsEngine {
         this.assignPoints();
         if (trickNum < 13){
             this.startTrick();
+            trickNum++;
         }
         else{
             this.endRound();
@@ -159,6 +160,7 @@ public class HeartsEngine {
         this.startPassing();
         this.startTrick();
         this.brokenHearts = false;
+        trickNum = 0;
     }
     
     public void startPassing(){
