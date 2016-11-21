@@ -43,7 +43,9 @@ public class Hearts extends javax.swing.JFrame {
                     //thisTrick.addCard(engine.getActivePlayer().playCard(), engine.getHeartsBroken());
                     engine.addCardToTrick();
                     numSelectedCards--;
+                    thisCardLabel.setLocation(thisCardLabel.getX(), thisCardLabel.getY()+20);
                     System.out.println("Trip in playing card by the double tap");
+                    resetTrick();
                     update();
                 } else {
                     if (engine.getActivePlayer().getHand().getCard(num).getSelected()) { // card is selected
@@ -121,11 +123,13 @@ public class Hearts extends javax.swing.JFrame {
         Card thisC;
         Player thisPlayer = engine.getActivePlayer();
         Hand thisHand = thisPlayer.getHand();
-        for (int i = 12; i >= 13-thisHand.getSize(); i--)
+        int j = 12;
+        for (int i = 0; i < thisHand.getSize(); i++)
         {
             thisC = thisHand.getCard(i+1);
             System.out.printf("%d %d %s\n", thisC.getSuit(),thisC.getFace(), thisC.getSelected());
-            cardsInHand[i].setIcon(cardFiles[thisC.getSuit()][thisC.getFace() - 1]);
+            cardsInHand[j].setIcon(cardFiles[thisC.getSuit()][thisC.getFace() - 1]);
+            j--;
         }
         Trick thisTrick = engine.getCurrentTrick();
         for (int i = 0; i < thisTrick.getSize(); i++)
@@ -140,6 +144,12 @@ public class Hearts extends javax.swing.JFrame {
             if (cardsInHand[i].getY() < defaultY) {
                 cardsInHand[i].setLocation(cardsInHand[i].getX(), cardsInHand[i].getY()+20);
             }
+        }
+    }
+    
+    public void resetTrick() {
+        for (int i = 0; i < 4; i++) {
+            cardsInTrick[i].setIcon(null);
         }
     }
     
