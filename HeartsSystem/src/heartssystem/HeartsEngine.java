@@ -140,7 +140,7 @@ public class HeartsEngine {
     
     public void endTrick(){
         this.assignPoints();
-        if (trickNum < 13){
+        if (trickNum < 12){
             this.startTrick();
             trickNum++;
         }
@@ -156,6 +156,10 @@ public class HeartsEngine {
         while(!(players[activeID].getHand().getCard(1).getSuit() == 0 
                     && players[activeID].getHand().getCard(1).getFace() == 2)){
             activeID++;
+            if(activeID == 4){
+                activeID--;
+                break; // temp fix
+            }
         }
         this.startPassing();
         this.startTrick();

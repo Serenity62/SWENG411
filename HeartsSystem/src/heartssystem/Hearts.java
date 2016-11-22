@@ -27,36 +27,39 @@ public class Hearts extends javax.swing.JFrame {
             }
             if (numSelectedCards <= selectedMax) {
                 JLabel thisCardLabel = (JLabel)e.getSource();
-                int num = Integer.parseInt(thisCardLabel.getText()) + 1;
-                Trick thisTrick = engine.getCurrentTrick();
-                Hand thisHand = engine.getActivePlayer().getHand();
-                Card thisCard = thisHand.getCard(num);
-                boolean inSuit = thisTrick.getOpening() == thisCard.getSuit();
-                if (e.getClickCount() >= 2 && !engine.getSwapping() && 
-                        ((thisTrick.getSize() < 1 && (inSuit || !thisHand.hasSuit(thisCard.getSuit()) || 
-                        (thisCard.getSuit() != 3 || engine.getHeartsBroken() || 
-                        (!thisHand.hasSuit(0) && !thisHand.hasSuit(1) && !thisHand.hasSuit(2))))) ||
-                        (engine.getCurrentTrick().getSize() >= 1 && (inSuit || !thisHand.hasSuit(thisCard.getSuit()))))) // trying to play a card
-                {
-                    thisCard.setSelected(true);
-                    thisCardLabel.setLocation(thisCardLabel.getX(), thisCardLabel.getY()-20);
-                    //thisTrick.addCard(engine.getActivePlayer().playCard(), engine.getHeartsBroken());
-                    engine.addCardToTrick();
-                    numSelectedCards--;
-                    thisCardLabel.setLocation(thisCardLabel.getX(), thisCardLabel.getY()+20);
-                    System.out.println("Trip in playing card by the double tap");
-                    resetTrick();
-                    update();
-                } else {
-                    if (engine.getActivePlayer().getHand().getCard(num).getSelected()) { // card is selected
-                        engine.getActivePlayer().getHand().getCard(num).setSelected(false);
-                        thisCardLabel.setLocation(thisCardLabel.getX(), thisCardLabel.getY()+20);
-                        numSelectedCards--;
-                    } else if(numSelectedCards < selectedMax){
-                        // card is not selected
-                        engine.getActivePlayer().getHand().getCard(num).setSelected(true);
+                if(thisCardLabel.getIcon() != null){
+                    int num = Integer.parseInt(thisCardLabel.getText()) + 1;
+                    Trick thisTrick = engine.getCurrentTrick();
+                    Hand thisHand = engine.getActivePlayer().getHand();
+                    Card thisCard = thisHand.getCard(num);
+                    boolean inSuit = thisTrick.getOpening() == thisCard.getSuit();
+                    if (e.getClickCount() >= 2 && !engine.getSwapping() && 
+                            (((thisTrick.getSize() < 1) && (inSuit || !thisHand.hasSuit(thisTrick.getOpening())) || 
+                            (thisCard.getSuit() != 3 || engine.getHeartsBroken() || 
+                            (!thisHand.hasSuit(0) && !thisHand.hasSuit(1) && !thisHand.hasSuit(2))))) ||
+                            (thisTrick.getSize() >= 1 && (inSuit || !thisHand.hasSuit(thisTrick.getOpening())))) // trying to play a card
+                    {
+                        thisCard.setSelected(true);
                         thisCardLabel.setLocation(thisCardLabel.getX(), thisCardLabel.getY()-20);
-                        numSelectedCards++;
+                        //thisTrick.addCard(engine.getActivePlayer().playCard(), engine.getHeartsBroken());
+                        engine.addCardToTrick();
+                        numSelectedCards--;
+                        thisCardLabel.setLocation(thisCardLabel.getX(), thisCardLabel.getY()+20);
+                        System.out.println("Trip in playing card by the double tap");
+                        resetTrick();
+                        update();
+                        reset();
+                    } else {
+                        if (engine.getActivePlayer().getHand().getCard(num).getSelected()) { // card is selected
+                            engine.getActivePlayer().getHand().getCard(num).setSelected(false);
+                            thisCardLabel.setLocation(thisCardLabel.getX(), thisCardLabel.getY()+20);
+                            numSelectedCards--;
+                        } else if(numSelectedCards < selectedMax){
+                            // card is not selected
+                            engine.getActivePlayer().getHand().getCard(num).setSelected(true);
+                            thisCardLabel.setLocation(thisCardLabel.getX(), thisCardLabel.getY()-20);
+                            numSelectedCards++;
+                        }
                     }
                 }
             }
@@ -123,13 +126,16 @@ public class Hearts extends javax.swing.JFrame {
         Card thisC;
         Player thisPlayer = engine.getActivePlayer();
         Hand thisHand = thisPlayer.getHand();
-        int j = 12;
-        for (int i = 0; i < thisHand.getSize(); i++)
+        int j = 13-thisHand.getSize();
+        for (int i =thisHand.getSize() - 1; i >= 0; i--)
         {
             thisC = thisHand.getCard(i+1);
             System.out.printf("%d %d %s\n", thisC.getSuit(),thisC.getFace(), thisC.getSelected());
-            cardsInHand[j].setIcon(cardFiles[thisC.getSuit()][thisC.getFace() - 1]);
-            j--;
+            cardsInHand[i].setIcon(cardFiles[thisC.getSuit()][thisC.getFace() - 1]);
+        }
+        for(int i = thisHand.getSize(); i < 13; i++)
+        {
+            cardsInHand[i].setIcon(null);
         }
         Trick thisTrick = engine.getCurrentTrick();
         for (int i = 0; i < thisTrick.getSize(); i++)
