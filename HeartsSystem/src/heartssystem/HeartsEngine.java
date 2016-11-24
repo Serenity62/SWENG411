@@ -116,6 +116,14 @@ public class HeartsEngine {
         return players[activeID];
     }
     
+    public Player getPlayer(int p){
+        return players[p];
+    }
+    
+    public int getPlayerID() {
+        return activeID;
+    }
+    
     public Player getWinner(){
         return winner;
     }

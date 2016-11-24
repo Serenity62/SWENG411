@@ -11,8 +11,10 @@ import javax.swing.JLabel;
 public class Hearts extends javax.swing.JFrame {
     private HeartsEngine engine;
     private final ImageIcon[][] cardFiles = new ImageIcon[4][13];
+    private ImageIcon cardbackFile[] = new ImageIcon[2];
     private final String[] suits = {"Clubs","Diamonds","Spades","Hearts"};
     private final JLabel[] cardsInHand = new JLabel[13];
+    private final JLabel[][] cardsInPlayersHand = new JLabel[3][13];
     private final JLabel[] cardsInTrick = new JLabel[4];
     private int numSelectedCards = 0;
     private int defaultY = 0;
@@ -47,8 +49,9 @@ public class Hearts extends javax.swing.JFrame {
                         thisCardLabel.setLocation(thisCardLabel.getX(), thisCardLabel.getY()+20);
                         System.out.println("Trip in playing card by the double tap");
                         resetTrick();
-                        update();
+                        updateCards();
                         reset();
+                        swapPlayers(); // preps for shift to next player
                     } else {
                         if (engine.getActivePlayer().getHand().getCard(num).getSelected()) { // card is selected
                             engine.getActivePlayer().getHand().getCard(num).setSelected(false);
@@ -63,18 +66,13 @@ public class Hearts extends javax.swing.JFrame {
                     }
                 }
             }
-            if (numSelectedCards == 3) {
-                showSwapButton();
-            } else {
-                hideSwapButton();
-            }
         }
     }
     
     public Hearts() {
         initComponents();
         engine = new HeartsEngine();
-        swapBttn.setVisible(false);
+        playBttn.setVisible(false);
         for (int suit = 0; suit < 4; suit++) {
             for (int face = 1; face < 14; face++) {
                 cardFiles[suit][face-1] = new ImageIcon(new ImageIcon(
@@ -87,6 +85,8 @@ public class Hearts extends javax.swing.JFrame {
                 cardFiles[suit][face] = new ImageIcon(buTemp);*/
             }
         }
+        cardbackFile[0] = new ImageIcon(new ImageIcon("src/cardImages/Card_back.png").getImage().getScaledInstance(63, 91, Image.SCALE_DEFAULT));
+        cardbackFile[1] = new ImageIcon(new ImageIcon("src/cardImages/Card_back_side.png").getImage().getScaledInstance(91, 63, Image.SCALE_DEFAULT));
         cardsInTrick[0] = trickCardLeft;
         cardsInTrick[1] = trickCardTop;
         cardsInTrick[2] = trickCardRight;
@@ -119,10 +119,64 @@ public class Hearts extends javax.swing.JFrame {
         card11.addMouseListener(mHand);
         card12.addMouseListener(mHand);
         card13.addMouseListener(mHand);
-        update();
+        
+        cardsInPlayersHand[0][0] = player1card1;
+        cardsInPlayersHand[0][1] = player1card2;
+        cardsInPlayersHand[0][2] = player1card3;
+        cardsInPlayersHand[0][3] = player1card4;
+        cardsInPlayersHand[0][4] = player1card5;
+        cardsInPlayersHand[0][5] = player1card6;
+        cardsInPlayersHand[0][6] = player1card7;
+        cardsInPlayersHand[0][7] = player1card8;
+        cardsInPlayersHand[0][8] = player1card9;
+        cardsInPlayersHand[0][9] = player1card10;
+        cardsInPlayersHand[0][10] = player1card11;
+        cardsInPlayersHand[0][11] = player1card12;
+        cardsInPlayersHand[0][12] = player1card13;
+        cardsInPlayersHand[1][0] = player2card1;
+        cardsInPlayersHand[1][1] = player2card2;
+        cardsInPlayersHand[1][2] = player2card3;
+        cardsInPlayersHand[1][3] = player2card4;
+        cardsInPlayersHand[1][4] = player2card5;
+        cardsInPlayersHand[1][5] = player2card6;
+        cardsInPlayersHand[1][6] = player2card7;
+        cardsInPlayersHand[1][7] = player2card8;
+        cardsInPlayersHand[1][8] = player2card9;
+        cardsInPlayersHand[1][9] = player2card10;
+        cardsInPlayersHand[1][10] = player2card11;
+        cardsInPlayersHand[1][11] = player2card12;
+        cardsInPlayersHand[1][12] = player2card13;
+        cardsInPlayersHand[2][0] = player3card1;
+        cardsInPlayersHand[2][1] = player3card2;
+        cardsInPlayersHand[2][2] = player3card3;
+        cardsInPlayersHand[2][3] = player3card4;
+        cardsInPlayersHand[2][4] = player3card5;
+        cardsInPlayersHand[2][5] = player3card6;
+        cardsInPlayersHand[2][6] = player3card7;
+        cardsInPlayersHand[2][7] = player3card8;
+        cardsInPlayersHand[2][8] = player3card9;
+        cardsInPlayersHand[2][9] = player3card10;
+        cardsInPlayersHand[2][10] = player3card11;
+        cardsInPlayersHand[2][11] = player3card12;
+        cardsInPlayersHand[2][12] = player3card13;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 13; j++) {
+                if (i == 0 || i == 2) {
+                    cardsInPlayersHand[i][j].setIcon(cardbackFile[1]);
+                } else {
+                    cardsInPlayersHand[i][j].setIcon(cardbackFile[0]);
+                }
+            }
+        }
+        updateCards();
+        showSwapButton();
     }
     
-    public void update() {
+    public void updateScore() {
+        playerScore.setText(Integer.toString(engine.getActivePlayer().getPoints()));
+    }
+    
+    public void updateCards() {
         Card thisC;
         Player thisPlayer = engine.getActivePlayer();
         Hand thisHand = thisPlayer.getHand();
@@ -145,12 +199,45 @@ public class Hearts extends javax.swing.JFrame {
         }
     }
     
+    public void updateHandSizes() {
+        int id = engine.getPlayerID();
+        for (int i = 0; i < 3; i++) {
+            id++;
+            if (id == 4) {
+                id = 0;
+            }
+            int numCards = engine.getPlayer(id).getHand().getSize();
+            for (int j = 0; j < numCards; j++) {
+                cardsInPlayersHand[i][j].setVisible(true);
+            }
+            for (int j = numCards; j < 13; j++) {
+                cardsInPlayersHand[i][j].setVisible(false);
+            }
+        }
+    }
+    
     public void reset() {
         for (int i = 0; i < 13; i++) {
             if (cardsInHand[i].getY() < defaultY) {
                 cardsInHand[i].setLocation(cardsInHand[i].getX(), cardsInHand[i].getY()+20);
             }
         }
+    }
+    
+    public void swapPlayers() {
+        for (int i = 0; i < 13; i++) {
+            cardsInHand[i].setVisible(false);
+        }
+        playBttn.setText("Start Turn");
+        playBttn.setVisible(true);
+    }
+    
+    public void startNextPlayer() {
+        for (int i = 0; i < 13; i++) {
+            cardsInHand[i].setVisible(true);
+        }
+        playBttn.setText("Swap");
+        playBttn.setVisible(false);
     }
     
     public void resetTrick() {
@@ -160,11 +247,11 @@ public class Hearts extends javax.swing.JFrame {
     }
     
     private void hideSwapButton() {
-        swapBttn.setVisible(false);
+        playBttn.setVisible(false);
     }
     
     private void showSwapButton() {
-        swapBttn.setVisible(true);
+        playBttn.setVisible(true);
     }
 
     /**
@@ -176,7 +263,7 @@ public class Hearts extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        swapBttn = new javax.swing.JButton();
+        playBttn = new javax.swing.JButton();
         trickCardTop = new javax.swing.JLabel();
         trickCardRight = new javax.swing.JLabel();
         trickCardLeft = new javax.swing.JLabel();
@@ -195,13 +282,59 @@ public class Hearts extends javax.swing.JFrame {
         card3 = new javax.swing.JLabel();
         card2 = new javax.swing.JLabel();
         card1 = new javax.swing.JLabel();
+        jLayeredPane2 = new javax.swing.JLayeredPane();
+        player2card13 = new javax.swing.JLabel();
+        player2card12 = new javax.swing.JLabel();
+        player2card11 = new javax.swing.JLabel();
+        player2card10 = new javax.swing.JLabel();
+        player2card9 = new javax.swing.JLabel();
+        player2card8 = new javax.swing.JLabel();
+        player2card7 = new javax.swing.JLabel();
+        player2card6 = new javax.swing.JLabel();
+        player2card5 = new javax.swing.JLabel();
+        player2card4 = new javax.swing.JLabel();
+        player2card3 = new javax.swing.JLabel();
+        player2card2 = new javax.swing.JLabel();
+        player2card1 = new javax.swing.JLabel();
+        jLayeredPane3 = new javax.swing.JLayeredPane();
+        player1card13 = new javax.swing.JLabel();
+        player1card12 = new javax.swing.JLabel();
+        player1card11 = new javax.swing.JLabel();
+        player1card10 = new javax.swing.JLabel();
+        player1card9 = new javax.swing.JLabel();
+        player1card8 = new javax.swing.JLabel();
+        player1card7 = new javax.swing.JLabel();
+        player1card6 = new javax.swing.JLabel();
+        player1card5 = new javax.swing.JLabel();
+        player1card4 = new javax.swing.JLabel();
+        player1card3 = new javax.swing.JLabel();
+        player1card2 = new javax.swing.JLabel();
+        player1card1 = new javax.swing.JLabel();
+        jLayeredPane4 = new javax.swing.JLayeredPane();
+        player3card13 = new javax.swing.JLabel();
+        player3card12 = new javax.swing.JLabel();
+        player3card11 = new javax.swing.JLabel();
+        player3card10 = new javax.swing.JLabel();
+        player3card9 = new javax.swing.JLabel();
+        player3card8 = new javax.swing.JLabel();
+        player3card7 = new javax.swing.JLabel();
+        player3card6 = new javax.swing.JLabel();
+        player3card5 = new javax.swing.JLabel();
+        player3card4 = new javax.swing.JLabel();
+        player3card3 = new javax.swing.JLabel();
+        player3card2 = new javax.swing.JLabel();
+        player3card1 = new javax.swing.JLabel();
+        playerScore = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        swapBttn.setText("Swap");
-        swapBttn.addActionListener(new java.awt.event.ActionListener() {
+        playBttn.setText("Swap");
+        playBttn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SwapCards(evt);
+                bttnPressed(evt);
             }
         });
 
@@ -345,67 +478,426 @@ public class Hearts extends javax.swing.JFrame {
         jLayeredPane1.add(card1);
         card1.setBounds(0, 30, 63, 91);
 
+        jLayeredPane2.setPreferredSize(new java.awt.Dimension(514, 91));
+
+        player2card13.setBackground(new java.awt.Color(0, 0, 0));
+        player2card13.setAlignmentX(0.2F);
+        player2card13.setMaximumSize(new java.awt.Dimension(63, 91));
+        player2card13.setMinimumSize(new java.awt.Dimension(63, 91));
+        player2card13.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane2.add(player2card13);
+        player2card13.setBounds(240, 0, 63, 91);
+
+        player2card12.setBackground(new java.awt.Color(0, 0, 0));
+        player2card12.setMaximumSize(new java.awt.Dimension(63, 91));
+        player2card12.setMinimumSize(new java.awt.Dimension(63, 91));
+        player2card12.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane2.add(player2card12);
+        player2card12.setBounds(220, 0, 63, 91);
+
+        player2card11.setBackground(new java.awt.Color(0, 0, 0));
+        player2card11.setAlignmentX(2.6F);
+        player2card11.setMaximumSize(new java.awt.Dimension(63, 91));
+        player2card11.setMinimumSize(new java.awt.Dimension(63, 91));
+        player2card11.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane2.add(player2card11);
+        player2card11.setBounds(200, 0, 63, 91);
+
+        player2card10.setBackground(new java.awt.Color(0, 0, 0));
+        player2card10.setAlignmentX(2.2F);
+        player2card10.setMaximumSize(new java.awt.Dimension(63, 91));
+        player2card10.setMinimumSize(new java.awt.Dimension(63, 91));
+        player2card10.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane2.add(player2card10);
+        player2card10.setBounds(180, 0, 63, 91);
+
+        player2card9.setBackground(new java.awt.Color(0, 0, 0));
+        player2card9.setAlignmentX(2.0F);
+        player2card9.setMaximumSize(new java.awt.Dimension(63, 91));
+        player2card9.setMinimumSize(new java.awt.Dimension(63, 91));
+        player2card9.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane2.add(player2card9);
+        player2card9.setBounds(160, 0, 63, 91);
+
+        player2card8.setBackground(new java.awt.Color(0, 0, 0));
+        player2card8.setAlignmentX(1.8F);
+        player2card8.setMaximumSize(new java.awt.Dimension(63, 91));
+        player2card8.setMinimumSize(new java.awt.Dimension(63, 91));
+        player2card8.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane2.add(player2card8);
+        player2card8.setBounds(140, 0, 63, 91);
+
+        player2card7.setBackground(new java.awt.Color(0, 0, 0));
+        player2card7.setAlignmentX(1.6F);
+        player2card7.setMaximumSize(new java.awt.Dimension(63, 91));
+        player2card7.setMinimumSize(new java.awt.Dimension(63, 91));
+        player2card7.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane2.add(player2card7);
+        player2card7.setBounds(120, 0, 63, 91);
+
+        player2card6.setBackground(new java.awt.Color(0, 0, 0));
+        player2card6.setAlignmentX(1.4F);
+        player2card6.setMaximumSize(new java.awt.Dimension(63, 91));
+        player2card6.setMinimumSize(new java.awt.Dimension(63, 91));
+        player2card6.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane2.add(player2card6);
+        player2card6.setBounds(100, 0, 63, 91);
+
+        player2card5.setBackground(new java.awt.Color(0, 0, 0));
+        player2card5.setAlignmentX(1.2F);
+        player2card5.setMaximumSize(new java.awt.Dimension(63, 91));
+        player2card5.setMinimumSize(new java.awt.Dimension(63, 91));
+        player2card5.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane2.add(player2card5);
+        player2card5.setBounds(80, 0, 63, 91);
+
+        player2card4.setBackground(new java.awt.Color(0, 0, 0));
+        player2card4.setAlignmentX(1.0F);
+        player2card4.setMaximumSize(new java.awt.Dimension(63, 91));
+        player2card4.setMinimumSize(new java.awt.Dimension(63, 91));
+        player2card4.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane2.add(player2card4);
+        player2card4.setBounds(60, 0, 63, 91);
+
+        player2card3.setBackground(new java.awt.Color(0, 0, 0));
+        player2card3.setAlignmentX(0.8F);
+        player2card3.setMaximumSize(new java.awt.Dimension(63, 91));
+        player2card3.setMinimumSize(new java.awt.Dimension(63, 91));
+        player2card3.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane2.add(player2card3);
+        player2card3.setBounds(40, 0, 63, 91);
+
+        player2card2.setBackground(new java.awt.Color(0, 0, 0));
+        player2card2.setAlignmentX(0.6F);
+        player2card2.setMaximumSize(new java.awt.Dimension(63, 91));
+        player2card2.setMinimumSize(new java.awt.Dimension(63, 91));
+        player2card2.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane2.add(player2card2);
+        player2card2.setBounds(20, 0, 63, 91);
+
+        player2card1.setBackground(new java.awt.Color(0, 0, 0));
+        player2card1.setAlignmentX(0.4F);
+        player2card1.setMaximumSize(new java.awt.Dimension(63, 91));
+        player2card1.setMinimumSize(new java.awt.Dimension(63, 91));
+        player2card1.setPreferredSize(new java.awt.Dimension(63, 91));
+        jLayeredPane2.add(player2card1);
+        player2card1.setBounds(0, 0, 63, 91);
+
+        jLayeredPane3.setPreferredSize(new java.awt.Dimension(514, 91));
+
+        player1card13.setBackground(new java.awt.Color(0, 0, 0));
+        player1card13.setAlignmentX(0.4F);
+        player1card13.setMaximumSize(new java.awt.Dimension(91, 63));
+        player1card13.setMinimumSize(new java.awt.Dimension(91, 63));
+        player1card13.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane3.add(player1card13);
+        player1card13.setBounds(0, 0, 91, 63);
+
+        player1card12.setBackground(new java.awt.Color(0, 0, 0));
+        player1card12.setAlignmentX(0.4F);
+        player1card12.setMaximumSize(new java.awt.Dimension(91, 63));
+        player1card12.setMinimumSize(new java.awt.Dimension(91, 63));
+        player1card12.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane3.add(player1card12);
+        player1card12.setBounds(0, 20, 91, 63);
+
+        player1card11.setBackground(new java.awt.Color(0, 0, 0));
+        player1card11.setAlignmentX(0.4F);
+        player1card11.setMaximumSize(new java.awt.Dimension(91, 63));
+        player1card11.setMinimumSize(new java.awt.Dimension(91, 63));
+        player1card11.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane3.add(player1card11);
+        player1card11.setBounds(0, 40, 91, 63);
+
+        player1card10.setBackground(new java.awt.Color(0, 0, 0));
+        player1card10.setAlignmentX(0.4F);
+        player1card10.setMaximumSize(new java.awt.Dimension(91, 63));
+        player1card10.setMinimumSize(new java.awt.Dimension(91, 63));
+        player1card10.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane3.add(player1card10);
+        player1card10.setBounds(0, 60, 91, 63);
+
+        player1card9.setBackground(new java.awt.Color(0, 0, 0));
+        player1card9.setAlignmentX(0.4F);
+        player1card9.setMaximumSize(new java.awt.Dimension(91, 63));
+        player1card9.setMinimumSize(new java.awt.Dimension(91, 63));
+        player1card9.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane3.add(player1card9);
+        player1card9.setBounds(0, 80, 91, 63);
+
+        player1card8.setBackground(new java.awt.Color(0, 0, 0));
+        player1card8.setAlignmentX(0.4F);
+        player1card8.setMaximumSize(new java.awt.Dimension(91, 63));
+        player1card8.setMinimumSize(new java.awt.Dimension(91, 63));
+        player1card8.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane3.add(player1card8);
+        player1card8.setBounds(0, 100, 91, 63);
+
+        player1card7.setBackground(new java.awt.Color(0, 0, 0));
+        player1card7.setAlignmentX(0.4F);
+        player1card7.setMaximumSize(new java.awt.Dimension(91, 63));
+        player1card7.setMinimumSize(new java.awt.Dimension(91, 63));
+        player1card7.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane3.add(player1card7);
+        player1card7.setBounds(0, 120, 91, 63);
+
+        player1card6.setBackground(new java.awt.Color(0, 0, 0));
+        player1card6.setAlignmentX(0.4F);
+        player1card6.setMaximumSize(new java.awt.Dimension(91, 63));
+        player1card6.setMinimumSize(new java.awt.Dimension(91, 63));
+        player1card6.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane3.add(player1card6);
+        player1card6.setBounds(0, 140, 91, 63);
+
+        player1card5.setBackground(new java.awt.Color(0, 0, 0));
+        player1card5.setAlignmentX(0.4F);
+        player1card5.setMaximumSize(new java.awt.Dimension(91, 63));
+        player1card5.setMinimumSize(new java.awt.Dimension(91, 63));
+        player1card5.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane3.add(player1card5);
+        player1card5.setBounds(0, 160, 91, 63);
+
+        player1card4.setBackground(new java.awt.Color(0, 0, 0));
+        player1card4.setAlignmentX(0.4F);
+        player1card4.setMaximumSize(new java.awt.Dimension(91, 63));
+        player1card4.setMinimumSize(new java.awt.Dimension(91, 63));
+        player1card4.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane3.add(player1card4);
+        player1card4.setBounds(0, 180, 91, 63);
+
+        player1card3.setBackground(new java.awt.Color(0, 0, 0));
+        player1card3.setAlignmentX(0.4F);
+        player1card3.setMaximumSize(new java.awt.Dimension(91, 63));
+        player1card3.setMinimumSize(new java.awt.Dimension(91, 63));
+        player1card3.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane3.add(player1card3);
+        player1card3.setBounds(0, 200, 91, 63);
+
+        player1card2.setBackground(new java.awt.Color(0, 0, 0));
+        player1card2.setAlignmentX(0.4F);
+        player1card2.setMaximumSize(new java.awt.Dimension(91, 63));
+        player1card2.setMinimumSize(new java.awt.Dimension(91, 63));
+        player1card2.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane3.add(player1card2);
+        player1card2.setBounds(0, 220, 91, 63);
+
+        player1card1.setBackground(new java.awt.Color(0, 0, 0));
+        player1card1.setAlignmentX(0.4F);
+        player1card1.setMaximumSize(new java.awt.Dimension(91, 63));
+        player1card1.setMinimumSize(new java.awt.Dimension(91, 63));
+        player1card1.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane3.add(player1card1);
+        player1card1.setBounds(0, 240, 91, 63);
+
+        jLayeredPane4.setPreferredSize(new java.awt.Dimension(514, 91));
+
+        player3card13.setBackground(new java.awt.Color(0, 0, 0));
+        player3card13.setAlignmentX(0.4F);
+        player3card13.setMaximumSize(new java.awt.Dimension(91, 63));
+        player3card13.setMinimumSize(new java.awt.Dimension(91, 63));
+        player3card13.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane4.add(player3card13);
+        player3card13.setBounds(0, 240, 91, 63);
+
+        player3card12.setBackground(new java.awt.Color(0, 0, 0));
+        player3card12.setAlignmentX(0.4F);
+        player3card12.setMaximumSize(new java.awt.Dimension(91, 63));
+        player3card12.setMinimumSize(new java.awt.Dimension(91, 63));
+        player3card12.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane4.add(player3card12);
+        player3card12.setBounds(0, 220, 91, 63);
+
+        player3card11.setBackground(new java.awt.Color(0, 0, 0));
+        player3card11.setAlignmentX(0.4F);
+        player3card11.setMaximumSize(new java.awt.Dimension(91, 63));
+        player3card11.setMinimumSize(new java.awt.Dimension(91, 63));
+        player3card11.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane4.add(player3card11);
+        player3card11.setBounds(0, 200, 91, 63);
+
+        player3card10.setBackground(new java.awt.Color(0, 0, 0));
+        player3card10.setAlignmentX(0.4F);
+        player3card10.setMaximumSize(new java.awt.Dimension(91, 63));
+        player3card10.setMinimumSize(new java.awt.Dimension(91, 63));
+        player3card10.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane4.add(player3card10);
+        player3card10.setBounds(0, 180, 91, 63);
+
+        player3card9.setBackground(new java.awt.Color(0, 0, 0));
+        player3card9.setAlignmentX(0.4F);
+        player3card9.setMaximumSize(new java.awt.Dimension(91, 63));
+        player3card9.setMinimumSize(new java.awt.Dimension(91, 63));
+        player3card9.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane4.add(player3card9);
+        player3card9.setBounds(0, 160, 91, 63);
+
+        player3card8.setBackground(new java.awt.Color(0, 0, 0));
+        player3card8.setAlignmentX(0.4F);
+        player3card8.setMaximumSize(new java.awt.Dimension(91, 63));
+        player3card8.setMinimumSize(new java.awt.Dimension(91, 63));
+        player3card8.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane4.add(player3card8);
+        player3card8.setBounds(0, 140, 91, 63);
+
+        player3card7.setBackground(new java.awt.Color(0, 0, 0));
+        player3card7.setAlignmentX(0.4F);
+        player3card7.setMaximumSize(new java.awt.Dimension(91, 63));
+        player3card7.setMinimumSize(new java.awt.Dimension(91, 63));
+        player3card7.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane4.add(player3card7);
+        player3card7.setBounds(0, 120, 91, 63);
+
+        player3card6.setBackground(new java.awt.Color(0, 0, 0));
+        player3card6.setAlignmentX(0.4F);
+        player3card6.setMaximumSize(new java.awt.Dimension(91, 63));
+        player3card6.setMinimumSize(new java.awt.Dimension(91, 63));
+        player3card6.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane4.add(player3card6);
+        player3card6.setBounds(0, 100, 91, 63);
+
+        player3card5.setBackground(new java.awt.Color(0, 0, 0));
+        player3card5.setAlignmentX(0.4F);
+        player3card5.setMaximumSize(new java.awt.Dimension(91, 63));
+        player3card5.setMinimumSize(new java.awt.Dimension(91, 63));
+        player3card5.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane4.add(player3card5);
+        player3card5.setBounds(0, 80, 91, 63);
+
+        player3card4.setBackground(new java.awt.Color(0, 0, 0));
+        player3card4.setAlignmentX(0.4F);
+        player3card4.setMaximumSize(new java.awt.Dimension(91, 63));
+        player3card4.setMinimumSize(new java.awt.Dimension(91, 63));
+        player3card4.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane4.add(player3card4);
+        player3card4.setBounds(0, 60, 91, 63);
+
+        player3card3.setBackground(new java.awt.Color(0, 0, 0));
+        player3card3.setAlignmentX(0.4F);
+        player3card3.setMaximumSize(new java.awt.Dimension(91, 63));
+        player3card3.setMinimumSize(new java.awt.Dimension(91, 63));
+        player3card3.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane4.add(player3card3);
+        player3card3.setBounds(0, 40, 91, 63);
+
+        player3card2.setBackground(new java.awt.Color(0, 0, 0));
+        player3card2.setAlignmentX(0.4F);
+        player3card2.setMaximumSize(new java.awt.Dimension(91, 63));
+        player3card2.setMinimumSize(new java.awt.Dimension(91, 63));
+        player3card2.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane4.add(player3card2);
+        player3card2.setBounds(0, 20, 91, 63);
+
+        player3card1.setBackground(new java.awt.Color(0, 0, 0));
+        player3card1.setAlignmentX(0.4F);
+        player3card1.setMaximumSize(new java.awt.Dimension(91, 63));
+        player3card1.setMinimumSize(new java.awt.Dimension(91, 63));
+        player3card1.setPreferredSize(new java.awt.Dimension(91, 63));
+        jLayeredPane4.add(player3card1);
+        player3card1.setBounds(0, 0, 91, 63);
+
+        playerScore.setText("0");
+
+        jMenu1.setText("New Game");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("View Stats");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(191, 191, 191)
+                        .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(89, 89, 89)
                         .addComponent(trickCardLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(trickCardBottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(trickCardTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(trickCardRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 112, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(50, 50, 50)))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLayeredPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(135, 135, 135)
-                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
-                        .addComponent(swapBttn)))
-                .addContainerGap())
+                        .addGap(46, 46, 46)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(playBttn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(playerScore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(swapBttn))
+                .addContainerGap()
+                .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(171, 171, 171)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(trickCardTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(35, 35, 35)
-                                        .addComponent(trickCardBottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(81, 81, 81)
-                                        .addComponent(trickCardLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(69, 69, 69)
+                                .addComponent(trickCardTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(trickCardBottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(trickCardRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(54, 54, 54)))
-                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(trickCardLeft, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(trickCardRight, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(106, 106, 106)))
+                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(playerScore)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                                .addComponent(playBttn))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void SwapCards(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SwapCards
-        hideSwapButton();
-        numSelectedCards = 0;
-        engine.buildBuffers();
-        update();
-        reset();
-    }//GEN-LAST:event_SwapCards
+    private void bttnPressed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnPressed
+        if (playBttn.getText().equals("Swap") && numSelectedCards == 3) {
+            numSelectedCards = 0;
+            engine.buildBuffers();
+            updateCards();
+            reset();
+        } else if (playBttn.getText().equals("Start Turn")) {
+            startNextPlayer();
+        }
+    }//GEN-LAST:event_bttnPressed
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        // create new instance of view stats gui
+    }//GEN-LAST:event_jMenu2MouseClicked
 
     
     public static void main(String args[]) {
@@ -459,7 +951,53 @@ public class Hearts extends javax.swing.JFrame {
     private javax.swing.JLabel card8;
     private javax.swing.JLabel card9;
     private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JButton swapBttn;
+    private javax.swing.JLayeredPane jLayeredPane2;
+    private javax.swing.JLayeredPane jLayeredPane3;
+    private javax.swing.JLayeredPane jLayeredPane4;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JButton playBttn;
+    private javax.swing.JLabel player1card1;
+    private javax.swing.JLabel player1card10;
+    private javax.swing.JLabel player1card11;
+    private javax.swing.JLabel player1card12;
+    private javax.swing.JLabel player1card13;
+    private javax.swing.JLabel player1card2;
+    private javax.swing.JLabel player1card3;
+    private javax.swing.JLabel player1card4;
+    private javax.swing.JLabel player1card5;
+    private javax.swing.JLabel player1card6;
+    private javax.swing.JLabel player1card7;
+    private javax.swing.JLabel player1card8;
+    private javax.swing.JLabel player1card9;
+    private javax.swing.JLabel player2card1;
+    private javax.swing.JLabel player2card10;
+    private javax.swing.JLabel player2card11;
+    private javax.swing.JLabel player2card12;
+    private javax.swing.JLabel player2card13;
+    private javax.swing.JLabel player2card2;
+    private javax.swing.JLabel player2card3;
+    private javax.swing.JLabel player2card4;
+    private javax.swing.JLabel player2card5;
+    private javax.swing.JLabel player2card6;
+    private javax.swing.JLabel player2card7;
+    private javax.swing.JLabel player2card8;
+    private javax.swing.JLabel player2card9;
+    private javax.swing.JLabel player3card1;
+    private javax.swing.JLabel player3card10;
+    private javax.swing.JLabel player3card11;
+    private javax.swing.JLabel player3card12;
+    private javax.swing.JLabel player3card13;
+    private javax.swing.JLabel player3card2;
+    private javax.swing.JLabel player3card3;
+    private javax.swing.JLabel player3card4;
+    private javax.swing.JLabel player3card5;
+    private javax.swing.JLabel player3card6;
+    private javax.swing.JLabel player3card7;
+    private javax.swing.JLabel player3card8;
+    private javax.swing.JLabel player3card9;
+    private javax.swing.JLabel playerScore;
     private javax.swing.JLabel trickCardBottom;
     private javax.swing.JLabel trickCardLeft;
     private javax.swing.JLabel trickCardRight;
