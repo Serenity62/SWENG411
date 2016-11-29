@@ -45,7 +45,7 @@ public class Hearts extends javax.swing.JFrame {
                         thisCardLabel.setLocation(thisCardLabel.getX(), thisCardLabel.getY()-20);
                         //thisTrick.addCard(engine.getActivePlayer().playCard(), engine.getHeartsBroken());
                         engine.addCardToTrick();
-                        numSelectedCards--;
+                        //numSelectedCards--;
                         thisCardLabel.setLocation(thisCardLabel.getX(), thisCardLabel.getY()+20);
                         System.out.println("Trip in playing card by the double tap");
                         resetTrick();
@@ -64,6 +64,7 @@ public class Hearts extends javax.swing.JFrame {
                             numSelectedCards++;
                         }
                     }
+                    System.out.printf("Selected Max: %d\nNum Selected: %d\n", selectedMax, numSelectedCards);   // Debug purposes.
                 }
             }
         }
@@ -237,7 +238,8 @@ public class Hearts extends javax.swing.JFrame {
             cardsInHand[i].setVisible(true);
         }
         playBttn.setText("Swap");
-        playBttn.setVisible(false);
+        //playBttn.setVisible(false);
+        showSwapButton();
     }
     
     public void resetTrick() {
@@ -892,6 +894,7 @@ public class Hearts extends javax.swing.JFrame {
             reset();
         } else if (playBttn.getText().equals("Start Turn")) {
             startNextPlayer();
+            numSelectedCards = 0;
         }
     }//GEN-LAST:event_bttnPressed
 
