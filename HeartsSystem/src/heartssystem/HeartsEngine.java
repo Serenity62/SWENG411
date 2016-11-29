@@ -5,6 +5,7 @@ import java.util.LinkedList;
 
 public class HeartsEngine {
     private Deck deck = new Deck();
+    private HeartsSession session;
     private LinkedList <Card> tempHand = new LinkedList();
     private LinkedList<Card>[] buffers = new LinkedList[4];
     private Trick currentTrick;
@@ -21,6 +22,7 @@ public class HeartsEngine {
     
     public HeartsEngine()
     {
+        session = new HeartsSession();
         for(i = 0; i < 4; i++)
         {
             players[i] = new Player(i + 1);
@@ -128,6 +130,10 @@ public class HeartsEngine {
         return winner;
     }
     
+    public HeartsSession getSession(){
+        return session;
+    }
+    
     public void addCardToTrick()
     {
         brokenHearts = currentTrick.addCard(players[activeID].playCard(), brokenHearts);
@@ -140,6 +146,32 @@ public class HeartsEngine {
     public void assignPoints()
     {
         players[currentTrick.getPlayerNumber()].takeCards(currentTrick.take());
+        if (players[currentTrick.getPlayerNumber()].getTakenPoints() == 28){
+            players[currentTrick.getPlayerNumber()].addScore(-28);
+            session.addMoon(currentTrick.getPlayerNumber());
+            switch(currentTrick.getPlayerNumber()){
+                case 0:
+                    players[1].addScore(28);
+                    players[2].addScore(28);
+                    players[3].addScore(28);
+                    break;
+                case 1:
+                    players[0].addScore(28);
+                    players[2].addScore(28);
+                    players[3].addScore(28);
+                    break;
+                case 2:
+                    players[0].addScore(28);
+                    players[1].addScore(28);
+                    players[3].addScore(28);
+                    break;
+                case 3:
+                    players[0].addScore(28);
+                    players[1].addScore(28);
+                    players[2].addScore(28);
+                    break;
+            }
+        }
     }
     
     public void startTrick(){
@@ -199,6 +231,7 @@ public class HeartsEngine {
             if (players[i].getPoints() >= 100){
                 vict = true;
                 winner = players[i];
+                session.addWin(i);
             }
         }
         return vict;

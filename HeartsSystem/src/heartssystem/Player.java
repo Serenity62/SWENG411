@@ -70,7 +70,20 @@ public class Player {
         
     }
     
-    public void updateTotal(){
+    public int getTakenPoints(){
+        int tempPoints = 0;
+        for (int i = 0; i < cardsTaken.size(); i++){
+            tempPoints = tempPoints + cardsTaken.get(i).getPoints();
+        }
+        
+        return tempPoints;
+    }
+    
+    public void addScore(int sc){
+        points = points + sc;
+    }
+    
+    public void updateScore(){
         for (int i = 0; i < cardsTaken.size(); i++)
         {
             points = points + cardsTaken.get(i).getPoints();
