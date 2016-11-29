@@ -78,6 +78,7 @@ public class Hand {
                 cardsContained.getCard(i).setSelected(false);
                 selected = cardsContained.getCard(i);
                 cardsContained.removeCard(selected);
+                i = cardsContained.getSize();
             }
         }
         

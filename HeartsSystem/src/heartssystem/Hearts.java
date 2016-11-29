@@ -39,14 +39,25 @@ public class Hearts extends javax.swing.JFrame {
                             (((thisTrick.getSize() < 1) && (inSuit || !thisHand.hasSuit(thisTrick.getOpening())) || 
                             (thisCard.getSuit() != 3 || engine.getHeartsBroken() || 
                             (!thisHand.hasSuit(0) && !thisHand.hasSuit(1) && !thisHand.hasSuit(2))))) ||
-                            (thisTrick.getSize() >= 1 && (inSuit || !thisHand.hasSuit(thisTrick.getOpening())))) // trying to play a card
+                            (thisTrick.getSize() >= 1 && (inSuit || !thisHand.hasSuit(thisTrick.getOpening())))) // trying to play a card / Check this logic
                     {
+                        if(!thisCard.getSelected() && numSelectedCards == 1){
+                            for (int i = 0; i < thisHand.getSize(); i++) {
+                                if (thisHand.getCard(i + 1).getSelected()) {
+                                    thisHand.getCard(i + 1).setSelected(false);
+                                    cardsInHand[i].setLocation(thisCardLabel.getX(), thisCardLabel.getY()+20);
+                                    numSelectedCards--;
+                                }
+                            }
+                            
+                        }
                         thisCard.setSelected(true);
                         thisCardLabel.setLocation(thisCardLabel.getX(), thisCardLabel.getY()-20);
+                        
                         //thisTrick.addCard(engine.getActivePlayer().playCard(), engine.getHeartsBroken());
                         engine.addCardToTrick();
                         //numSelectedCards--;
-                        thisCardLabel.setLocation(thisCardLabel.getX(), thisCardLabel.getY()+20);
+                        
                         System.out.println("Trip in playing card by the double tap");
                         resetTrick();
                         updateCards();
@@ -64,7 +75,7 @@ public class Hearts extends javax.swing.JFrame {
                             numSelectedCards++;
                         }
                     }
-                    System.out.printf("Selected Max: %d\nNum Selected: %d\n", selectedMax, numSelectedCards);   // Debug purposes.
+                    //System.out.printf("Selected Max: %d\nNum Selected: %d\n", selectedMax, numSelectedCards);   // Debug purposes.
                 }
             }
         }
@@ -180,12 +191,13 @@ public class Hearts extends javax.swing.JFrame {
     public void updateCards() {
         Card thisC;
         Player thisPlayer = engine.getActivePlayer();
+        System.out.printf("\nPlayer : %s\n", engine.getPlayerID());
         Hand thisHand = thisPlayer.getHand();
         int j = 13-thisHand.getSize();
         for (int i =thisHand.getSize() - 1; i >= 0; i--)
         {
             thisC = thisHand.getCard(i+1);
-            System.out.printf("%d %d %s\n", thisC.getSuit(),thisC.getFace(), thisC.getSelected());
+            System.out.printf("%d. %d %d %s\n", i, thisC.getSuit(),thisC.getFace(), thisC.getSelected());
             cardsInHand[i].setIcon(cardFiles[thisC.getSuit()][thisC.getFace() - 1]);
         }
         for(int i = thisHand.getSize(); i < 13; i++)
@@ -221,6 +233,7 @@ public class Hearts extends javax.swing.JFrame {
         for (int i = 0; i < 13; i++) {
             if (cardsInHand[i].getY() < defaultY) {
                 cardsInHand[i].setLocation(cardsInHand[i].getX(), cardsInHand[i].getY()+20);
+                System.out.printf("\nDeselct happend. Default y: %d\nIndex : %d", defaultY, i);
             }
         }
     }

@@ -54,6 +54,7 @@ public class HeartsEngine {
             this.endPassing();
             this.swapCards();
             passCount = 0;
+        System.out.println("----------------------------");
         }
         else
         {
@@ -179,8 +180,10 @@ public class HeartsEngine {
     }
     
     public void endTrick(){
+        System.out.println("----------------------------");
         this.assignPoints();
         if (trickNum < 12){
+            this.activeID = this.currentTrick.getPlayerNumber();
             this.startTrick();
             trickNum++;
         }
@@ -194,7 +197,7 @@ public class HeartsEngine {
         activeID = 0;
         this.dealCards();
         while(!(players[activeID].getHand().getCard(1).getSuit() == 0 
-                    && players[activeID].getHand().getCard(1).getFace() == 2)){
+                    && players[activeID].getHand().getCard(1).getFace() == 1)){ // Check this logic
             activeID++;
             if(activeID == 4){
                 activeID--;
