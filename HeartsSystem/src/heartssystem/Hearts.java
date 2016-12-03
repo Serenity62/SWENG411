@@ -45,7 +45,7 @@ public class Hearts extends javax.swing.JFrame {
                             for (int i = 0; i < thisHand.getSize(); i++) {
                                 if (thisHand.getCard(i + 1).getSelected()) {
                                     thisHand.getCard(i + 1).setSelected(false);
-                                    cardsInHand[i].setLocation(thisCardLabel.getX(), thisCardLabel.getY()+20);
+                                    //cardsInHand[i].setLocation(thisCardLabel.getX(), thisCardLabel.getY()+20);    // could be grabbing the wrong one
                                     numSelectedCards--;
                                 }
                             }
@@ -59,6 +59,7 @@ public class Hearts extends javax.swing.JFrame {
                         //numSelectedCards--;
                         
                         System.out.println("Trip in playing card by the double tap");
+                        System.out.printf("click count: %d\n", e.getClickCount());
                         resetTrick();
                         updateCards();
                         reset();
@@ -203,6 +204,7 @@ public class Hearts extends javax.swing.JFrame {
         for(int i = thisHand.getSize(); i < 13; i++)
         {
             cardsInHand[i].setIcon(null);
+            cardsInHand[i].setVisible(false);
         }
         Trick thisTrick = engine.getCurrentTrick();
         for (int i = 0; i < thisTrick.getSize(); i++)
