@@ -36,12 +36,12 @@ public class Hearts extends javax.swing.JFrame {
                     Card thisCard = thisHand.getCard(num);
                     boolean inSuit = thisTrick.getOpening() == thisCard.getSuit();
                     if (e.getClickCount() >= 2 && !engine.getSwapping() && 
-                            (((thisTrick.getSize() < 1) && (inSuit || !thisHand.hasSuit(thisTrick.getOpening())) || 
-                            (thisCard.getSuit() != 3 || engine.getHeartsBroken() || 
-                            (!thisHand.hasSuit(0) && !thisHand.hasSuit(1) && !thisHand.hasSuit(2))))) ||
-                            (thisTrick.getSize() >= 1 && (inSuit || !thisHand.hasSuit(thisTrick.getOpening())))) // trying to play a card / Check this logic
+                            ((((thisTrick.getSize() < 1) && (inSuit || !thisHand.hasSuit(thisTrick.getOpening())) 
+                                || (thisCard.getSuit() != 3 || engine.getHeartsBroken() 
+                                || (!thisHand.hasSuit(0) && !thisHand.hasSuit(1) && !thisHand.hasSuit(2)))))
+                            || (thisTrick.getSize() >= 1 && (inSuit || !thisHand.hasSuit(thisTrick.getOpening()))))) // trying to play a card / Check this logic
                     {
-                        if(!thisCard.getSelected() && numSelectedCards == 1){
+                        if(!thisCard.getSelected() && numSelectedCards >= 1){
                             for (int i = 0; i < thisHand.getSize(); i++) {
                                 if (thisHand.getCard(i + 1).getSelected()) {
                                     thisHand.getCard(i + 1).setSelected(false);
@@ -52,7 +52,7 @@ public class Hearts extends javax.swing.JFrame {
                             
                         }
                         thisCard.setSelected(true);
-                        thisCardLabel.setLocation(thisCardLabel.getX(), thisCardLabel.getY()-20);
+                        //thisCardLabel.setLocation(thisCardLabel.getX(), thisCardLabel.getY()-20);
                         
                         //thisTrick.addCard(engine.getActivePlayer().playCard(), engine.getHeartsBroken());
                         engine.addCardToTrick();
