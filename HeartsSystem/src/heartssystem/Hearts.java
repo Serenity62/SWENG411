@@ -256,8 +256,8 @@ public class Hearts extends BasicGUI {
         playBttn.setText("Swap");
         //playBttn.setVisible(false);
         showSwapButton();
-        playerScore.setText(String.format("%d", engine.getActivePlayer().getPoints()));
-        System.out.printf("\nPoints: %d\n", engine.getActivePlayer().getPoints());
+        //playerScore.setText(String.format("%d", engine.getActivePlayer().getPoints()));
+        //System.out.printf("\nPoints: %d\n", engine.getActivePlayer().getPoints());
     }
     
     private void resetTrick() {
