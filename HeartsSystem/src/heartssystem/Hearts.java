@@ -8,36 +8,35 @@ import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-public class Hearts extends javax.swing.JFrame {
-    private HeartsEngine engine;
+public class Hearts extends BasicGUI {
     private final ImageIcon[][] cardFiles = new ImageIcon[4][13];
     private ImageIcon cardbackFile[] = new ImageIcon[2];
     private final String[] suits = {"Clubs","Diamonds","Spades","Hearts"};
     private final JLabel[] cardsInHand = new JLabel[13];
-    private final JLabel[][] cardsInPlayersHand = new JLabel[3][13];
+    private final JLabel[][] numPlayersCards = new JLabel[3][13];
     private final JLabel[] cardsInTrick = new JLabel[4];
     private int numSelectedCards = 0;
     private int defaultY = 0;
     
-    private class mouseHandler extends MouseAdapter {
+    private class cardClicked extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent e)
         {
             int selectedMax = 1;
-            if (engine.getSwapping()) {
+            if (getEngine().getSwapping()) {
                 selectedMax+=2;
             }
             if (numSelectedCards <= selectedMax) {
                 JLabel thisCardLabel = (JLabel)e.getSource();
                 if(thisCardLabel.getIcon() != null){
                     int num = Integer.parseInt(thisCardLabel.getText()) + 1;
-                    Trick thisTrick = engine.getCurrentTrick();
-                    Hand thisHand = engine.getActivePlayer().getHand();
+                    Trick thisTrick = getEngine().getCurrentTrick();
+                    Hand thisHand = getEngine().getActivePlayer().getHand();
                     Card thisCard = thisHand.getCard(num);
                     boolean inSuit = thisTrick.getOpening() == thisCard.getSuit();
-                    if (e.getClickCount() >= 2 && !engine.getSwapping() && 
+                    if (e.getClickCount() >= 2 && !getEngine().getSwapping() && 
                             ((((thisTrick.getSize() < 1) && (inSuit || !thisHand.hasSuit(thisTrick.getOpening())) 
-                                || (thisCard.getSuit() != 3 || engine.getHeartsBroken() 
+                                || (thisCard.getSuit() != 3 || getEngine().getHeartsBroken() 
                                 || (!thisHand.hasSuit(0) && !thisHand.hasSuit(1) && !thisHand.hasSuit(2)))))
                             || (thisTrick.getSize() >= 1 && (inSuit || !thisHand.hasSuit(thisTrick.getOpening()))))) // trying to play a card / Check this logic
                     {
@@ -55,7 +54,7 @@ public class Hearts extends javax.swing.JFrame {
                         //thisCardLabel.setLocation(thisCardLabel.getX(), thisCardLabel.getY()-20);
                         
                         //thisTrick.addCard(engine.getActivePlayer().playCard(), engine.getHeartsBroken());
-                        engine.addCardToTrick();
+                        getEngine().addCardToTrick();
                         //numSelectedCards--;
                         
                         System.out.println("Trip in playing card by the double tap");
@@ -63,15 +62,19 @@ public class Hearts extends javax.swing.JFrame {
                         resetTrick();
                         updateCards();
                         reset();
+                        if (getEngine().getTrickNum() >= 12) {
+                            EndRoundGUI endR = new EndRoundGUI();
+                            endR.setVisible(true);
+                        }
                         swapPlayers(); // preps for shift to next player
                     } else {
-                        if (engine.getActivePlayer().getHand().getCard(num).getSelected()) { // card is selected
-                            engine.getActivePlayer().getHand().getCard(num).setSelected(false);
+                        if (getEngine().getActivePlayer().getHand().getCard(num).getSelected()) { // card is selected
+                            getEngine().getActivePlayer().getHand().getCard(num).setSelected(false);
                             thisCardLabel.setLocation(thisCardLabel.getX(), thisCardLabel.getY()+20);
                             numSelectedCards--;
                         } else if(numSelectedCards < selectedMax){
                             // card is not selected
-                            engine.getActivePlayer().getHand().getCard(num).setSelected(true);
+                            getEngine().getActivePlayer().getHand().getCard(num).setSelected(true);
                             thisCardLabel.setLocation(thisCardLabel.getX(), thisCardLabel.getY()-20);
                             numSelectedCards++;
                         }
@@ -83,8 +86,8 @@ public class Hearts extends javax.swing.JFrame {
     }
     
     public Hearts() {
+        super();
         initComponents();
-        engine = new HeartsEngine();
         playBttn.setVisible(false);
         for (int suit = 0; suit < 4; suit++) {
             for (int face = 1; face < 14; face++) {
@@ -104,7 +107,7 @@ public class Hearts extends javax.swing.JFrame {
         cardsInTrick[1] = trickCardTop;
         cardsInTrick[2] = trickCardRight;
         cardsInTrick[3] = trickCardBottom;
-        mouseHandler mHand = new mouseHandler();
+        cardClicked mHand = new cardClicked();
         cardsInHand[0] = card1;
         cardsInHand[1] = card2;
         cardsInHand[2] = card3;
@@ -133,51 +136,51 @@ public class Hearts extends javax.swing.JFrame {
         card12.addMouseListener(mHand);
         card13.addMouseListener(mHand);
         
-        cardsInPlayersHand[0][0] = player1card1;
-        cardsInPlayersHand[0][1] = player1card2;
-        cardsInPlayersHand[0][2] = player1card3;
-        cardsInPlayersHand[0][3] = player1card4;
-        cardsInPlayersHand[0][4] = player1card5;
-        cardsInPlayersHand[0][5] = player1card6;
-        cardsInPlayersHand[0][6] = player1card7;
-        cardsInPlayersHand[0][7] = player1card8;
-        cardsInPlayersHand[0][8] = player1card9;
-        cardsInPlayersHand[0][9] = player1card10;
-        cardsInPlayersHand[0][10] = player1card11;
-        cardsInPlayersHand[0][11] = player1card12;
-        cardsInPlayersHand[0][12] = player1card13;
-        cardsInPlayersHand[1][0] = player2card1;
-        cardsInPlayersHand[1][1] = player2card2;
-        cardsInPlayersHand[1][2] = player2card3;
-        cardsInPlayersHand[1][3] = player2card4;
-        cardsInPlayersHand[1][4] = player2card5;
-        cardsInPlayersHand[1][5] = player2card6;
-        cardsInPlayersHand[1][6] = player2card7;
-        cardsInPlayersHand[1][7] = player2card8;
-        cardsInPlayersHand[1][8] = player2card9;
-        cardsInPlayersHand[1][9] = player2card10;
-        cardsInPlayersHand[1][10] = player2card11;
-        cardsInPlayersHand[1][11] = player2card12;
-        cardsInPlayersHand[1][12] = player2card13;
-        cardsInPlayersHand[2][0] = player3card1;
-        cardsInPlayersHand[2][1] = player3card2;
-        cardsInPlayersHand[2][2] = player3card3;
-        cardsInPlayersHand[2][3] = player3card4;
-        cardsInPlayersHand[2][4] = player3card5;
-        cardsInPlayersHand[2][5] = player3card6;
-        cardsInPlayersHand[2][6] = player3card7;
-        cardsInPlayersHand[2][7] = player3card8;
-        cardsInPlayersHand[2][8] = player3card9;
-        cardsInPlayersHand[2][9] = player3card10;
-        cardsInPlayersHand[2][10] = player3card11;
-        cardsInPlayersHand[2][11] = player3card12;
-        cardsInPlayersHand[2][12] = player3card13;
+        numPlayersCards[0][0] = player1card1;
+        numPlayersCards[0][1] = player1card2;
+        numPlayersCards[0][2] = player1card3;
+        numPlayersCards[0][3] = player1card4;
+        numPlayersCards[0][4] = player1card5;
+        numPlayersCards[0][5] = player1card6;
+        numPlayersCards[0][6] = player1card7;
+        numPlayersCards[0][7] = player1card8;
+        numPlayersCards[0][8] = player1card9;
+        numPlayersCards[0][9] = player1card10;
+        numPlayersCards[0][10] = player1card11;
+        numPlayersCards[0][11] = player1card12;
+        numPlayersCards[0][12] = player1card13;
+        numPlayersCards[1][0] = player2card1;
+        numPlayersCards[1][1] = player2card2;
+        numPlayersCards[1][2] = player2card3;
+        numPlayersCards[1][3] = player2card4;
+        numPlayersCards[1][4] = player2card5;
+        numPlayersCards[1][5] = player2card6;
+        numPlayersCards[1][6] = player2card7;
+        numPlayersCards[1][7] = player2card8;
+        numPlayersCards[1][8] = player2card9;
+        numPlayersCards[1][9] = player2card10;
+        numPlayersCards[1][10] = player2card11;
+        numPlayersCards[1][11] = player2card12;
+        numPlayersCards[1][12] = player2card13;
+        numPlayersCards[2][0] = player3card1;
+        numPlayersCards[2][1] = player3card2;
+        numPlayersCards[2][2] = player3card3;
+        numPlayersCards[2][3] = player3card4;
+        numPlayersCards[2][4] = player3card5;
+        numPlayersCards[2][5] = player3card6;
+        numPlayersCards[2][6] = player3card7;
+        numPlayersCards[2][7] = player3card8;
+        numPlayersCards[2][8] = player3card9;
+        numPlayersCards[2][9] = player3card10;
+        numPlayersCards[2][10] = player3card11;
+        numPlayersCards[2][11] = player3card12;
+        numPlayersCards[2][12] = player3card13;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 13; j++) {
                 if (i == 0 || i == 2) {
-                    cardsInPlayersHand[i][j].setIcon(cardbackFile[1]);
+                    numPlayersCards[i][j].setIcon(cardbackFile[1]);
                 } else {
-                    cardsInPlayersHand[i][j].setIcon(cardbackFile[0]);
+                    numPlayersCards[i][j].setIcon(cardbackFile[0]);
                 }
             }
         }
@@ -185,14 +188,10 @@ public class Hearts extends javax.swing.JFrame {
         showSwapButton();
     }
     
-    public void updateScore() {
-        playerScore.setText(Integer.toString(engine.getActivePlayer().getPoints()));
-    }
-    
-    public void updateCards() {
+    private void updateCards() {
         Card thisC;
-        Player thisPlayer = engine.getActivePlayer();
-        System.out.printf("\nPlayer : %s\n", engine.getPlayerID());
+        Player thisPlayer = getEngine().getActivePlayer();
+        System.out.printf("\nPlayer : %s\n", getEngine().getPlayerID());
         Hand thisHand = thisPlayer.getHand();
         int j = 13-thisHand.getSize();
         for (int i =thisHand.getSize() - 1; i >= 0; i--)
@@ -206,7 +205,7 @@ public class Hearts extends javax.swing.JFrame {
             cardsInHand[i].setIcon(null);
             cardsInHand[i].setVisible(false);
         }
-        Trick thisTrick = engine.getCurrentTrick();
+        Trick thisTrick = getEngine().getCurrentTrick();
         for (int i = 0; i < thisTrick.getSize(); i++)
         {
             thisC = thisTrick.getCardPlayed(i);
@@ -214,24 +213,24 @@ public class Hearts extends javax.swing.JFrame {
         }
     }
     
-    public void updateHandSizes() {
-        int id = engine.getPlayerID();
+    private void updateHandSizes() {
+        int id = getEngine().getPlayerID();
         for (int i = 0; i < 3; i++) {
             id++;
             if (id == 4) {
                 id = 0;
             }
-            int numCards = engine.getPlayer(id).getHand().getSize();
+            int numCards = getEngine().getPlayer(id).getHand().getSize();
             for (int j = 0; j < numCards; j++) {
-                cardsInPlayersHand[i][j].setVisible(true);
+                numPlayersCards[i][j].setVisible(true);
             }
             for (int j = numCards; j < 13; j++) {
-                cardsInPlayersHand[i][j].setVisible(false);
+                numPlayersCards[i][j].setVisible(false);
             }
         }
     }
     
-    public void reset() {
+    private void reset() {
         for (int i = 0; i < 13; i++) {
             if (cardsInHand[i].getY() < defaultY) {
                 cardsInHand[i].setLocation(cardsInHand[i].getX(), cardsInHand[i].getY()+20);
@@ -240,7 +239,7 @@ public class Hearts extends javax.swing.JFrame {
         }
     }
     
-    public void swapPlayers() {
+    private void swapPlayers() {
         for (int i = 0; i < 13; i++) {
             cardsInHand[i].setVisible(false);
         }
@@ -248,7 +247,7 @@ public class Hearts extends javax.swing.JFrame {
         playBttn.setVisible(true);
     }
     
-    public void startNextPlayer() {
+    private void startNextPlayer() {
         for (int i = 0; i < 13; i++) {
             cardsInHand[i].setVisible(true);
         }
@@ -257,7 +256,7 @@ public class Hearts extends javax.swing.JFrame {
         showSwapButton();
     }
     
-    public void resetTrick() {
+    private void resetTrick() {
         for (int i = 0; i < 4; i++) {
             cardsInTrick[i].setIcon(null);
         }
@@ -341,10 +340,9 @@ public class Hearts extends javax.swing.JFrame {
         player3card3 = new javax.swing.JLabel();
         player3card2 = new javax.swing.JLabel();
         player3card1 = new javax.swing.JLabel();
-        playerScore = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        newGameMenuButton = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        statsMenuButton = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -812,20 +810,18 @@ public class Hearts extends javax.swing.JFrame {
         jLayeredPane4.add(player3card1);
         player3card1.setBounds(0, 0, 91, 63);
 
-        playerScore.setText("0");
-
         jMenu1.setText("New Game");
-        jMenuBar1.add(jMenu1);
+        newGameMenuButton.add(jMenu1);
 
-        jMenu2.setText("View Stats");
-        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+        statsMenuButton.setText("View Stats");
+        statsMenuButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu2MouseClicked(evt);
+                statsMenuButtonMouseClicked(evt);
             }
         });
-        jMenuBar1.add(jMenu2);
+        newGameMenuButton.add(statsMenuButton);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(newGameMenuButton);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -857,9 +853,7 @@ public class Hearts extends javax.swing.JFrame {
                     .addComponent(jLayeredPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(46, 46, 46)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(playBttn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(playerScore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(playBttn)
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -873,9 +867,9 @@ public class Hearts extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(69, 69, 69)
                                 .addComponent(trickCardTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                                 .addComponent(trickCardBottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -888,9 +882,7 @@ public class Hearts extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(playerScore)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(playBttn))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -904,22 +896,23 @@ public class Hearts extends javax.swing.JFrame {
     private void bttnPressed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnPressed
         if (playBttn.getText().equals("Swap") && numSelectedCards == 3) {
             numSelectedCards = 0;
-            engine.buildBuffers();
+            getEngine().buildBuffers();
             updateCards();
             reset();
             swapPlayers();
         } else if (playBttn.getText().equals("Start Turn")) {
             startNextPlayer();
-            if(!engine.getSwapping()){
+            if(!getEngine().getSwapping()){
                 hideSwapButton();
             }
             numSelectedCards = 0;
         }
     }//GEN-LAST:event_bttnPressed
 
-    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
-        // create new instance of view stats gui
-    }//GEN-LAST:event_jMenu2MouseClicked
+    private void statsMenuButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_statsMenuButtonMouseClicked
+        StatsGUI stats = new StatsGUI();
+        stats.setVisible(true);
+    }//GEN-LAST:event_statsMenuButtonMouseClicked
 
     
     public static void main(String args[]) {
@@ -977,8 +970,7 @@ public class Hearts extends javax.swing.JFrame {
     private javax.swing.JLayeredPane jLayeredPane3;
     private javax.swing.JLayeredPane jLayeredPane4;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar newGameMenuButton;
     private javax.swing.JButton playBttn;
     private javax.swing.JLabel player1card1;
     private javax.swing.JLabel player1card10;
@@ -1019,7 +1011,7 @@ public class Hearts extends javax.swing.JFrame {
     private javax.swing.JLabel player3card7;
     private javax.swing.JLabel player3card8;
     private javax.swing.JLabel player3card9;
-    private javax.swing.JLabel playerScore;
+    private javax.swing.JMenu statsMenuButton;
     private javax.swing.JLabel trickCardBottom;
     private javax.swing.JLabel trickCardLeft;
     private javax.swing.JLabel trickCardRight;

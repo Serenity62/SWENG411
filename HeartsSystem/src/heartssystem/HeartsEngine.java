@@ -44,6 +44,10 @@ public class HeartsEngine {
         return currentTrick;
     }
     
+    public int getTrickNum() {
+        return trickNum;
+    }
+    
     public boolean getSwapping() {
         return passing;
     }
