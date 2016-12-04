@@ -46,6 +46,7 @@ public class Player {
     public void takeCards(LinkedList<Card> takenCards){ // getTrick again - need to get the current trick so you can take cards from it.
         for (int i = 0; i < takenCards.size(); i++) {
             this.cardsTaken.add(takenCards.get(i));
+            this.addScore(takenCards.get(i).getPoints());
         }
     }
     
