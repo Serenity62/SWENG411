@@ -907,8 +907,12 @@ public class Hearts extends javax.swing.JFrame {
             engine.buildBuffers();
             updateCards();
             reset();
+            swapPlayers();
         } else if (playBttn.getText().equals("Start Turn")) {
             startNextPlayer();
+            if(!engine.getSwapping()){
+                hideSwapButton();
+            }
             numSelectedCards = 0;
         }
     }//GEN-LAST:event_bttnPressed
