@@ -197,7 +197,7 @@ public class Hearts extends BasicGUI {
         for (int i =thisHand.getSize() - 1; i >= 0; i--)
         {
             thisC = thisHand.getCard(i+1);
-            System.out.printf("%d. %d %d %s\n", i, thisC.getSuit(),thisC.getFace(), thisC.getSelected());
+            System.out.printf("%d. %d %d %s %d\n", i, thisC.getSuit(),thisC.getFace(), thisC.getSelected(), thisC.getPoints());
             cardsInHand[i].setIcon(cardFiles[thisC.getSuit()][thisC.getFace() - 1]);
         }
         for(int i = thisHand.getSize(); i < 13; i++)
@@ -249,11 +249,15 @@ public class Hearts extends BasicGUI {
     
     private void startNextPlayer() {
         for (int i = 0; i < 13; i++) {
-            cardsInHand[i].setVisible(true);
+            if(cardsInHand[i].getIcon()!= null){
+                cardsInHand[i].setVisible(true);
+            }
         }
         playBttn.setText("Swap");
         //playBttn.setVisible(false);
         showSwapButton();
+        playerScore.setText(String.format("%d", engine.getActivePlayer().getPoints()));
+        System.out.printf("\nPoints: %d\n", engine.getActivePlayer().getPoints());
     }
     
     private void resetTrick() {
@@ -905,7 +909,9 @@ public class Hearts extends BasicGUI {
             if(!getEngine().getSwapping()){
                 hideSwapButton();
             }
+            updateHandSizes();
             numSelectedCards = 0;
+            
         }
     }//GEN-LAST:event_bttnPressed
 
