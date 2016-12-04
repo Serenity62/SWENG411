@@ -221,9 +221,6 @@ public class HeartsEngine {
     public void endRound(){
         if (!checkVictory()){
             round++;
-            for (int i = 0; i < 4; i++){
-                players[i].calcPoints();
-            }
             startRound();
         }
     }
@@ -233,8 +230,17 @@ public class HeartsEngine {
         for (int i = 0; i < 4; i++){
             if (players[i].getPoints() >= 100){
                 vict = true;
-                winner = players[i];
                 session.addWin(i);
+                winner = players[0];
+                for (int j = 0; j < 4; j++){
+                    if (j != 3 && players[j].getPoints() > players[j+1].getPoints()){
+                        winner = players[j+1];
+                    }
+                    else if (j == 3 && players[j].getPoints() > players[0].getPoints()){
+                        winner = players[0];
+                    }
+                }
+                break; // Don't bother looping if we've found someone with > 100 points. 
             }
         }
         return vict;
