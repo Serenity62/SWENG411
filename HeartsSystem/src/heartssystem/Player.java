@@ -15,6 +15,10 @@ public class Player {
         hand = new Hand();
     }
     
+    public int getID() {
+        return playerID;
+    }
+    
     public Hand getHand(){
         return hand;
     }
@@ -65,5 +69,13 @@ public class Player {
     
     public void addScore(int sc){
         points = points + sc;
+    }
+    
+    public CardSet getTakenCards(){
+        return cardsTaken;
+    }
+    
+    public void setPoints(int p){
+        points = p;
     }
 }
