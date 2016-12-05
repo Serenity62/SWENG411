@@ -8,10 +8,6 @@ package heartssystem;
 import java.util.Collections;
 import java.util.LinkedList;
 
-/**
- *
- * @author CUZ126
- */
 public class CardSet {
     private LinkedList<Card> cards;
     
@@ -32,7 +28,33 @@ public class CardSet {
     }
     
     public Card getCard(int i){
-        return cards.get(i);
+        return cards.get(i-1);
+    }
+    
+    public LinkedList<Card> getSelectedCards(){
+        LinkedList<Card> selected = new LinkedList();
+        for (int i = 0; i < getSize(); i++) {
+            if (getCard(i).getSelected()){
+                getCard(i).setSelected(false);
+                selected.add(getCard(i));
+                removeCard(getCard(i));
+                i--;
+            }
+        }
+        return selected;
+    }
+    
+    public Card getSelectedCard(){
+        Card selected = new Card(0, -1);
+        for (int i = 0; i < getSize(); i++){
+            if (getCard(i).getSelected()){
+                getCard(i).setSelected(false);
+                selected = getCard(i);
+                removeCard(selected);
+                i = getSize();
+            }
+        }
+        return selected;
     }
     
     public int getSize(){
@@ -76,7 +98,7 @@ public class CardSet {
         cards.addAll(hearts);
     }
     
-    public void shuffleCards(){
+    public void shuffle(){
         Collections.shuffle(cards);
     }
     

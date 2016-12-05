@@ -6,7 +6,7 @@ import java.util.LinkedList;
 public class HeartsEngine {
     private Deck deck = new Deck();
     private HeartsSession session;
-    private LinkedList <Card> tempHand = new LinkedList();
+    private LinkedList<Card> tempHand = new LinkedList();
     private LinkedList<Card>[] buffers = new LinkedList[4];
     private Trick currentTrick;
     private int round;
@@ -92,7 +92,7 @@ public class HeartsEngine {
                 break;
         }
         for (int i = 0; i < 4; i++){
-            players[i].getHand().sortHand();
+            players[i].getHand().sort();
         }
         
     }
@@ -100,13 +100,13 @@ public class HeartsEngine {
     public void dealCards()
     {
         // Shuffle the deck
-        deck.Shuffle();
-        // Deal out the hand
+        deck.shuffle();
+        // deal out the hand
         for(i = 0; i < 4; i++)
         {
-            tempHand = deck.Deal(i);
+            tempHand = deck.deal(i);
             players[i].buildHand(tempHand);
-            players[i].getHand().sortHand();
+            players[i].getHand().sort();
         }
     }
     
