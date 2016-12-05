@@ -1,20 +1,16 @@
 package heartssystem;
 
-import java.util.LinkedList;
-
-
 public class HeartsEngine {
     private Deck deck = new Deck();
     private HeartsSession session;
+    private Trick currentTrick;
     private CardSet tempHand = new CardSet();
     private CardSet[] buffers;
-    private Trick currentTrick;
     private int round;
     private int trickNum;
     private Player[] players = new Player[4];
     private Player winner;
     private int activeID;
-    private int i;
     private int passCount;
     private boolean brokenHearts;   // Boolean if anyone has broken hearts
     private boolean passing;
@@ -23,7 +19,7 @@ public class HeartsEngine {
     public HeartsEngine()
     {
         session = new HeartsSession();
-        for(i = 0; i < 4; i++)
+        for(int i = 0; i < 4; i++)
         {
             players[i] = new Player(i + 1);
             buffers[i] = new CardSet();
@@ -101,10 +97,10 @@ public class HeartsEngine {
     {
         // Shuffle the deck
         deck.shuffle();
-        // Deal out the hand
-        for(i = 0; i < 4; i++)
+        // deal out the hand
+        for(int i = 0; i < 4; i++)
         {
-            tempHand = deck.Deal(i);
+            tempHand = deck.deal(i);
             players[i].buildHand(tempHand);
             players[i].getHand().sort();
         }

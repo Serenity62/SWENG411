@@ -1,7 +1,5 @@
 package heartssystem;
 
-import java.util.*;
-
 public class Hand extends CardSet {
     
     public Hand(){

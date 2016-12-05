@@ -1,27 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package heartssystem;
 
-import java.util.LinkedList;
-import java.util.Collections;
-
-/**
- *
- * @author CUZ126
- */
 public class Deck extends CardSet {
-    //private static LinkedList<Card> deck =  new LinkedList<Card>();
-    private CardSet deck = new CardSet();
-    
     public Deck()
     {
-        this.CreateDeck();
+        super();
+        createDeck();
     }
     
-    private final void CreateDeck()
+    private void createDeck()
     {
         
         //System.out.println("Created card: ");
@@ -36,23 +22,19 @@ public class Deck extends CardSet {
                     card.setPoint(13);
                 else
                     card.setPoint(0);
-                deck.addCard(card);
+                addCard(card);
                 //System.out.printf("%d %d\n", card.getFace(), card.getSuit());
             }
         }
     }
     
-    public void Clear(){
-        deck = new CardSet();
-    }
-    
-    public CardSet Deal(int playerOffset)  // player is which player, this for an offset for dealing the cards
+    public CardSet deal(int playerOffset)  // player is which player, this for an offset for dealing the cards
     {
         CardSet hand = new CardSet(); // hand to be printed out
         
         for(int i = 0; i < 13; i++)
         {
-            hand.addCard(deck.getCard(playerOffset));
+            hand.addCard(getCard(playerOffset));
             playerOffset += 4;
         }
             
