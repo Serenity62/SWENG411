@@ -8,15 +8,23 @@ package heartssystem;
 import java.util.LinkedList;
 import java.util.Collections;
 
+/**
+ *
+ * @author CUZ126
+ */
 public class Deck extends CardSet {
+    //private static LinkedList<Card> deck =  new LinkedList<Card>();
+    private CardSet deck = new CardSet();
+    
     public Deck()
     {
-        super();
-        createDeck();
+        this.CreateDeck();
     }
     
-    private void createDeck()
+    private final void CreateDeck()
     {
+        
+        //System.out.println("Created card: ");
         for(int i = 1; i < 14; i++)
         {
             for(int j = 0; j < 4; j++)
@@ -28,19 +36,23 @@ public class Deck extends CardSet {
                     card.setPoint(13);
                 else
                     card.setPoint(0);
-                addCard(card);
+                deck.addCard(card);
                 //System.out.printf("%d %d\n", card.getFace(), card.getSuit());
             }
-        }   
+        }
     }
     
-    public LinkedList<Card> deal(int playerOffset)  // player is which player, this for an offset for dealing the cards
+    public void Clear(){
+        deck = new CardSet();
+    }
+    
+    public CardSet Deal(int playerOffset)  // player is which player, this for an offset for dealing the cards
     {
-        LinkedList<Card> hand = new LinkedList<>(); // hand to be printed out
+        CardSet hand = new CardSet(); // hand to be printed out
         
         for(int i = 0; i < 13; i++)
         {
-            hand.add(getCard(playerOffset));
+            hand.addCard(deck.getCard(playerOffset));
             playerOffset += 4;
         }
             

@@ -15,14 +15,14 @@ import java.util.*;
 
 public class Player {
     private int points;
-    private LinkedList<Card> cardsTaken;
+    private CardSet cardsTaken;
     private Hand hand;
     private int playerID;
     
     public Player(int id){
         playerID = id;
         points = 0;
-        cardsTaken = new LinkedList<Card>();
+        cardsTaken = new CardSet();
         hand = new Hand();
     }
     
@@ -45,7 +45,7 @@ public class Player {
     
     public void takeCards(LinkedList<Card> takenCards){ // getTrick again - need to get the current trick so you can take cards from it.
         for (int i = 0; i < takenCards.size(); i++) {
-            this.cardsTaken.add(takenCards.get(i));
+            this.cardsTaken.addCard(takenCards.get(i));
             this.points += takenCards.get(i).getPoints();
         }
     }
@@ -54,21 +54,21 @@ public class Player {
         hand.addCard(c);
     }
     
-    public void buildHand(LinkedList<Card> cards){
-        for (int i = 0; i < cards.size(); i++){
-            hand.addCard(cards.get(i));
+    public void buildHand(CardSet cards){
+        for (int i = 0; i < cards.getSize(); i++){
+            hand.addCard(cards.getCard(i));
         }
     }
     
-    public LinkedList<Card> passCards(){
+    public CardSet passCards(){
         return this.hand.getSelectedCards();
         
     }
     
     public int getTakenPoints(){
         int tempPoints = 0;
-        for (int i = 0; i < cardsTaken.size(); i++){
-            tempPoints = tempPoints + cardsTaken.get(i).getPoints();
+        for (int i = 0; i < cardsTaken.getSize(); i++){
+            tempPoints = tempPoints + cardsTaken.getCard(i).getPoints();
         }
         
         return tempPoints;

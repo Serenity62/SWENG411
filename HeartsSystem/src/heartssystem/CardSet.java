@@ -31,12 +31,12 @@ public class CardSet {
         return cards.get(i-1);
     }
     
-    public LinkedList<Card> getSelectedCards(){
-        LinkedList<Card> selected = new LinkedList();
+    public CardSet getSelectedCards(){
+        CardSet selected = new CardSet();
         for (int i = 0; i < getSize(); i++) {
             if (getCard(i).getSelected()){
                 getCard(i).setSelected(false);
-                selected.add(getCard(i));
+                selected.addCard(getCard(i));
                 removeCard(getCard(i));
                 i--;
             }
