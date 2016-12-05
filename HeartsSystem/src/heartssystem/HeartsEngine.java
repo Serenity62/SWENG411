@@ -5,7 +5,7 @@ public class HeartsEngine {
     private HeartsSession session;
     private Trick currentTrick;
     private CardSet tempHand = new CardSet();
-    private CardSet[] buffers;
+    private CardSet[] buffers = new CardSet[4];
     private int round;
     private int trickNum;
     private Player[] players = new Player[4];
@@ -196,8 +196,8 @@ public class HeartsEngine {
     public void startRound(){
         activeID = 0;
         this.dealCards();
-        while(!(players[activeID].getHand().getCard(1).getSuit() == 0 
-                    && players[activeID].getHand().getCard(1).getFace() == 1)){ // Check this logic
+        while(!(players[activeID].getHand().getCard(0).getSuit() == 0 
+                    && players[activeID].getHand().getCard(0).getFace() == 1)){ // Check this logic
             activeID++;
             if(activeID == 4){
                 activeID--;
@@ -220,29 +220,50 @@ public class HeartsEngine {
     
     public void endRound(){
         if (!checkVictory()){
+            ScoreGUI endR = new ScoreGUI(this);
+            endR.setVisible(true);
             round++;
             startRound();
+        } else {
+            ScoreGUI endR = new ScoreGUI(this,winner.getID());
+            endR.setVisible(true);
         }
     }
     
     public boolean checkVictory(){
         boolean vict = false;
+        int winID = 0;
         for (int i = 0; i < 4; i++){
             if (players[i].getPoints() >= 100){
                 vict = true;
-                session.addWin(i);
                 winner = players[0];
                 for (int j = 0; j < 4; j++){
                     if (j != 3 && players[j].getPoints() > players[j+1].getPoints()){
                         winner = players[j+1];
+                        winID = j+1;
                     }
                     else if (j == 3 && players[j].getPoints() > players[0].getPoints()){
                         winner = players[0];
+                        winID = 0;
                     }
                 }
                 break; // Don't bother looping if we've found someone with > 100 points. 
             }
         }
+        session.addWin(winID);
         return vict;
-    }   
+    }
+    
+    public void newGame(){
+        round = 1;
+        trickNum = 0;
+        passCount = 0;
+        passing = false;
+        gameEnd = false;
+        for (int i = 0; i < 4; i++){
+            players[i].getTakenCards().clear();
+            players[i].setPoints(0);
+        }
+        startRound();
+    }
 }

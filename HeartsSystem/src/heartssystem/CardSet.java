@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package heartssystem;
 
 import java.util.Collections;
@@ -28,7 +23,7 @@ public class CardSet {
     }
     
     public Card getCard(int i){
-        return cards.get(i-1);
+        return cards.get(i);
     }
     
     public CardSet getSelectedCards(){

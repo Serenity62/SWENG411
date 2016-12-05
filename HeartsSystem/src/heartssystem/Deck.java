@@ -3,13 +3,11 @@ package heartssystem;
 public class Deck extends CardSet {
     public Deck()
     {
-        super();
-        createDeck();
+        this.createDeck();
     }
     
     private void createDeck()
     {
-        
         //System.out.println("Created card: ");
         for(int i = 1; i < 14; i++)
         {

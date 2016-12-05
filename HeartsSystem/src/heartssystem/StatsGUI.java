@@ -11,10 +11,8 @@ package heartssystem;
  */
 public class StatsGUI extends BasicGUI {
 
-    /**
-     * Creates new form StatsGUI
-     */
-    public StatsGUI() {
+    public StatsGUI(HeartsEngine e) {
+        super(e);
         initComponents();
         Player1GamesWon.setText(Integer.toString(getEngine().getSession().getWins(0)));
         Player1MoonsShot.setText(Integer.toString(getEngine().getSession().getMoons(0)));
@@ -179,7 +177,6 @@ public class StatsGUI extends BasicGUI {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new StatsGUI().setVisible(true);
             }
         });
     }

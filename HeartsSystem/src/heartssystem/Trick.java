@@ -1,19 +1,6 @@
 package heartssystem;
 
-import java.util.*;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author MFR5107
- */
 public class Trick {
-    
     private CardSet cardsPlayed;
     private int openingSuit;
     private int points;

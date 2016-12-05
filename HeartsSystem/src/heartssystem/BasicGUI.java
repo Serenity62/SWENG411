@@ -18,6 +18,11 @@ public class BasicGUI extends javax.swing.JFrame {
         initComponents();
         engine = new HeartsEngine();
     }
+    
+    public BasicGUI(HeartsEngine e) {
+        initComponents();
+        engine = e;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

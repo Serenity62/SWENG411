@@ -1,7 +1,6 @@
 package heartssystem;
 
 public class Hand extends CardSet {
-    
     public Hand(){
         super();
     }
@@ -14,9 +13,9 @@ public class Hand extends CardSet {
         int mid;
         while (low <= hi) {
             mid = low + (hi - low) / 2;
-            if (getCard(mid+1).getSuit() < suit) {
+            if (getCard(mid).getSuit() < suit) {
                 hi = mid - 1;
-            } else if (getCard(mid+1).getSuit() > suit) {
+            } else if (getCard(mid).getSuit() > suit) {
                 low = mid + 1;
             } else {
                 hasSuit = true;

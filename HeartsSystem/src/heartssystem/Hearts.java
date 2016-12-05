@@ -1,10 +1,8 @@
 package heartssystem;
 
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -13,6 +11,7 @@ public class Hearts extends BasicGUI {
     private ImageIcon cardbackFile[] = new ImageIcon[2];
     private final String[] suits = {"Clubs","Diamonds","Spades","Hearts"};
     private final JLabel[] cardsInHand = new JLabel[13];
+    private final JLabel[] playerLabels = new JLabel[4];
     private final JLabel[][] numPlayersCards = new JLabel[3][13];
     private final JLabel[] cardsInTrick = new JLabel[4];
     private int numSelectedCards = 0;
@@ -29,7 +28,7 @@ public class Hearts extends BasicGUI {
             if (numSelectedCards <= selectedMax) {
                 JLabel thisCardLabel = (JLabel)e.getSource();
                 if(thisCardLabel.getIcon() != null){
-                    int num = Integer.parseInt(thisCardLabel.getText()) + 1;
+                    int num = Integer.parseInt(thisCardLabel.getText());
                     Trick thisTrick = getEngine().getCurrentTrick();
                     Hand thisHand = getEngine().getActivePlayer().getHand();
                     Card thisCard = thisHand.getCard(num);
@@ -42,8 +41,8 @@ public class Hearts extends BasicGUI {
                     {
                         if(!thisCard.getSelected() && numSelectedCards >= 1){
                             for (int i = 0; i < thisHand.getSize(); i++) {
-                                if (thisHand.getCard(i + 1).getSelected()) {
-                                    thisHand.getCard(i + 1).setSelected(false);
+                                if (thisHand.getCard(i).getSelected()) {
+                                    thisHand.getCard(i).setSelected(false);
                                     //cardsInHand[i].setLocation(thisCardLabel.getX(), thisCardLabel.getY()+20);    // could be grabbing the wrong one
                                     numSelectedCards--;
                                 }
@@ -62,13 +61,9 @@ public class Hearts extends BasicGUI {
                         resetTrick();
                         updateCards();
                         reset();
-                        if (getEngine().getTrickNum() >= 12) {
-                            EndRoundGUI endR = new EndRoundGUI();
-                            endR.setVisible(true);
-                        }
                         swapPlayers(); // preps for shift to next player
                     } else {
-                        if (getEngine().getActivePlayer().getHand().getCard(num).getSelected()) { // card is selected
+                        if (thisCard.getSelected()) { // card is selected
                             getEngine().getActivePlayer().getHand().getCard(num).setSelected(false);
                             thisCardLabel.setLocation(thisCardLabel.getX(), thisCardLabel.getY()+20);
                             numSelectedCards--;
@@ -103,10 +98,10 @@ public class Hearts extends BasicGUI {
         }
         cardbackFile[0] = new ImageIcon(new ImageIcon("src/cardImages/Card_back.png").getImage().getScaledInstance(63, 91, Image.SCALE_DEFAULT));
         cardbackFile[1] = new ImageIcon(new ImageIcon("src/cardImages/Card_back_side.png").getImage().getScaledInstance(91, 63, Image.SCALE_DEFAULT));
-        cardsInTrick[0] = trickCardLeft;
-        cardsInTrick[1] = trickCardTop;
-        cardsInTrick[2] = trickCardRight;
-        cardsInTrick[3] = trickCardBottom;
+        cardsInTrick[0] = trickCardBottom;
+        cardsInTrick[1] = trickCardRight;
+        cardsInTrick[2] = trickCardTop;
+        cardsInTrick[3] = trickCardLeft;
         cardClicked mHand = new cardClicked();
         cardsInHand[0] = card1;
         cardsInHand[1] = card2;
@@ -184,6 +179,21 @@ public class Hearts extends BasicGUI {
                 }
             }
         }
+        
+        playerLabels[0] = player0Label;
+        playerLabels[1] = player1Label;
+        playerLabels[2] = player2Label;
+        playerLabels[3] = player3Label;
+        int id = getEngine().getPlayerID();
+        for (int i = 0; i <= 3; i++) {
+            int numPlayer = id+1;
+            playerLabels[i].setText("Player: " + numPlayer);
+            id++;
+            if (id == 4) {
+                id = 0;
+            }
+        }
+        
         updateCards();
         showSwapButton();
     }
@@ -196,7 +206,7 @@ public class Hearts extends BasicGUI {
         int j = 13-thisHand.getSize();
         for (int i =thisHand.getSize() - 1; i >= 0; i--)
         {
-            thisC = thisHand.getCard(i+1);
+            thisC = thisHand.getCard(i);
             System.out.printf("%d. %d %d %s %d\n", i, thisC.getSuit(),thisC.getFace(), thisC.getSelected(), thisC.getPoints());
             cardsInHand[i].setIcon(cardFiles[thisC.getSuit()][thisC.getFace() - 1]);
         }
@@ -206,16 +216,20 @@ public class Hearts extends BasicGUI {
             cardsInHand[i].setVisible(false);
         }
         Trick thisTrick = getEngine().getCurrentTrick();
-        for (int i = 0; i < thisTrick.getSize(); i++)
-        {
+        int tid = 1;
+        for (int i = thisTrick.getSize()-1; i >= 0; i--) {
             thisC = thisTrick.getCardPlayed(i);
-            cardsInTrick[i].setIcon(cardFiles[thisC.getSuit()][thisC.getFace() - 1]);
+            cardsInTrick[tid].setIcon(cardFiles[thisC.getSuit()][thisC.getFace() - 1]);
+            tid++;
+            if (tid > 3) {
+                tid = 0;
+            }
         }
     }
     
     private void updateHandSizes() {
         int id = getEngine().getPlayerID();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i <= 3; i++) {
             id++;
             if (id == 4) {
                 id = 0;
@@ -240,6 +254,16 @@ public class Hearts extends BasicGUI {
     }
     
     private void swapPlayers() {
+        int id = getEngine().getPlayerID();
+        for (int i = 0; i < 3; i++) {
+            int numPlayer = id+1;
+            playerLabels[i].setText("Player: " + numPlayer);
+            id++;
+            if (id == 4) {
+                id = 0;
+            }
+        }
+        
         for (int i = 0; i < 13; i++) {
             cardsInHand[i].setVisible(false);
         }
@@ -344,6 +368,10 @@ public class Hearts extends BasicGUI {
         player3card3 = new javax.swing.JLabel();
         player3card2 = new javax.swing.JLabel();
         player3card1 = new javax.swing.JLabel();
+        player1Label = new javax.swing.JLabel();
+        player3Label = new javax.swing.JLabel();
+        player2Label = new javax.swing.JLabel();
+        player0Label = new javax.swing.JLabel();
         newGameMenuButton = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         statsMenuButton = new javax.swing.JMenu();
@@ -814,6 +842,14 @@ public class Hearts extends BasicGUI {
         jLayeredPane4.add(player3card1);
         player3card1.setBounds(0, 0, 91, 63);
 
+        player1Label.setText("Player 0");
+
+        player3Label.setText("Player 0");
+
+        player2Label.setText("Player 0");
+
+        player0Label.setText("Player 0");
+
         jMenu1.setText("New Game");
         newGameMenuButton.add(jMenu1);
 
@@ -845,26 +881,38 @@ public class Hearts extends BasicGUI {
                         .addComponent(trickCardRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 112, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(15, 15, 15))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(72, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(player0Label)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(50, 50, 50)))))
+                                .addGap(50, 50, 50))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(player2Label)))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLayeredPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(playBttn)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(playBttn))
+                            .addComponent(player1Label, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addContainerGap())))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(player3Label)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(player2Label))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -882,15 +930,20 @@ public class Hearts extends BasicGUI {
                                 .addGap(106, 106, 106)))
                         .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(4, 4, 4)
+                        .addComponent(player3Label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(player1Label)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(playBttn))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(player0Label)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -916,7 +969,7 @@ public class Hearts extends BasicGUI {
     }//GEN-LAST:event_bttnPressed
 
     private void statsMenuButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_statsMenuButtonMouseClicked
-        StatsGUI stats = new StatsGUI();
+        StatsGUI stats = new StatsGUI(getEngine());
         stats.setVisible(true);
     }//GEN-LAST:event_statsMenuButtonMouseClicked
 
@@ -978,6 +1031,8 @@ public class Hearts extends BasicGUI {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar newGameMenuButton;
     private javax.swing.JButton playBttn;
+    private javax.swing.JLabel player0Label;
+    private javax.swing.JLabel player1Label;
     private javax.swing.JLabel player1card1;
     private javax.swing.JLabel player1card10;
     private javax.swing.JLabel player1card11;
@@ -991,6 +1046,7 @@ public class Hearts extends BasicGUI {
     private javax.swing.JLabel player1card7;
     private javax.swing.JLabel player1card8;
     private javax.swing.JLabel player1card9;
+    private javax.swing.JLabel player2Label;
     private javax.swing.JLabel player2card1;
     private javax.swing.JLabel player2card10;
     private javax.swing.JLabel player2card11;
@@ -1004,6 +1060,7 @@ public class Hearts extends BasicGUI {
     private javax.swing.JLabel player2card7;
     private javax.swing.JLabel player2card8;
     private javax.swing.JLabel player2card9;
+    private javax.swing.JLabel player3Label;
     private javax.swing.JLabel player3card1;
     private javax.swing.JLabel player3card10;
     private javax.swing.JLabel player3card11;
