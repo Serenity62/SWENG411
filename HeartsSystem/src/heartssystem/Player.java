@@ -32,10 +32,10 @@ public class Player {
         return points;
     }
     
-    public void takeCards(LinkedList<Card> takenCards){ // getTrick again - need to get the current trick so you can take cards from it.
-        for (int i = 0; i < takenCards.size(); i++) {
-            this.cardsTaken.addCard(takenCards.get(i));
-            this.points += takenCards.get(i).getPoints();
+    public void takeCards(CardSet takenCards){ // getTrick again - need to get the current trick so you can take cards from it.
+        for (int i = 0; i < takenCards.getSize(); i++) {
+            this.cardsTaken.addCard(takenCards.getCard(i));
+            this.points += takenCards.getCard(i).getPoints();
         }
     }
     

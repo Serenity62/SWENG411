@@ -14,20 +14,20 @@ import java.util.*;
  */
 public class Trick {
     
-    private LinkedList<Card> cardsPlayed;
+    private CardSet cardsPlayed;
     private int openingSuit;
     private int points;
     private int playerNumber;
     
     
     public Trick(){
-        cardsPlayed = new LinkedList();
+        cardsPlayed = new CardSet();
         points = 0;
         playerNumber = 0;
     }
     
-    public LinkedList take(){
-        LinkedList<Card> tempList = cardsPlayed;
+    public CardSet take(){
+        CardSet tempList = cardsPlayed;
         cardsPlayed.clear();
         return tempList;
     }
@@ -47,7 +47,7 @@ public class Trick {
     
     public Card getCardPlayed(int i)
     {
-        return this.cardsPlayed.get(i);
+        return this.cardsPlayed.getCard(i);
     }
     
     public boolean addCard(Card c, boolean brokenHearts){
@@ -56,7 +56,7 @@ public class Trick {
         
         if(this.getSize() == 0)
             this.openingSuit = c.getSuit();
-        cardsPlayed.add(c);
+        cardsPlayed.addCard(c);
         if(this.getSize() == 4)
             this.trickCalc();
         if(!brokenHearts && c.getSuit() != this.openingSuit && c.getSuit() == 1)    // Adjust for if someone broke hearts
@@ -65,20 +65,20 @@ public class Trick {
     }
     
     public int getSize(){
-        return cardsPlayed.size();
+        return cardsPlayed.getSize();
     }
     
     private void trickCalc()
     {
         int highest = 0;
         int counter = 0;
-        for(Card card : cardsPlayed)
+        for(int i = 0; i < cardsPlayed.getSize(); i++)
         {
-            if(card.getSuit() == this.openingSuit)
+            if(cardsPlayed.getCard(i).getSuit() == this.openingSuit)
             {
-                if(card.getFace() > highest)
+                if(cardsPlayed.getCard(i).getFace() > highest)
                 {
-                    highest = card.getFace();
+                    highest = cardsPlayed.getCard(i).getFace();
                     this.playerNumber = counter;
                 }
             }

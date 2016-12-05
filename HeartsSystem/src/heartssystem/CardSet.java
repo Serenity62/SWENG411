@@ -102,6 +102,10 @@ public class CardSet {
         Collections.shuffle(cards);
     }
     
+    public void clear(){
+        cards.clear();
+    }
+    
     public void removeCard(Card c){
         cards.remove(c);
     }
