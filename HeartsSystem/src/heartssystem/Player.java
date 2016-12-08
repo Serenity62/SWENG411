@@ -78,4 +78,8 @@ public class Player {
     public void setPoints(int p){
         points = p;
     }
+    
+    public void clearTakenCards(){
+        this.cardsTaken.clear();
+    }
 }

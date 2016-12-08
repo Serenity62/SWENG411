@@ -147,7 +147,7 @@ public class HeartsEngine {
     public void assignPoints()
     {
         players[currentTrick.getPlayerNumber()].takeCards(currentTrick.take());
-        if (players[currentTrick.getPlayerNumber()].getTakenPoints() == 26){
+        if (players[currentTrick.getPlayerNumber()].getTakenPoints() == 26 && trickNum == 13){
             players[currentTrick.getPlayerNumber()].addScore(-26);
             session.addMoon(currentTrick.getPlayerNumber());
             switch(currentTrick.getPlayerNumber()){
@@ -172,6 +172,7 @@ public class HeartsEngine {
                     players[2].addScore(26);
                     break;
             }
+            players[currentTrick.getPlayerNumber()].clearTakenCards();
         }
     }
     
@@ -205,7 +206,8 @@ public class HeartsEngine {
                 break; // temp fix
             }
         }
-        this.startPassing();
+        if(this.round % 4 != 0)
+            this.startPassing();
         this.startTrick();
         this.brokenHearts = false;
         trickNum = 0;
