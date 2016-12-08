@@ -7,12 +7,14 @@ public class Player {
     private CardSet cardsTaken;
     private Hand hand;
     private int playerID;
+    private String name;
     
     public Player(int id){
         playerID = id;
         points = 0;
         cardsTaken = new CardSet();
         hand = new Hand();
+        name = "Player " + Integer.toString(id); // incase they don't enter a name, so it has a default value
     }
     
     public int getID() {
@@ -25,6 +27,14 @@ public class Player {
     
     public void setHand(Hand h){
         hand = h;
+    }
+    
+    public String getName(){
+        return name;
+    }
+    
+    public void setName(String n){
+        name = n;
     }
     
     public Card playCard(){

@@ -1,15 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package heartssystem;
 
-/**
- *
- * @author Revenant Penguin
- */
 public class ScoreGUI extends BasicGUI {
+    private static ScoreGUI instance = null;
+    
     public ScoreGUI(HeartsEngine e) {
         super(e);
         initComponents();
@@ -22,15 +15,19 @@ public class ScoreGUI extends BasicGUI {
         super(e);
         initComponents();
         setScores();
-        winnerLabel.setText("Player "+p+" won!");
+        winnerLabel.setText(getEngine().getPlayer(p).getName()+" won!");
         winnerLabel.setVisible(true);
         startBttn.setVisible(true);
     }
     
     private void setScores() {
+        player1Label.setText(getEngine().getPlayer(0).getName());
         Player1Score.setText(Integer.toString(getEngine().getPlayer(0).getPoints()));
+        player2Label.setText(getEngine().getPlayer(1).getName());
         Player2Score.setText(Integer.toString(getEngine().getPlayer(1).getPoints()));
+        player3Label.setText(getEngine().getPlayer(2).getName());
         Player3Score.setText(Integer.toString(getEngine().getPlayer(2).getPoints()));
+        player4Label.setText(getEngine().getPlayer(3).getName());
         Player4Score.setText(Integer.toString(getEngine().getPlayer(3).getPoints()));
     }
 
@@ -44,12 +41,12 @@ public class ScoreGUI extends BasicGUI {
     private void initComponents() {
 
         jLabel5 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        player1Label = new javax.swing.JLabel();
         Player1Score = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        player2Label = new javax.swing.JLabel();
+        player3Label = new javax.swing.JLabel();
         Player2Score = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        player4Label = new javax.swing.JLabel();
         Player3Score = new javax.swing.JLabel();
         Player4Score = new javax.swing.JLabel();
         winnerLabel = new javax.swing.JLabel();
@@ -59,19 +56,19 @@ public class ScoreGUI extends BasicGUI {
 
         jLabel5.setText("Score");
 
-        jLabel1.setText("Player 1:");
+        player1Label.setText("Player 1:");
 
         Player1Score.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Player1Score.setText("0");
 
-        jLabel2.setText("Player 2:");
+        player2Label.setText("Player 2:");
 
-        jLabel3.setText("Player 3:");
+        player3Label.setText("Player 3:");
 
         Player2Score.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Player2Score.setText("0");
 
-        jLabel4.setText("Player 4:");
+        player4Label.setText("Player 4:");
 
         Player3Score.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Player3Score.setText("0");
@@ -100,10 +97,10 @@ public class ScoreGUI extends BasicGUI {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1))
+                                    .addComponent(player3Label)
+                                    .addComponent(player4Label)
+                                    .addComponent(player2Label)
+                                    .addComponent(player1Label))
                                 .addGap(41, 41, 41)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(Player1Score, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -124,19 +121,19 @@ public class ScoreGUI extends BasicGUI {
                 .addComponent(jLabel5)
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(player1Label)
                     .addComponent(Player1Score))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(player2Label)
                     .addComponent(Player2Score))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(player3Label)
                     .addComponent(Player3Score))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(player4Label)
                     .addComponent(Player4Score))
                 .addGap(18, 18, 18)
                 .addComponent(winnerLabel)
@@ -192,11 +189,11 @@ public class ScoreGUI extends BasicGUI {
     private javax.swing.JLabel Player2Score;
     private javax.swing.JLabel Player3Score;
     private javax.swing.JLabel Player4Score;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel player1Label;
+    private javax.swing.JLabel player2Label;
+    private javax.swing.JLabel player3Label;
+    private javax.swing.JLabel player4Label;
     private javax.swing.JButton startBttn;
     private javax.swing.JLabel winnerLabel;
     // End of variables declaration//GEN-END:variables

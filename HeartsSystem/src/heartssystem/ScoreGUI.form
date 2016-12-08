@@ -30,10 +30,10 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="player3Label" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="player4Label" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="player2Label" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="player1Label" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -63,22 +63,22 @@
               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="player1Label" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="Player1Score" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="player2Label" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="Player2Score" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="player3Label" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="Player3Score" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="player4Label" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="Player4Score" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -96,7 +96,7 @@
         <Property name="text" type="java.lang.String" value="Score"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="player1Label">
       <Properties>
         <Property name="text" type="java.lang.String" value="Player 1:"/>
       </Properties>
@@ -107,12 +107,12 @@
         <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="player2Label">
       <Properties>
         <Property name="text" type="java.lang.String" value="Player 2:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
+    <Component class="javax.swing.JLabel" name="player3Label">
       <Properties>
         <Property name="text" type="java.lang.String" value="Player 3:"/>
       </Properties>
@@ -123,7 +123,7 @@
         <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
+    <Component class="javax.swing.JLabel" name="player4Label">
       <Properties>
         <Property name="text" type="java.lang.String" value="Player 4:"/>
       </Properties>

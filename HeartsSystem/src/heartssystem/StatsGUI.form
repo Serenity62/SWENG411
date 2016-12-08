@@ -26,28 +26,28 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="player3Label" min="-2" max="-2" attributes="0"/>
+                  <Component id="player4Label" min="-2" max="-2" attributes="0"/>
+                  <Component id="player2Label" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="player1Label" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                      <Component id="Player2GamesWon" alignment="0" min="-2" pref="61" max="-2" attributes="0"/>
-                      <Component id="Player1GamesWon" alignment="0" min="-2" pref="61" max="-2" attributes="0"/>
-                      <Component id="Player4GamesWon" alignment="0" min="-2" pref="61" max="-2" attributes="0"/>
-                      <Component id="Player3GamesWon" alignment="0" min="-2" pref="61" max="-2" attributes="0"/>
+                      <Component id="player2GamesWon" alignment="0" min="-2" pref="61" max="-2" attributes="0"/>
+                      <Component id="player1GamesWon" alignment="0" min="-2" pref="61" max="-2" attributes="0"/>
+                      <Component id="player4GamesWon" alignment="0" min="-2" pref="61" max="-2" attributes="0"/>
+                      <Component id="player3GamesWon" alignment="0" min="-2" pref="61" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jLabel5" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="gamesWonLabel" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jLabel6" max="32767" attributes="0"/>
-                  <Component id="Player1MoonsShot" max="32767" attributes="0"/>
-                  <Component id="Player2MoonsShot" alignment="1" max="32767" attributes="0"/>
-                  <Component id="Player3MoonsShot" alignment="1" max="32767" attributes="0"/>
-                  <Component id="Player4MoonsShot" alignment="1" min="-2" pref="56" max="-2" attributes="0"/>
+                  <Component id="moonsShotLabel" max="32767" attributes="0"/>
+                  <Component id="player1MoonsShot" max="32767" attributes="0"/>
+                  <Component id="player2MoonsShot" alignment="1" max="32767" attributes="0"/>
+                  <Component id="player3MoonsShot" alignment="1" max="32767" attributes="0"/>
+                  <Component id="player4MoonsShot" alignment="1" min="-2" pref="56" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="50" max="32767" attributes="0"/>
           </Group>
@@ -58,32 +58,32 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="gamesWonLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="moonsShotLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="Player1GamesWon" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="Player1MoonsShot" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="player1Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="player1GamesWon" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="player1MoonsShot" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="Player2GamesWon" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="Player2MoonsShot" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="player2Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="player2GamesWon" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="player2MoonsShot" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="Player3GamesWon" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="Player3MoonsShot" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="player3Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="player3GamesWon" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="player3MoonsShot" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="Player4GamesWon" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="Player4MoonsShot" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="player4Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="player4GamesWon" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="player4MoonsShot" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="29" max="32767" attributes="0"/>
           </Group>
@@ -91,79 +91,79 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="player1Label">
       <Properties>
         <Property name="text" type="java.lang.String" value="Player 1:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="player2Label">
       <Properties>
         <Property name="text" type="java.lang.String" value="Player 2:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
+    <Component class="javax.swing.JLabel" name="player3Label">
       <Properties>
         <Property name="text" type="java.lang.String" value="Player 3:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
+    <Component class="javax.swing.JLabel" name="player4Label">
       <Properties>
         <Property name="text" type="java.lang.String" value="Player 4:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel5">
+    <Component class="javax.swing.JLabel" name="gamesWonLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Games Won:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel6">
+    <Component class="javax.swing.JLabel" name="moonsShotLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Moons Shot"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="Player1GamesWon">
+    <Component class="javax.swing.JLabel" name="player1GamesWon">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="Player1MoonsShot">
+    <Component class="javax.swing.JLabel" name="player1MoonsShot">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="Player2GamesWon">
+    <Component class="javax.swing.JLabel" name="player2GamesWon">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="Player3GamesWon">
+    <Component class="javax.swing.JLabel" name="player3GamesWon">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="Player4GamesWon">
+    <Component class="javax.swing.JLabel" name="player4GamesWon">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="Player2MoonsShot">
+    <Component class="javax.swing.JLabel" name="player2MoonsShot">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="Player3MoonsShot">
+    <Component class="javax.swing.JLabel" name="player3MoonsShot">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="Player4MoonsShot">
+    <Component class="javax.swing.JLabel" name="player4MoonsShot">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="0"/>

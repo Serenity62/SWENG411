@@ -1,27 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package heartssystem;
 
-/**
- *
- * @author Revenant Penguin
- */
 public class StatsGUI extends BasicGUI {
-
     public StatsGUI(HeartsEngine e) {
         super(e);
         initComponents();
-        Player1GamesWon.setText(Integer.toString(getEngine().getSession().getWins(0)));
-        Player1MoonsShot.setText(Integer.toString(getEngine().getSession().getMoons(0)));
-        Player2GamesWon.setText(Integer.toString(getEngine().getSession().getWins(1)));
-        Player2MoonsShot.setText(Integer.toString(getEngine().getSession().getMoons(1)));
-        Player3GamesWon.setText(Integer.toString(getEngine().getSession().getWins(2)));
-        Player3MoonsShot.setText(Integer.toString(getEngine().getSession().getMoons(2)));
-        Player4GamesWon.setText(Integer.toString(getEngine().getSession().getWins(3)));
-        Player4MoonsShot.setText(Integer.toString(getEngine().getSession().getMoons(3)));
+        player1Label.setText(getEngine().getPlayer(0).getName());
+        player1GamesWon.setText(Integer.toString(getEngine().getSession().getWins(0)));
+        player1MoonsShot.setText(Integer.toString(getEngine().getSession().getMoons(0)));
+        player2Label.setText(getEngine().getPlayer(1).getName());
+        player2GamesWon.setText(Integer.toString(getEngine().getSession().getWins(1)));
+        player2MoonsShot.setText(Integer.toString(getEngine().getSession().getMoons(1)));
+        player3Label.setText(getEngine().getPlayer(2).getName());
+        player3GamesWon.setText(Integer.toString(getEngine().getSession().getWins(2)));
+        player3MoonsShot.setText(Integer.toString(getEngine().getSession().getMoons(2)));
+        player4Label.setText(getEngine().getPlayer(3).getName());
+        player4GamesWon.setText(Integer.toString(getEngine().getSession().getWins(3)));
+        player4MoonsShot.setText(Integer.toString(getEngine().getSession().getMoons(3)));
     }
 
     /**
@@ -33,58 +27,58 @@ public class StatsGUI extends BasicGUI {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        Player1GamesWon = new javax.swing.JLabel();
-        Player1MoonsShot = new javax.swing.JLabel();
-        Player2GamesWon = new javax.swing.JLabel();
-        Player3GamesWon = new javax.swing.JLabel();
-        Player4GamesWon = new javax.swing.JLabel();
-        Player2MoonsShot = new javax.swing.JLabel();
-        Player3MoonsShot = new javax.swing.JLabel();
-        Player4MoonsShot = new javax.swing.JLabel();
+        player1Label = new javax.swing.JLabel();
+        player2Label = new javax.swing.JLabel();
+        player3Label = new javax.swing.JLabel();
+        player4Label = new javax.swing.JLabel();
+        gamesWonLabel = new javax.swing.JLabel();
+        moonsShotLabel = new javax.swing.JLabel();
+        player1GamesWon = new javax.swing.JLabel();
+        player1MoonsShot = new javax.swing.JLabel();
+        player2GamesWon = new javax.swing.JLabel();
+        player3GamesWon = new javax.swing.JLabel();
+        player4GamesWon = new javax.swing.JLabel();
+        player2MoonsShot = new javax.swing.JLabel();
+        player3MoonsShot = new javax.swing.JLabel();
+        player4MoonsShot = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Player 1:");
+        player1Label.setText("Player 1:");
 
-        jLabel2.setText("Player 2:");
+        player2Label.setText("Player 2:");
 
-        jLabel3.setText("Player 3:");
+        player3Label.setText("Player 3:");
 
-        jLabel4.setText("Player 4:");
+        player4Label.setText("Player 4:");
 
-        jLabel5.setText("Games Won:");
+        gamesWonLabel.setText("Games Won:");
 
-        jLabel6.setText("Moons Shot");
+        moonsShotLabel.setText("Moons Shot");
 
-        Player1GamesWon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Player1GamesWon.setText("0");
+        player1GamesWon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        player1GamesWon.setText("0");
 
-        Player1MoonsShot.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Player1MoonsShot.setText("0");
+        player1MoonsShot.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        player1MoonsShot.setText("0");
 
-        Player2GamesWon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Player2GamesWon.setText("0");
+        player2GamesWon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        player2GamesWon.setText("0");
 
-        Player3GamesWon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Player3GamesWon.setText("0");
+        player3GamesWon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        player3GamesWon.setText("0");
 
-        Player4GamesWon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Player4GamesWon.setText("0");
+        player4GamesWon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        player4GamesWon.setText("0");
 
-        Player2MoonsShot.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Player2MoonsShot.setText("0");
+        player2MoonsShot.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        player2MoonsShot.setText("0");
 
-        Player3MoonsShot.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Player3MoonsShot.setText("0");
+        player3MoonsShot.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        player3MoonsShot.setText("0");
 
-        Player4MoonsShot.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Player4MoonsShot.setText("0");
+        player4MoonsShot.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        player4MoonsShot.setText("0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,25 +87,25 @@ public class StatsGUI extends BasicGUI {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
+                    .addComponent(player3Label)
+                    .addComponent(player4Label)
+                    .addComponent(player2Label)
+                    .addComponent(player1Label))
                 .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(Player2GamesWon, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Player1GamesWon, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Player4GamesWon, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Player3GamesWon, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel5))
+                        .addComponent(player2GamesWon, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(player1GamesWon, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(player4GamesWon, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(player3GamesWon, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(gamesWonLabel))
                 .addGap(79, 79, 79)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Player1MoonsShot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Player2MoonsShot, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Player3MoonsShot, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Player4MoonsShot, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(moonsShotLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(player1MoonsShot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(player2MoonsShot, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(player3MoonsShot, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(player4MoonsShot, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -119,28 +113,28 @@ public class StatsGUI extends BasicGUI {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
+                    .addComponent(gamesWonLabel)
+                    .addComponent(moonsShotLabel))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(Player1GamesWon)
-                    .addComponent(Player1MoonsShot))
+                    .addComponent(player1Label)
+                    .addComponent(player1GamesWon)
+                    .addComponent(player1MoonsShot))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(Player2GamesWon)
-                    .addComponent(Player2MoonsShot))
+                    .addComponent(player2Label)
+                    .addComponent(player2GamesWon)
+                    .addComponent(player2MoonsShot))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(Player3GamesWon)
-                    .addComponent(Player3MoonsShot))
+                    .addComponent(player3Label)
+                    .addComponent(player3GamesWon)
+                    .addComponent(player3MoonsShot))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(Player4GamesWon)
-                    .addComponent(Player4MoonsShot))
+                    .addComponent(player4Label)
+                    .addComponent(player4GamesWon)
+                    .addComponent(player4MoonsShot))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
@@ -182,19 +176,19 @@ public class StatsGUI extends BasicGUI {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Player1GamesWon;
-    private javax.swing.JLabel Player1MoonsShot;
-    private javax.swing.JLabel Player2GamesWon;
-    private javax.swing.JLabel Player2MoonsShot;
-    private javax.swing.JLabel Player3GamesWon;
-    private javax.swing.JLabel Player3MoonsShot;
-    private javax.swing.JLabel Player4GamesWon;
-    private javax.swing.JLabel Player4MoonsShot;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel gamesWonLabel;
+    private javax.swing.JLabel moonsShotLabel;
+    private javax.swing.JLabel player1GamesWon;
+    private javax.swing.JLabel player1Label;
+    private javax.swing.JLabel player1MoonsShot;
+    private javax.swing.JLabel player2GamesWon;
+    private javax.swing.JLabel player2Label;
+    private javax.swing.JLabel player2MoonsShot;
+    private javax.swing.JLabel player3GamesWon;
+    private javax.swing.JLabel player3Label;
+    private javax.swing.JLabel player3MoonsShot;
+    private javax.swing.JLabel player4GamesWon;
+    private javax.swing.JLabel player4Label;
+    private javax.swing.JLabel player4MoonsShot;
     // End of variables declaration//GEN-END:variables
 }

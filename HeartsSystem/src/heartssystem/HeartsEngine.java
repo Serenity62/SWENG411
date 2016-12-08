@@ -1,6 +1,7 @@
 package heartssystem;
 
 public class HeartsEngine {
+    private static HeartsEngine instance = null;
     private Deck deck = new Deck();
     private HeartsSession session;
     private Trick currentTrick;
@@ -16,7 +17,7 @@ public class HeartsEngine {
     private boolean passing;
     private boolean gameEnd;
     
-    public HeartsEngine()
+    private HeartsEngine()
     {
         session = new HeartsSession();
         for(int i = 0; i < 4; i++)
@@ -30,6 +31,13 @@ public class HeartsEngine {
         passing = false;
         gameEnd = false;
         startRound();
+    }
+    
+    public static HeartsEngine getInstance() {
+        if (instance == null) {
+            instance = new HeartsEngine();
+        }
+        return instance;
     }
     
     public boolean getHeartsBroken() {

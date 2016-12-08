@@ -9,14 +9,12 @@ package heartssystem;
  *
  * @author Revenant Penguin
  */
-public class BasicGUI extends javax.swing.JFrame {
+public abstract class BasicGUI extends javax.swing.JFrame {
     private HeartsEngine engine;
-    /**
-     * Creates new form BasicGUI
-     */
+    
     public BasicGUI() {
         initComponents();
-        engine = new HeartsEngine();
+        engine = HeartsEngine.getInstance();
     }
     
     public BasicGUI(HeartsEngine e) {
@@ -79,7 +77,6 @@ public class BasicGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BasicGUI().setVisible(true);
             }
         });
     }
