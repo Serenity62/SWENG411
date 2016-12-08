@@ -14,8 +14,9 @@ public class Trick {
     }
     
     public CardSet take(){
-        CardSet tempList = cardsPlayed;
-        cardsPlayed.clear();
+        CardSet tempList = new CardSet();
+        tempList.addCards(cardsPlayed.getCards());
+        cardsPlayed.clear();    // Also clearing templist???
         return tempList;
     }
     

@@ -48,7 +48,7 @@ public class StatsGUI extends BasicGUI {
         Player3MoonsShot = new javax.swing.JLabel();
         Player4MoonsShot = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Player 1:");
 

@@ -147,29 +147,29 @@ public class HeartsEngine {
     public void assignPoints()
     {
         players[currentTrick.getPlayerNumber()].takeCards(currentTrick.take());
-        if (players[currentTrick.getPlayerNumber()].getTakenPoints() == 28){
-            players[currentTrick.getPlayerNumber()].addScore(-28);
+        if (players[currentTrick.getPlayerNumber()].getTakenPoints() == 26){
+            players[currentTrick.getPlayerNumber()].addScore(-26);
             session.addMoon(currentTrick.getPlayerNumber());
             switch(currentTrick.getPlayerNumber()){
                 case 0:
-                    players[1].addScore(28);
-                    players[2].addScore(28);
-                    players[3].addScore(28);
+                    players[1].addScore(26);
+                    players[2].addScore(26);
+                    players[3].addScore(26);
                     break;
                 case 1:
-                    players[0].addScore(28);
-                    players[2].addScore(28);
-                    players[3].addScore(28);
+                    players[0].addScore(26);
+                    players[2].addScore(26);
+                    players[3].addScore(26);
                     break;
                 case 2:
-                    players[0].addScore(28);
-                    players[1].addScore(28);
-                    players[3].addScore(28);
+                    players[0].addScore(26);
+                    players[1].addScore(26);
+                    players[3].addScore(26);
                     break;
                 case 3:
-                    players[0].addScore(28);
-                    players[1].addScore(28);
-                    players[2].addScore(28);
+                    players[0].addScore(26);
+                    players[1].addScore(26);
+                    players[2].addScore(26);
                     break;
             }
         }
@@ -182,8 +182,9 @@ public class HeartsEngine {
     public void endTrick(){
         System.out.println("----------------------------");
         this.assignPoints();
+        System.out.printf("Points: %d", players[this.activeID].getPoints());
         if (trickNum < 12){
-            this.activeID = this.currentTrick.getPlayerNumber();
+            
             this.startTrick();
             trickNum++;
         }

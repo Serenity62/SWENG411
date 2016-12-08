@@ -55,7 +55,7 @@ public class ScoreGUI extends BasicGUI {
         winnerLabel = new javax.swing.JLabel();
         startBttn = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel5.setText("Score");
 
