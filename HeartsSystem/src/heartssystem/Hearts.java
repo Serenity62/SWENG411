@@ -259,7 +259,7 @@ public class Hearts extends BasicGUI {
     
     private void swapPlayers() {
         int id = getEngine().getPlayerID();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             int numPlayer = id+1;
             playerLabels[i].setText("Player: " + numPlayer);
             id++;
