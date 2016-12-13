@@ -33,11 +33,15 @@ public class Hearts extends BasicGUI {
                     Hand thisHand = getEngine().getActivePlayer().getHand();
                     Card thisCard = thisHand.getCard(num);
                     boolean inSuit = thisTrick.getOpening() == thisCard.getSuit();
-                    if (e.getClickCount() >= 2 && !getEngine().getSwapping() && 
-                            ((((thisTrick.getSize() < 1) && (inSuit || !thisHand.hasSuit(thisTrick.getOpening())) 
-                                || (thisCard.getSuit() != 3 || getEngine().getHeartsBroken() 
-                                || (!thisHand.hasSuit(0) && !thisHand.hasSuit(1) && !thisHand.hasSuit(2)))))
-                            || (thisTrick.getSize() >= 1 && (inSuit || !thisHand.hasSuit(thisTrick.getOpening()))))) // trying to play a card / Check this logic
+//                    if (e.getClickCount() >= 2 && !getEngine().getSwapping() && 
+//                            ((((thisTrick.getSize() < 1) && (inSuit || !thisHand.hasSuit(thisTrick.getOpening())) 
+//                                || (thisCard.getSuit() != 3 || getEngine().getHeartsBroken() 
+//                                    || (!thisHand.hasSuit(0) && !thisHand.hasSuit(1) && !thisHand.hasSuit(2)))))
+//                            || (thisTrick.getSize() >= 1 && (inSuit || !thisHand.hasSuit(thisTrick.getOpening()))))) // trying to play a card / Check this logic
+                    if(e.getClickCount() >= 2 && !getEngine().getSwapping()
+                            && (((thisTrick.getSize() == 0) && ((getEngine().getTrickNum() == 0 && thisCard.getSuit() == 0 && thisCard.getFace() == 1)
+                                    || (getEngine().getTrickNum() != 0 && (thisCard.getSuit() != 3 || getEngine().getHeartsBroken()))))
+                                ||(thisTrick.getSize() != 0 && (inSuit || !thisHand.hasSuit(thisTrick.getOpening())))))
                     {
                         if(!thisCard.getSelected() && numSelectedCards >= 1){
                             for (int i = 0; i < thisHand.getSize(); i++) {
