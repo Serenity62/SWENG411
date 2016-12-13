@@ -59,8 +59,8 @@ public class HeartsEngine {
     public void buildBuffers(){
         buffers[activeID] = players[activeID].passCards();   
         if (passCount == 3){
-            this.endPassing();
             this.swapCards();
+            this.endPassing();
             passCount = 0;
         System.out.println("----------------------------");
         }
@@ -191,6 +191,7 @@ public class HeartsEngine {
     public void endTrick(){
         System.out.println("----------------------------");
         this.assignPoints();
+        this.activeID = currentTrick.getPlayerNumber();
         System.out.printf("Points: %d", players[this.activeID].getPoints());
         if (trickNum < 12){
             
@@ -206,14 +207,6 @@ public class HeartsEngine {
     public void startRound(){
         activeID = 0;
         this.dealCards();
-        while(!(players[activeID].getHand().getCard(0).getSuit() == 0 
-                    && players[activeID].getHand().getCard(0).getFace() == 1)){ // Check this logic
-            activeID++;
-            if(activeID == 4){
-                activeID--;
-                break; // temp fix
-            }
-        }
         if(this.round % 4 != 0)
             this.startPassing();
         this.startTrick();
@@ -227,6 +220,15 @@ public class HeartsEngine {
     
     public void endPassing(){
         this.passing = false;
+        while(!(players[activeID].getHand().getCard(0).getSuit() == 0 
+                    && players[activeID].getHand().getCard(0).getFace() == 1)){ // Check this logic
+            activeID++;
+            if(activeID == 4){
+                activeID = 0;
+                //break; // temp fix
+            }
+        }
+        this.activeID--;
     }
     
     public void endRound(){
