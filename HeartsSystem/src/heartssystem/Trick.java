@@ -47,9 +47,9 @@ public class Trick {
         cardsPlayed.addCard(c);
         if(this.getSize() == 4)
             this.trickCalc();
-        if(!brokenHearts && c.getSuit() != this.openingSuit && c.getSuit() == 1)    // Adjust for if someone broke hearts
+        if(!brokenHearts && c.getSuit() != this.openingSuit && c.getSuit() == 3)    // Adjust for if someone broke hearts
             flag = true;
-        return flag;
+        return flag || brokenHearts;
     }
     
     public int getSize(){
