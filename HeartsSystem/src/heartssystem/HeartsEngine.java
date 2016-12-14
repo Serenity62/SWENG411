@@ -154,11 +154,13 @@ public class HeartsEngine {
     
     public void assignPoints()
     {
-        players[currentTrick.getPlayerNumber()].takeCards(currentTrick.take());
-        if (players[currentTrick.getPlayerNumber()].getTakenPoints() == 26 && trickNum == 13){
-            players[currentTrick.getPlayerNumber()].addScore(-26);
-            session.addMoon(currentTrick.getPlayerNumber());
-            switch(currentTrick.getPlayerNumber()){
+        int tempID = (currentTrick.getPlayerNumber() + activeID + 1) % 4;
+        players[tempID].takeCards(currentTrick.take());
+        System.out.printf("\nPlayer %d took the cards from the trick\n", tempID + 1);
+        if (players[tempID].getTakenPoints() == 26 && trickNum == 13){
+            players[tempID].addScore(-26);
+            session.addMoon(tempID);
+            switch(tempID){
                 case 0:
                     players[1].addScore(26);
                     players[2].addScore(26);
@@ -180,7 +182,7 @@ public class HeartsEngine {
                     players[2].addScore(26);
                     break;
             }
-            players[currentTrick.getPlayerNumber()].clearTakenCards();
+            players[tempID].clearTakenCards();
         }
     }
     
@@ -191,7 +193,7 @@ public class HeartsEngine {
     public void endTrick(){
         System.out.println("----------------------------");
         this.assignPoints();
-        this.activeID = currentTrick.getPlayerNumber();
+        this.activeID = (currentTrick.getPlayerNumber() + activeID) % 4;
         System.out.printf("Points: %d", players[this.activeID].getPoints());
         if (trickNum < 12){
             
