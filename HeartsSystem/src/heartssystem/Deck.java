@@ -16,7 +16,7 @@ public class Deck extends CardSet {
                 Card card = new Card(i, j);
                 if(j == 3)
                     card.setPoint(1);
-                else if(i == 12 && j == 2)
+                else if(i == 11 && j == 2)
                     card.setPoint(13);
                 else
                     card.setPoint(0);

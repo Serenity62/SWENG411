@@ -157,32 +157,36 @@ public class HeartsEngine {
         int tempID = (currentTrick.getPlayerNumber() + activeID + 1) % 4;
         players[tempID].takeCards(currentTrick.take());
         System.out.printf("\nPlayer %d took the cards from the trick\n", tempID + 1);
-        if (players[tempID].getTakenPoints() == 26 && trickNum == 13){
-            players[tempID].addScore(-26);
-            session.addMoon(tempID);
-            switch(tempID){
-                case 0:
-                    players[1].addScore(26);
-                    players[2].addScore(26);
-                    players[3].addScore(26);
-                    break;
-                case 1:
-                    players[0].addScore(26);
-                    players[2].addScore(26);
-                    players[3].addScore(26);
-                    break;
-                case 2:
-                    players[0].addScore(26);
-                    players[1].addScore(26);
-                    players[3].addScore(26);
-                    break;
-                case 3:
-                    players[0].addScore(26);
-                    players[1].addScore(26);
-                    players[2].addScore(26);
-                    break;
+        if (trickNum == 13){
+            for(int i = 0; i < 4; i++){
+                if(players[i].getTakenPoints() == 26){
+                    players[i].addScore(-26);
+                    session.addMoon(i);
+                    switch(i){
+                        case 0:
+                            players[1].addScore(26);
+                            players[2].addScore(26);
+                            players[3].addScore(26);
+                            break;
+                        case 1:
+                            players[0].addScore(26);
+                            players[2].addScore(26);
+                            players[3].addScore(26);
+                            break;
+                        case 2:
+                            players[0].addScore(26);
+                            players[1].addScore(26);
+                            players[3].addScore(26);
+                            break;
+                        case 3:
+                            players[0].addScore(26);
+                            players[1].addScore(26);
+                            players[2].addScore(26);
+                            break;
+                    }
+                }
+                players[i].clearTakenCards();
             }
-            players[tempID].clearTakenCards();
         }
     }
     
@@ -266,7 +270,8 @@ public class HeartsEngine {
                 break; // Don't bother looping if we've found someone with > 100 points. 
             }
         }
-        session.addWin(winID);
+        if(vict)
+            session.addWin(winID);
         return vict;
     }
     
