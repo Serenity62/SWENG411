@@ -193,8 +193,9 @@ public class HeartsEngine {
     public void endTrick(){
         System.out.println("----------------------------");
         this.assignPoints();
-        this.activeID = (currentTrick.getPlayerNumber() + activeID) % 4;
+        this.activeID = (currentTrick.getPlayerNumber() + activeID + 1) % 4;
         System.out.printf("Points: %d", players[this.activeID].getPoints());
+        this.activeID--;
         if (trickNum < 12){
             
             this.startTrick();
