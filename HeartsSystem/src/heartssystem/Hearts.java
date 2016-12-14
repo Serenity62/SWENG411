@@ -205,7 +205,7 @@ public class Hearts extends BasicGUI {
     private void updateCards() {
         Card thisC;
         Player thisPlayer = getEngine().getActivePlayer();
-        System.out.printf("\nPlayer : %s\n", getEngine().getPlayerID());
+        System.out.printf("\nPlayer : %s\n", getEngine().getPlayerID() + 1);
         Hand thisHand = thisPlayer.getHand();
         int j = 13-thisHand.getSize();
         for (int i =thisHand.getSize() - 1; i >= 0; i--)
