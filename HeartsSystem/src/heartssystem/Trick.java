@@ -59,7 +59,6 @@ public class Trick {
     private void trickCalc()
     {
         int highest = 0;
-        int counter = 0;
         for(int i = 0; i < cardsPlayed.getSize(); i++)
         {
             if(cardsPlayed.getCard(i).getSuit() == this.openingSuit)
@@ -67,10 +66,9 @@ public class Trick {
                 if(cardsPlayed.getCard(i).getFace() > highest)
                 {
                     highest = cardsPlayed.getCard(i).getFace();
-                    this.playerNumber = counter;
+                    this.playerNumber = i;
                 }
             }
-            counter++;
         }
     }
 }
