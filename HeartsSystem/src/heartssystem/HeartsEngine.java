@@ -157,7 +157,7 @@ public class HeartsEngine {
         int tempID = (currentTrick.getPlayerNumber() + activeID + 1) % 4;
         players[tempID].takeCards(currentTrick.take());
         System.out.printf("\nPlayer %d took the cards from the trick\n", tempID + 1);
-        if (trickNum == 13){
+        if (trickNum == 12){
             for(int i = 0; i < 4; i++){
                 if(players[i].getTakenPoints() == 26){
                     players[i].addScore(-26);
@@ -216,6 +216,8 @@ public class HeartsEngine {
         this.dealCards();
         if(this.round % 4 != 0)
             this.startPassing();
+        else
+            this.endPassing();  // just to get the 2 of clubs as starting player.
         this.startTrick();
         this.brokenHearts = false;
         trickNum = 0;
