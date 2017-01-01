@@ -2,6 +2,7 @@ package heartssystem;
 
 public class ScoreGUI extends BasicGUI {
     private static ScoreGUI instance = null;
+    HeartsGUI heartsGUI;
     
     public ScoreGUI(HeartsEngine e) {
         super(e);
@@ -11,13 +12,14 @@ public class ScoreGUI extends BasicGUI {
         startBttn.setVisible(false);
     }
     
-    public ScoreGUI(HeartsEngine e, int p) {
+    public ScoreGUI(HeartsEngine e, int p, HeartsGUI gui){
         super(e);
         initComponents();
         setScores();
         winnerLabel.setText(getEngine().getPlayer(p).getName()+" won!");
         winnerLabel.setVisible(true);
         startBttn.setVisible(true);
+        heartsGUI = gui;
     }
     
     private void setScores() {
@@ -146,7 +148,8 @@ public class ScoreGUI extends BasicGUI {
     }// </editor-fold>//GEN-END:initComponents
 
     private void startBttnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startBttnMouseClicked
-        getEngine().newGame();
+        heartsGUI.resetGame();
+        this.dispose();
     }//GEN-LAST:event_startBttnMouseClicked
 
     /**

@@ -9,7 +9,7 @@
             <Property name="text" type="java.lang.String" value="New Game"/>
           </Properties>
           <Events>
-            <EventHandler event="menuKeyPressed" listener="javax.swing.event.MenuKeyListener" parameters="javax.swing.event.MenuKeyEvent" handler="jMenu1MenuKeyPressed"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMenu1MouseClicked"/>
           </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="statsMenuButton">

@@ -36,11 +36,10 @@ public class HeartsGUI extends BasicGUI {
                     Hand thisHand = getEngine().getActivePlayer().getHand();
                     Card thisCard = thisHand.getCard(num);
                     boolean inSuit = thisTrick.getOpening() == thisCard.getSuit();
-                    if (e.getClickCount() >= 2 && !getEngine().getSwapping() && 
-                            ((((thisTrick.getSize() < 1) && (inSuit || !thisHand.hasSuit(thisTrick.getOpening())) 
-                                || (thisCard.getSuit() != 3 || getEngine().getHeartsBroken() 
-                                || (!thisHand.hasSuit(0) && !thisHand.hasSuit(1) && !thisHand.hasSuit(2)))))
-                            || (thisTrick.getSize() >= 1 && (inSuit || !thisHand.hasSuit(thisTrick.getOpening()))))) // trying to play a card / Check this logic
+                    if (e.getClickCount() >= 2 && !getEngine().getSwapping()
+                            && (((thisTrick.getSize() == 0) && ((getEngine().getTrickNum() == 0 && thisCard.getSuit() == 0 && thisCard.getFace() == 1)
+                                    || (getEngine().getTrickNum() != 0 && (thisCard.getSuit() != 3 || getEngine().getHeartsBroken() || !thisHand.hasSuit(3)))))
+                                ||(thisTrick.getSize() != 0 && (inSuit || !thisHand.hasSuit(thisTrick.getOpening()))))) // trying to play a card / Check this logic
                     {
                         if(!thisCard.getSelected() && numSelectedCards >= 1){
                             for (int i = 0; i < thisHand.getSize(); i++) {
@@ -304,6 +303,16 @@ public class HeartsGUI extends BasicGUI {
     
     private void showSwapButton() {
         playBttn.setVisible(true);
+    }
+    
+    public void resetGame(){
+        getEngine().newGame();
+        //System.out.println("New game pressed");
+        resetTrick();
+        reset();
+        updateCards();
+        showSwapButton();
+        swapPlayers();
     }
 
     /**
@@ -859,13 +868,9 @@ public class HeartsGUI extends BasicGUI {
         player0Label.setText("Player 0");
 
         jMenu1.setText("New Game");
-        jMenu1.addMenuKeyListener(new javax.swing.event.MenuKeyListener() {
-            public void menuKeyPressed(javax.swing.event.MenuKeyEvent evt) {
-                jMenu1MenuKeyPressed(evt);
-            }
-            public void menuKeyReleased(javax.swing.event.MenuKeyEvent evt) {
-            }
-            public void menuKeyTyped(javax.swing.event.MenuKeyEvent evt) {
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
             }
         });
         newGameMenuButton.add(jMenu1);
@@ -990,9 +995,9 @@ public class HeartsGUI extends BasicGUI {
         stats.setVisible(true);
     }//GEN-LAST:event_statsMenuButtonMouseClicked
 
-    private void jMenu1MenuKeyPressed(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_jMenu1MenuKeyPressed
-        getEngine().newGame();
-    }//GEN-LAST:event_jMenu1MenuKeyPressed
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        resetGame();
+    }//GEN-LAST:event_jMenu1MouseClicked
 
     
     public static void main(String args[]) {
